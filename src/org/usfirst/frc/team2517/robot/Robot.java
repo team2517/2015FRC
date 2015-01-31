@@ -2,6 +2,9 @@
 package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -15,8 +18,15 @@ public class Robot extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+	private Joystick stick;
+	private AnalogInput encoder;
+	private CANJaguar motorMove;
+	private CANJaguar motorTurn;
+	
+	
     public void robotInit() {
-
+    	motorMove = new CANJaguar(2);
+    	motorTurn = new CANJaguar(12);
     }
 
     /**
