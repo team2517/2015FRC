@@ -25,10 +25,6 @@ public class Robot extends IterativeRobot {
 	motorMoveBL, motorTurnBL, motorMoveBR, motorTurnBR;
 	private AnalogInput posFL, posFR, posBL, posBR;
 	
-	double moveValue;
-	double turnValue;
-	
-	
     public void robotInit() {
     	motorMoveFL = new CANJaguar(0);  // Add hard-coded Jaguar IDs
     	motorTurnFL = new CANJaguar(0);
@@ -43,7 +39,6 @@ public class Robot extends IterativeRobot {
     	posFR = new AnalogInput(0);
     	posBL = new AnalogInput(0);
     	posBR = new AnalogInput(0);
-    	
     	    	
     	stick = new Joystick(0);
     }
@@ -69,7 +64,6 @@ public class Robot extends IterativeRobot {
     	motorTurnBL.set(stick.getRawAxis(0));
     	motorMoveBR.set(stick.getRawAxis(2));
     	motorTurnBR.set(stick.getRawAxis(3));
-    
     }
     
 }
