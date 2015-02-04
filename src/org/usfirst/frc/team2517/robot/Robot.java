@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,33 +21,47 @@ public class Robot extends IterativeRobot {
      */
 	private Joystick stick;
 	private AnalogInput encoder;
-	private CANJaguar motorMove;
-	private CANJaguar motorTurn;
+	private CANJaguar motorMoveFL, motorTurnFL, motorMoveFR, motorTurnFR, 
+	motorMoveBL, motorTurnBL, motorMoveBR, motorTurnBR;
+	
+	double moveValue;
+	double turnValue;
 	
 	
     public void robotInit() {
-    	motorMove = new CANJaguar(2);
-    	motorTurn = new CANJaguar(12);
+    	motorMoveFL = new CANJaguar(0);  // Add hard-coded Jaguar IDs
+    	motorTurnFL = new CANJaguar(0);
+    	motorMoveFR = new CANJaguar(0);
+    	motorTurnFR = new CANJaguar(0);
+    	motorMoveBL = new CANJaguar(0);
+    	motorTurnBL = new CANJaguar(0);
+    	motorMoveBR = new CANJaguar(0);
+    	motorMoveBL = new CANJaguar(0);
+    	    	
+    	stick = new Joystick(0);
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
+    	
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+    	motorMoveBL.set(stick.getRawAxis(1));
+    	motorTurnBL.set(stick.getRawAxis(0));
+    	motorMoveBR.set(stick.getRawAxis(2));
+    	motorTurnBR.set(stick.getRawAxis(3));
     
     }
     
