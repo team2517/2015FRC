@@ -23,6 +23,7 @@ public class Robot extends IterativeRobot {
 	private AnalogInput encoder;
 	private CANJaguar motorMoveFL, motorTurnFL, motorMoveFR, motorTurnFR, 
 	motorMoveBL, motorTurnBL, motorMoveBR, motorTurnBR;
+	private AnalogInput posFL, posFR, posBL, posBR;
 	
 	double moveValue;
 	double turnValue;
@@ -37,6 +38,12 @@ public class Robot extends IterativeRobot {
     	motorTurnBL = new CANJaguar(0);
     	motorMoveBR = new CANJaguar(0);
     	motorMoveBL = new CANJaguar(0);
+    	
+    	posFL = new AnalogInput(0);
+    	posFR = new AnalogInput(0);
+    	posBL = new AnalogInput(0);
+    	posBR = new AnalogInput(0);
+    	
     	    	
     	stick = new Joystick(0);
     }
