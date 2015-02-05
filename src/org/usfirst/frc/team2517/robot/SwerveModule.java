@@ -29,13 +29,15 @@ public class SwerveModule {
 	{
 		moveJag.set(magnitude);
 		double currentAngle = encoder.getValue();
-		if (Math.abs(targetAngle-currentAngle)>2.5&&targetAngle>currentAngle)
+		if (Math.abs(targetAngle-currentAngle)<0.05)
+			turnJag.set(0);
+		else if (Math.abs(targetAngle-currentAngle)>2.5&&targetAngle>currentAngle)
 			turnJag.set(-(currentAngle+(5-targetAngle))/2.5*0.8-0.2);
-		if (Math.abs(targetAngle-currentAngle)>2.5&&targetAngle<currentAngle)
+		else if (Math.abs(targetAngle-currentAngle)>2.5&&targetAngle<currentAngle)
 			turnJag.set((currentAngle+(5-targetAngle))/2.5*0.8+0.2);
-		if (Math.abs(targetAngle-currentAngle)<2.5&&targetAngle>currentAngle)
+		else if (Math.abs(targetAngle-currentAngle)<2.5&&targetAngle>currentAngle)
 			turnJag.set((targetAngle-currentAngle)/2.5*0.8+0.2);
-		if (Math.abs(targetAngle-currentAngle)<2.5&&targetAngle<currentAngle)
+		else if (Math.abs(targetAngle-currentAngle)<2.5&&targetAngle<currentAngle)
 			turnJag.set((targetAngle-currentAngle)/2.5*0.8-0.2);
 	}
 	
