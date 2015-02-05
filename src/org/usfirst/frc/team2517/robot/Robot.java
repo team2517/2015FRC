@@ -26,19 +26,18 @@ public class Robot extends IterativeRobot {
 	private AnalogInput posFL, posFR, posBL, posBR;
 	
     public void robotInit() {
-    	motorMoveFL = new CANJaguar(0);  // Add hard-coded Jaguar IDs
-    	motorTurnFL = new CANJaguar(0);
-    	motorMoveFR = new CANJaguar(0);
-    	motorTurnFR = new CANJaguar(0);
-    	motorMoveBL = new CANJaguar(0);
-    	motorTurnBL = new CANJaguar(0);
-    	motorMoveBR = new CANJaguar(0);
-    	motorMoveBL = new CANJaguar(0);
-    	
-    	posFL = new AnalogInput(0);
-    	posFR = new AnalogInput(0);
-    	posBL = new AnalogInput(0);
-    	posBR = new AnalogInput(0);
+//    	motorMoveFL = new CANJaguar(0);  // Supposed to be defined in SwerveModule class defined in SwerveController class
+//    	motorTurnFL = new CANJaguar(0);
+//    	motorMoveFR = new CANJaguar(0);
+//    	motorTurnFR = new CANJaguar(0);
+//    	motorMoveBL = new CANJaguar(0);
+//    	motorTurnBL = new CANJaguar(0);
+//    	motorMoveBR = new CANJaguar(0);
+//    	motorMoveBL = new CANJaguar(0);
+//    	posFL = new AnalogInput(0);
+//    	posFR = new AnalogInput(0);
+//    	posBL = new AnalogInput(0);
+//    	posBR = new AnalogInput(0);
     	    	
     	stick = new Joystick(0);
     }
