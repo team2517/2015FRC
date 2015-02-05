@@ -1,4 +1,7 @@
 package org.usfirst.frc.team2517.robot;
+import java.lang.Math;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.CANJaguar;
 
 /* *
  * We want the swerve module class to
@@ -12,5 +15,20 @@ package org.usfirst.frc.team2517.robot;
  * */
 
 public class SwerveModule {
-	
+	public CANJaguar turnJag, moveJag;
+	public AnalogInput encoder;
+
+	public SwerveModule(int tJagID, int mJagID, int eID)
+	{
+		turnJag = new CANJaguar(tJagID);
+		moveJag = new CANJaguar(mJagID);
+		encoder = new AnalogInput(eID);
+	}
+	public void update(double targetAngle, double magnitude)
+	{
+		moveJag.set(magnitude);
+		double currentAngle = encoder.getValue();
+		if (Math.abs(targetAngle-currentAngle)>2.5&&targetAngle>currentAngle)
+
+	}
 }
