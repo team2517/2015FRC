@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.CANJaguar;
 public class SwerveModule {
 	public CANJaguar turnJag, moveJag;
 	public AnalogInput encoder;
+	double turnSpeed;
 
 	public SwerveModule(int tJagID, int mJagID, int eID)
 	{
@@ -29,6 +30,13 @@ public class SwerveModule {
 		moveJag.set(magnitude);
 		double currentAngle = encoder.getValue();
 		if (Math.abs(targetAngle-currentAngle)>2.5&&targetAngle>currentAngle)
-
+			turnJag.set(-(currentAngle+(5-targetAngle))/2.5*0.8-0.2);
+		if (Math.abs(targetAngle-currentAngle)>2.5&&targetAngle<currentAngle)
+			turnJag.set((currentAngle+(5-targetAngle))/2.5*0.8+0.2);
+		if (Math.abs(targetAngle-currentAngle)<2.5&&targetAngle>currentAngle)
+			turnJag.set((targetAngle-currentAngle)/2.5*0.8+0.2);
+		if (Math.abs(targetAngle-currentAngle)<2.5&&targetAngle<currentAngle)
+			turnJag.set((targetAngle-currentAngle)/2.5*0.8-0.2);
 	}
+	
 }
