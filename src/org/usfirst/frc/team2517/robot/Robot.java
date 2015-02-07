@@ -51,10 +51,6 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-//    	motorMoveBL.set(stick.getRawAxis(1));
-//    	motorTurnBL.set(stick.getRawAxis(0));
-//    	motorMoveBR.set(stick.getRawAxis(2));
-//    	motorTurnBR.set(stick.getRawAxis(3));
     }
     
 }
