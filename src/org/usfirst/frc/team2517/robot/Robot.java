@@ -2,6 +2,7 @@
 package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import org.usfirst.frc.team2517.robot.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -20,26 +21,12 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
 	private Joystick stick;
-	private AnalogInput encoder;
-	private CANJaguar motorMoveFL, motorTurnFL, motorMoveFR, motorTurnFR, 
-	motorMoveBL, motorTurnBL, motorMoveBR, motorTurnBR;
-	private AnalogInput posFL, posFR, posBL, posBR;
+	private SwerveController swerve;
 	
     public void robotInit() {
-//    	motorMoveFL = new CANJaguar(0);  // Supposed to be defined in SwerveModule class defined in SwerveController class
-//    	motorTurnFL = new CANJaguar(0);
-//    	motorMoveFR = new CANJaguar(0);
-//    	motorTurnFR = new CANJaguar(0);
-//    	motorMoveBL = new CANJaguar(0);
-//    	motorTurnBL = new CANJaguar(0);
-//    	motorMoveBR = new CANJaguar(0);
-//    	motorMoveBL = new CANJaguar(0);
-//    	posFL = new AnalogInput(0);
-//    	posFR = new AnalogInput(0);
-//    	posBL = new AnalogInput(0);
-//    	posBR = new AnalogInput(0);
     	    	
     	stick = new Joystick(0);
+    	swerve = new SwerveController()
     }
 
     /**
