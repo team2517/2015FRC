@@ -21,12 +21,13 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
 	private Joystick stick;
-	private SwerveController swerve;
+	private SwerveController swerveDrive;
+	private double stickX, stickY, stickPhi; // Joystick values
 	
     public void robotInit() {
     	    	
     	stick = new Joystick(0);
-    	swerve = new SwerveController(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    	swerveDrive = new SwerveController(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     /**
@@ -40,6 +41,10 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	stickX = stick.getRawAxis(0);
+    	stickY = stick.getRawAxis(1);
+    	stickPhi = stick.getRawAxis(2);
+    	swerveDrive.swerve(stickX, stickY, stickPhi);
     }
     
     /**
