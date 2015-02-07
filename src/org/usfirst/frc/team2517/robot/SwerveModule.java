@@ -29,26 +29,22 @@ public class SwerveModule {
 	{
 		moveJag.set(magnitude);
 		double currentAngle = encoder.getValue();
-		if (deadBand(targetAngle - currentAngle, Math.PI / 90) = 0) //applying deadband
-		{
-			turnJag.set(0);
+		if (deadBand(targetAngle - currentAngle, Math.PI / 90) = 0){
+			turnJag.set(0); //applied deadband
 		}
-		else if (Math.abs(targetAngle - currentAngle) > 2.5 && targetAngle > currentAngle)
-		{
+		else if (Math.abs(targetAngle - currentAngle) > 2.5 && targetAngle > currentAngle){
 			turnJag.set(-(currentAngle + (5-targetAngle))/2.5 * (1 - minVoltage) - minVoltage);
 		}
-		else if (Math.abs(targetAngle - currentAngle) > 2.5 && targetAngle < currentAngle)
-		{
+		else if (Math.abs(targetAngle - currentAngle) > 2.5 && targetAngle < currentAngle){
 			turnJag.set((currentAngle + (5-targetAngle)) / 2.5 * (1-minVoltage) + minVoltage);
 		}
-		else if (Math.abs(targetAngle - currentAngle) < 2.5 && targetAngle > currentAngle)
-		{
+		else if (Math.abs(targetAngle - currentAngle) < 2.5 && targetAngle > currentAngle){
 			turnJag.set((targetAngle - currentAngle) / 2.5 * (1-minVoltage) + minVoltage);
 		}
 		else if (Math.abs(targetAngle-currentAngle) < 2.5 && targetAngle < currentAngle)
 		{
 			turnJag.set(-(targetAngle - currentAngle ) / 2.5 *(1-minVoltage) - minVoltage);
 		}
-		//passing in voltage into motor control
+		//passing in voltage into motor control. Turn direction calculated based on the 
 	}
 }
