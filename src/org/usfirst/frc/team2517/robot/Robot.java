@@ -24,6 +24,16 @@ public class Robot extends IterativeRobot {
 	private SwerveController swerveDrive;
 	private double stickX, stickY, stickPhi; // Joystick values
 	
+	public double deadband(double input, double tolerance){
+		if(Math.abs(input) < tolerance){
+			return 0;
+		}
+		else{
+			return input;
+		}
+			
+	}
+	
     public void robotInit() {
     	    	
     	stick = new Joystick(0);
