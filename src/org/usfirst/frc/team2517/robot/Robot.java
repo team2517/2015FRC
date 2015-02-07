@@ -51,9 +51,9 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	stickX = stick.getRawAxis(0);
-    	stickY = stick.getRawAxis(1);
-    	stickPhi = stick.getRawAxis(2);
+    	stickX = deadband(stick.getRawAxis(0), 0.02); // Deadband to make sure if the value is low enough then it is 0
+    	stickY = deadband(stick.getRawAxis(1), 0.02);
+    	stickPhi = deadband(stick.getRawAxis(2), 0.02);
     	swerveDrive.swerve(stickX, stickY, stickPhi);
     }
     
