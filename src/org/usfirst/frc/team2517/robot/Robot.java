@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 	private SwerveController swerveDrive;
 	private double stickX, stickY, stickPhi; // Joystick values
 	
-	public double deadband(double input, double tolerance){
+	public double deadband(double input, double tolerance){ // Set number to 0 if in between tolerance and -tolerance
 		if(Math.abs(input) < tolerance){
 			return 0;
 		}
