@@ -20,7 +20,7 @@ public class SwerveController {
 		swerveBL = new SwerveModule(moveBL, turnBL, encBL);
 		swerveBR = new SwerveModule(moveBR, turnBR, encBR);
 	}
-	public void swerve(float axisX, float axisY, float phi){
+	public void swerve(double axisX, double axisY, double phi){
 		if(Math.abs(axisY) > .02){ // Deadband functions
 			axisY = 0;
 		}
