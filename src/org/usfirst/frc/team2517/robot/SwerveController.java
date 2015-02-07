@@ -20,13 +20,8 @@ public class SwerveController {
 		swerveBL = new SwerveModule(moveBL, turnBL, encBL);
 		swerveBR = new SwerveModule(moveBR, turnBR, encBR);
 	}
-	public void swerve(double axisX, double axisY, double phi){
-		if(Math.abs(axisY) > .02){ // Deadband functions
-			axisY = 0;
-		}
-		if(Math.abs(axisX) > .02){
-			axisX = 0;
-		}
+	public void swerve(double xVector, double yVector, double phi){
+		
 		// Makes all the left stick vectors have a magnitude of 1, rather than 1.4 in the corners.
 		
 	}
