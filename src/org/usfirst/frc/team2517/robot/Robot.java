@@ -24,18 +24,7 @@ public class Robot extends IterativeRobot {
 	private SwerveController swerveDrive;
 	private double stickX, rawStickX, stickY, rawStickY, stickPhi; // Joystick values
 	
-	public double deadband(double input, double tolerance){ // Set number to 0 if in between tolerance and -tolerance
-		if(Math.abs(input) < tolerance){
-			return 0;
-		}
-		else{
-			return input;
-		}
-			
-	}
-	
     public void robotInit() {
-    	    	
     	stick = new Joystick(0);
     	swerveDrive = new SwerveController(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
@@ -51,9 +40,9 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	rawStickX = deadband(stick.getRawAxis(0), 0.02); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
-    	rawStickY = deadband(stick.getRawAxis(1), 0.02);
-    	stickPhi = deadband(stick.getRawAxis(2), 0.02);
+    	rawStickX = Util.deadband(stick.getRawAxis(0), 0.02); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
+    	rawStickY = Util.deadband(stick.getRawAxis(1), 0.02);
+    	stickPhi = Util.deadband(stick.getRawAxis(2), 0.02);
     	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
     	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
     	swerveDrive.swerve(stickX, stickY, stickPhi);
