@@ -30,7 +30,7 @@ public class SwerveModule {
 	{
 		moveJag.set(magnitude);
 		double currentAngle = encoder.getValue();
-		if (deadband(targetAngle - currentAngle, Math.PI / 90) == 0){
+		if (Util.deadband(targetAngle - currentAngle, Math.PI / 90) == 0){
 			turnJag.set(0); //applied deadband
 		}
 		else if (Math.abs(targetAngle - currentAngle) > 2.5 && targetAngle > currentAngle){
