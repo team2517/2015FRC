@@ -17,8 +17,9 @@ import edu.wpi.first.wpilibj.CANJaguar;
 public class SwerveModule {
 	public CANJaguar turnJag, moveJag;
 	public AnalogInput encoder;
+	private double centerOfRotation;
 	double turnSpeed;
-	private static minVoltage = 0.2;
+	private static double minVoltage = 0.2;
 	public SwerveModule(int tJagID, int mJagID, int eID)
 	{
 		turnJag = new CANJaguar(tJagID);
@@ -29,7 +30,7 @@ public class SwerveModule {
 	{
 		moveJag.set(magnitude);
 		double currentAngle = encoder.getValue();
-		if (deadBand(targetAngle - currentAngle, Math.PI / 90) = 0){
+		if (deadband(targetAngle - currentAngle, Math.PI / 90) == 0){
 			turnJag.set(0); //applied deadband
 		}
 		else if (Math.abs(targetAngle - currentAngle) > 2.5 && targetAngle > currentAngle){
@@ -46,5 +47,11 @@ public class SwerveModule {
 			turnJag.set(-(targetAngle - currentAngle ) / 2.5 *(1-minVoltage) - minVoltage);
 		}
 		//passing in voltage into motor control. Turn direction calculated based on the 
+	}
+	public void setCOR(double input){
+		centerOfRotation = input;
+	}
+	public double COR(){
+		return centerOfRotation;
 	}
 }
