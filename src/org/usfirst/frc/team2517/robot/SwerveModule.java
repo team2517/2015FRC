@@ -17,14 +17,16 @@ import edu.wpi.first.wpilibj.CANJaguar;
 public class SwerveModule {
 	public CANJaguar turnJag, moveJag;
 	public AnalogInput encoder;
-	private double[] Cor = new double[2]; //Cor = center of rotation
 	double turnSpeed;
 	private static double minVoltage = 0.2;
-	public SwerveModule(int tJagID, int mJagID, int eID)
+	public double corX, corY;
+	public SwerveModule(int tJagID, int mJagID, int eID, double centerX, double centerY)
 	{
 		turnJag = new CANJaguar(tJagID);
 		moveJag = new CANJaguar(mJagID);
 		encoder = new AnalogInput(eID);
+		corX = centerX;
+		corY = centerY;
 	}
 	public void update(double targetAngle, double magnitude)
 	{
@@ -47,12 +49,5 @@ public class SwerveModule {
 			turnJag.set(-(targetAngle - currentAngle ) / 2.5 *(1-minVoltage) - minVoltage);
 		}
 		//passing in voltage into motor control. Turn direction calculated based on the 
-	}
-	public void setCOR(double centerX, double centerY){
-		Cor[0] = centerX;
-		Cor[1] = centerY;
-	}
-	public double[] COR(){
-		return Cor;
 	}
 }
