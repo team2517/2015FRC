@@ -11,6 +11,7 @@ public class SwerveController {
 	SwerveModule swerveBL;
 	SwerveModule swerveBR;
 	private double centerFLX, centerFLY, centerFRX, centerFRY, centerBLX, centerBLY, centerBRX, centerBRY;
+	
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR, 
 							int moveBL, int turnBL, int encBL,
@@ -19,6 +20,14 @@ public class SwerveController {
 		swerveFR = new SwerveModule(moveFR, turnFR, encFR);
 		swerveBL = new SwerveModule(moveBL, turnBL, encBL);
 		swerveBR = new SwerveModule(moveBR, turnBR, encBR);
+		centerFLX = 0.7421;
+		centerFLY = 0.6703;
+		centerFRX = 0.6703;
+		centerFRY = -0.7421;
+		centerBLX = -0.6703;
+		centerBLY = 0.7421;
+		centerBRX = -0.7421;
+		centerBRY = -0.6703;
 	}
 	public void swerve(double xVector, double yVector, double phi){
 		
