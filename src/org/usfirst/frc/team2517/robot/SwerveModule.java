@@ -29,24 +29,25 @@ public class SwerveModule {
 	{
 		moveJag.set(magnitude);
 		double currentAngle = (encoder.getValue() / 2.5 * Math.PI); //translates encoder voltage values to pi radians
-		if (Utils.deadband(targetAngle - currentAngle, Math.PI / 60) == 0){
-			turnJag.set(0);
-		}  //applied dead band to test if target and current angle is close enough. Tolerance: 3 degrees (PI/60)
 		if (targetAngle < 0){
 			targetAngle += 2 * Math.PI;
 			}  //Change range from (-pi,pi) to (0, 2pi).  Ease calculations.
-		else if (Math.abs(targetAngle - currentAngle) > Math.PI && targetAngle > currentAngle){
-			turnJag.set(-(currentAngle + (2 * Math.PI - targetAngle)) / Math.PI * (1 - minVoltage) - minVoltage);
+		double diffAngle = targetAngle - currentAngle;
+		if (Utils.deadband(diffAngle, Math.PI / 60) == 0){
+			turnJag.set(0);
+		}  //applied dead band to test if target and current angle is close enough. Tolerance: 3 degrees (PI/60)
+		else if (Math.abs(diffAngle) > Math.PI && targetAngle > currentAngle){
+			turnJag.set(-(diffAngle + 2 * Math.PI) / Math.PI * (1 - minVoltage) - minVoltage);
 		}
-		else if (Math.abs(targetAngle - currentAngle) > Math.PI && targetAngle < currentAngle){
-			turnJag.set((currentAngle + (2 * Math.PI - targetAngle)) / Math.PI * (1 - minVoltage) + minVoltage);
+		else if (Math.abs(diffAngle) > Math.PI && targetAngle < currentAngle){
+			turnJag.set((diffAngle + 2 * Math.PI) / Math.PI * (1 - minVoltage) + minVoltage);
 		}
-		else if (Math.abs(targetAngle - currentAngle) < Math.PI && targetAngle > currentAngle){
-			turnJag.set((targetAngle - currentAngle) / Math.PI * (1 - minVoltage) + minVoltage);
+		else if (Math.abs(diffAngle) < Math.PI && targetAngle > currentAngle){
+			turnJag.set((diffAngle) / Math.PI * (1 - minVoltage) + minVoltage);
 		}
-		else if (Math.abs(targetAngle-currentAngle) < Math.PI && targetAngle < currentAngle)
+		else if (Math.abs(diffAngle) < Math.PI && targetAngle < currentAngle)
 		{
-			turnJag.set(-(targetAngle - currentAngle) / Math.PI * (1 - minVoltage) - minVoltage);
+			turnJag.set(-diffAngle / Math.PI * (1 - minVoltage) - minVoltage);
 		}
 		/*
 		 * Passing in voltage into motor control. Turn direction calculated based on the position and distance of 
