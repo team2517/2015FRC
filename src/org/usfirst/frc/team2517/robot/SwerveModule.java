@@ -35,19 +35,26 @@ public class SwerveModule {
 		double diffAngle = targetAngle - currentAngle;
 		if (Utils.deadband(diffAngle, Math.PI / 60) == 0){
 			turnJag.set(0);
-		}  //applied dead band to test if target and current angle is close enough. Tolerance: 3 degrees (PI/60)
-		else if (Math.abs(diffAngle) > Math.PI && targetAngle > currentAngle){
-			turnJag.set(-(diffAngle + 2 * Math.PI) / Math.PI * (1 - minVoltage) - minVoltage);
+		}  //applied deadband to test if target and current angle is close enough. Tolerance: 3 degrees (PI/60)
+
+		else if (Math.abs(diffAngle) > Math.PI) {
+			if (targetAngle > currentAngle){
+				turnJag.set((diffAngle - 2 * Math.PI) / Math.PI * (1 - minVoltage) - minVoltage);
+			}
+			
+			else {
+				turnJag.set((2 * Math.PI-diffAngle) / Math.PI * (1 - minVoltage) + minVoltage);
+			}
 		}
-		else if (Math.abs(diffAngle) > Math.PI && targetAngle < currentAngle){
-			turnJag.set((diffAngle + 2 * Math.PI) / Math.PI * (1 - minVoltage) + minVoltage);
-		}
-		else if (Math.abs(diffAngle) < Math.PI && targetAngle > currentAngle){
-			turnJag.set((diffAngle) / Math.PI * (1 - minVoltage) + minVoltage);
-		}
-		else if (Math.abs(diffAngle) < Math.PI && targetAngle < currentAngle)
-		{
-			turnJag.set(-diffAngle / Math.PI * (1 - minVoltage) - minVoltage);
+
+		else if (Math.abs(diffAngle) < Math.PI){
+			if (targetAngle > currentAngle){
+				turnJag.set(diffAngle / Math.PI * (1 - minVoltage) + minVoltage);
+			}
+			
+			else {
+				turnJag.set(-diffAngle / Math.PI * (1 - minVoltage) - minVoltage);
+			}
 		}
 		/*
 		 * Passing in voltage into motor control. Turn direction calculated based on the position and distance of 
