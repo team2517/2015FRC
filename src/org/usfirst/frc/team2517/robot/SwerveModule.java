@@ -48,6 +48,9 @@ public class SwerveModule {
 		{
 			turnJag.set(-(targetAngle - currentAngle ) / 2.5 *(1-minVoltage) - minVoltage);
 		}
-		//passing in voltage into motor control. Turn direction calculated based on the 
+		/*Passing in voltage into motor control. Turn direction calculated based on the position and distance of 
+		 * target from current angle.  Turn voltage 0.2 minimum.  Other 0.8 voltage of power depends on distance of
+		 * target from current angle.
+       	*/
 	}
 }
