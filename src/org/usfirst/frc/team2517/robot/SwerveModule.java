@@ -19,14 +19,11 @@ public class SwerveModule {
 	public AnalogInput encoder;
 	double turnSpeed;
 	private static double minVoltage = 0.2;
-	public double corX, corY;
-	public SwerveModule(int tJagID, int mJagID, int eID, double centerX, double centerY)
+	public SwerveModule(int tJagID, int mJagID, int eID)
 	{
 		turnJag = new CANJaguar(tJagID);
 		moveJag = new CANJaguar(mJagID);
 		encoder = new AnalogInput(eID);
-		corX = centerX;
-		corY = centerY;
 	}
 	public void update(double targetAngle, double magnitude)
 	{
@@ -49,7 +46,7 @@ public class SwerveModule {
 		}
 		else if (Math.abs(targetAngle-currentAngle) < Math.PI && targetAngle < currentAngle)
 		{
-			turnJag.set(-(targetAngle - currentAngle ) / Math.PI *(1 - minVoltage) - minVoltage);
+			turnJag.set(-(targetAngle - currentAngle) / Math.PI * (1 - minVoltage) - minVoltage);
 		}
 		/*
 		 * Passing in voltage into motor control. Turn direction calculated based on the position and distance of 
