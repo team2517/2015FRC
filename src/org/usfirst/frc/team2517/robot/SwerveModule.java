@@ -41,7 +41,6 @@ public class SwerveModule {
 			if (targetAngle > currentAngle){
 				turnJag.set((diffAngle - 2 * Math.PI) / Math.PI * (1 - minVoltage) - minVoltage);
 			}
-			
 			else {
 				turnJag.set((2 * Math.PI-diffAngle) / Math.PI * (1 - minVoltage) + minVoltage);
 			}
@@ -51,7 +50,6 @@ public class SwerveModule {
 			if (targetAngle > currentAngle){
 				turnJag.set(diffAngle / Math.PI * (1 - minVoltage) + minVoltage);
 			}
-			
 			else {
 				turnJag.set(-diffAngle / Math.PI * (1 - minVoltage) - minVoltage);
 			}
