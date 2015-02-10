@@ -22,13 +22,16 @@ public class SwerveController {
 		swerveBR = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703);
 	}
 	public void swerve(double xVector, double yVector, double phi){
-		swerveFLX = (swerveFL.corX*phi)+xVector;
-		swerveFLY = (swerveFL.corY*phi)+yVector; // Someday outsource these into a SwerveModule function
-		swerveFRX = (swerveFR.corX*phi)+xVector;
-		swerveFRY = (swerveFR.corY*phi)+yVector;
-		swerveBLX = (swerveBL.corX*phi)+xVector;
-		swerveBLY = (swerveBL.corY*phi)+yVector;
-		swerveBRX = (swerveBR.corX*phi)+xVector;
-		swerveBRY = (swerveBR.corY*phi)+yVector;
+		swerveFL.x = (swerveFL.corX*phi)+xVector;
+		swerveFL.y = (swerveFL.corY*phi)+yVector; // Someday outsource these into a SwerveModule function and run 4 times instead of 8
+		swerveFR.x = (swerveFR.corX*phi)+xVector;
+		swerveFR.y = (swerveFR.corY*phi)+yVector;
+		swerveBL.x = (swerveBL.corX*phi)+xVector;
+		swerveBL.y = (swerveBL.corY*phi)+yVector;
+		swerveBR.x = (swerveBR.corX*phi)+xVector;
+		swerveBR.y = (swerveBR.corY*phi)+yVector;
+		
+		// Find magnitudes through pythagorean therom
+//		sqrt(pow(wheel[i].x, 2) + pow(wheel[i].y, 2))
 	}
 }
