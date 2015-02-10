@@ -31,6 +31,5 @@ public class SwerveController {
 	}
 	public void swerve(double xVector, double yVector, double phi){
 		
-		// Makes all the left stick vectors have a magnitude of 1, rather than 1.4 in the corners.
 	}
 }
