@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.CANJaguar;
 public class SwerveModule {
 	public CANJaguar turnJag, moveJag;
 	public AnalogInput encoder;
-	double turnSpeed;
+	private double turnSpeed;
 	private static double minVoltage = 0.2;
 	public SwerveModule(int tJagID, int mJagID, int eID)
 	{
