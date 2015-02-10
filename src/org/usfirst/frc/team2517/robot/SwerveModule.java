@@ -2,6 +2,7 @@ package org.usfirst.frc.team2517.robot;
 import java.lang.Math;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.Talon;
 
 /* *
  * We want the swerve module class to
@@ -15,22 +16,23 @@ import edu.wpi.first.wpilibj.CANJaguar;
  * */
 
 public class SwerveModule {
-	public CANJaguar turnJag, moveJag;
+	private CANJaguar turnJag;
+	private Talon moveTal;
 	public AnalogInput encoder;
 	private double turnSpeed;
 	private static double minVoltage = 0.2;
 	public double corX, corY;
-	public SwerveModule(int tJagID, int mJagID, int eID, double xCOR, double yCOR)
+	public SwerveModule(int tJagID, int mTalID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
-		moveJag = new CANJaguar(mJagID);
+		moveTal = new Talon(mTalID);
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
 		corY = yCOR;
 	}
 	public void update(double targetAngle, double magnitude)
 	{
-		moveJag.set(magnitude);
+		moveTal.set(magnitude);
 		double currentAngle = (encoder.getValue() / 2.5 * Math.PI); //translates encoder voltage values to pi radians
 		if (targetAngle < 0){
 			targetAngle += 2 * Math.PI;
