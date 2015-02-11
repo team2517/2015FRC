@@ -1,8 +1,7 @@
 package org.usfirst.frc.team2517.robot;
 
 import org.usfirst.frc.team2517.robot.SwerveModule;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.CANJaguar;
+import java.util.ArrayList;
 import java.lang.Math;
 
 public class SwerveController {
@@ -10,7 +9,6 @@ public class SwerveController {
 	SwerveModule swerveFR;
 	SwerveModule swerveBL;
 	SwerveModule swerveBR;
-	private double swerveFLX, swerveFLY, swerveFRX, swerveFRY, swerveBLX, swerveBLY, swerveBRX, swerveBRY;
 	
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR, 
