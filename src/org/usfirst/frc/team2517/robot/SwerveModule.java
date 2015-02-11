@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Talon;
 /* *
  * We want the swerve module class to
  * 1. Initialize 2 CANJaguars as parameters
- * 2. Directly receive direction and magnitude variables through a function and move the 
+ * 2. Directly receive direction and mag variables through a function and move the 
  * motorTurn jaguar until it has reached its goal
  * 3. Look nice and have comments
  * 
@@ -21,7 +21,7 @@ public class SwerveModule {
 	public AnalogInput encoder;
 	private double turnSpeed;
 	private static double minVoltage = 0.2;
-	public double x, y, corX, corY, mag;
+	public double x, y, corX, corY, mag, tarAngle;
 	public SwerveModule(int tJagID, int mTalID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
@@ -30,20 +30,20 @@ public class SwerveModule {
 		corX = xCOR;
 		corY = yCOR;
 	}
-	public void update(double targetAngle, double magnitude)
+	public void update()
 	{
-		moveTal.set(magnitude);
+		moveTal.set(mag);
 		double currentAngle = (encoder.getValue() / 2.5 * Math.PI); //translates encoder voltage values to pi radians
-		if (targetAngle < 0){
-			targetAngle += 2 * Math.PI;
+		if (tarAngle < 0){
+			tarAngle += 2 * Math.PI;
 			}  //Change range from (-pi,pi) to (0, 2pi).  Ease calculations.
-		double diffAngle = targetAngle - currentAngle;
+		double diffAngle = tarAngle - currentAngle;
 		if (Utils.deadband(diffAngle, Math.PI / 60) == 0){
 			turnJag.set(0);
 		}  //applied deadband to test if target and current angle is close enough. Tolerance: 3 degrees (PI/60)
 
 		else if (Math.abs(diffAngle) > Math.PI) {
-			if (targetAngle > currentAngle){
+			if (tarAngle > currentAngle){
 				turnJag.set((diffAngle - 2 * Math.PI) / Math.PI * (1 - minVoltage) - minVoltage);
 			}
 			else {
@@ -52,7 +52,7 @@ public class SwerveModule {
 		}
 
 		else if (Math.abs(diffAngle) < Math.PI){
-			if (targetAngle > currentAngle){
+			if (tarAngle > currentAngle){
 				turnJag.set(diffAngle / Math.PI * (1 - minVoltage) + minVoltage);
 			}
 			else {
