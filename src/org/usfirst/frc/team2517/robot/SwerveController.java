@@ -53,5 +53,10 @@ public class SwerveController {
 			swerveBL.mag = swerveBL.mag / largestMag;
 			swerveBR.mag = swerveBR.mag / largestMag;
 		}
+		
+		swerveFL.tarAngle = Math.atan2(swerveFL.x, swerveFL.y);
+		swerveFR.tarAngle = Math.atan2(swerveFR.x, swerveFR.y);
+		swerveBL.tarAngle = Math.atan2(swerveBL.x, swerveBL.y);
+		swerveBR.tarAngle = Math.atan2(swerveBR.x, swerveBR.y);
 	}
 }
