@@ -19,7 +19,6 @@ public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
 	public AnalogInput encoder;
-	private double turnSpeed;
 	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarAngle;
 	private double diffAngle, curAngle;
