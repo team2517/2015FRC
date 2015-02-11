@@ -22,6 +22,7 @@ public class SwerveModule {
 	private double turnSpeed;
 	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarAngle;
+	private double diffAngle, curAngle;
 	public SwerveModule(int tJagID, int mTalID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
@@ -33,17 +34,17 @@ public class SwerveModule {
 	public void update()
 	{
 		moveTal.set(mag);
-		double currentAngle = (encoder.getValue() / 2.5 * Math.PI); //translates encoder voltage values to pi radians
+		curAngle = (encoder.getValue() / 2.5 * Math.PI); //translates encoder voltage values to pi radians
 		if (tarAngle < 0){
 			tarAngle += 2 * Math.PI;
 			}  //Change range from (-pi,pi) to (0, 2pi).  Ease calculations.
-		double diffAngle = tarAngle - currentAngle;
+		diffAngle = tarAngle - curAngle;
 		if (Utils.deadband(diffAngle, Math.PI / 60) == 0){
 			turnJag.set(0);
 		}  //applied deadband to test if target and current angle is close enough. Tolerance: 3 degrees (PI/60)
 
 		else if (Math.abs(diffAngle) > Math.PI) {
-			if (tarAngle > currentAngle){
+			if (tarAngle > curAngle){
 				turnJag.set((diffAngle - 2 * Math.PI) / Math.PI * (1 - minVoltage) - minVoltage);
 			}
 			else {
@@ -52,7 +53,7 @@ public class SwerveModule {
 		}
 
 		else if (Math.abs(diffAngle) < Math.PI){
-			if (tarAngle > currentAngle){
+			if (tarAngle > curAngle){
 				turnJag.set(diffAngle / Math.PI * (1 - minVoltage) + minVoltage);
 			}
 			else {
