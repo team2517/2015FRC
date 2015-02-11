@@ -3,12 +3,15 @@ package org.usfirst.frc.team2517.robot;
 import org.usfirst.frc.team2517.robot.SwerveModule;
 import java.util.ArrayList;
 import java.lang.Math;
+import java.util.Collections;
 
 public class SwerveController {
+	ArrayList<Double> mags = new ArrayList<Double>();
 	SwerveModule swerveFL; // Initialize one object for each module. Format is turnJag, moveJag, encID
 	SwerveModule swerveFR;
 	SwerveModule swerveBL;
 	SwerveModule swerveBR;
+	private double largestMag;
 	
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR, 
@@ -35,5 +38,20 @@ public class SwerveController {
 		swerveFR.mag = Math.sqrt(Math.pow(swerveFR.x,2) + Math.pow(swerveFR.y, 2));
 		swerveBL.mag = Math.sqrt(Math.pow(swerveBL.x,2) + Math.pow(swerveBL.y, 2));
 		swerveBR.mag = Math.sqrt(Math.pow(swerveBR.x,2) + Math.pow(swerveBR.y, 2));
+		
+		// Add all magnitudes to arraylist
+		mags.add(swerveFL.mag);
+		mags.add(swerveFR.mag);
+		mags.add(swerveBL.mag);
+		mags.add(swerveBR.mag);
+		
+		largestMag = Collections.max(mags);
+		
+		if(largestMag > 1){ // If one mag is greater than 1 then scale the rest of the modules by the largest magnitude
+			swerveFL.mag = swerveFL.mag / largestMag;
+			swerveFR.mag = swerveFR.mag / largestMag;
+			swerveBL.mag = swerveBL.mag / largestMag;
+			swerveBR.mag = swerveBR.mag / largestMag;
+		}
 	}
 }
