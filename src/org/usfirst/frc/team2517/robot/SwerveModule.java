@@ -21,7 +21,7 @@ public class SwerveModule {
 	public AnalogInput encoder;
 	private double turnSpeed;
 	private static double minVoltage = 0.2;
-	public double x, y, corX, corY;
+	public double x, y, corX, corY, mag;
 	public SwerveModule(int tJagID, int mTalID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
