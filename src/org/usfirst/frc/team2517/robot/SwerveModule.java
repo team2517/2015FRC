@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj.CANJaguar;
  * You will need to basically rip code from last year's math code and convert it to java
  * 
  * */
-						// Test comment please ignore
 public class SwerveModule {
 	public CANJaguar turnJag, moveJag;
 	public AnalogInput encoder;
 	double turnSpeed;
-	private static double minVoltage = 0.2;
-	public SwerveModule(int tJagID, int mJagID, int eID)
+	private static final double minVoltage = 0.2;
+	private double centerX, centerY;
+	public SwerveModule(int tJagID, int mJagID, int eID,double corX, double corY)
 	{
 		turnJag = new CANJaguar(tJagID);
 		moveJag = new CANJaguar(mJagID);
