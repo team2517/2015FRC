@@ -23,6 +23,7 @@ public class SwerveModule {
 	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarTheta;
 	private double diffTheta, curTheta;
+	private double offset;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
@@ -30,9 +31,32 @@ public class SwerveModule {
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
 		corY = yCOR;
+		offset = 0; // Pass this in later
 	}
 	public void update()
 	{
+		curTheta = -(encoder.getVoltage() - offset ) / 5 * 2 * Math.PI;
 		
+		diffTheta = tarTheta - curTheta;
+		
+		if (diffTheta > Math.PI) 
+		{
+			diffTheta -= 2 * Math.PI;
+		} 
+		else if (diffTheta < - Math.PI) 
+		{
+			diffTheta += 2 * Math.PI;
+		}
+
+		if (diffTheta > Math.PI / 2) 
+		{
+			diffTheta -= Math.PI;
+			mag = mag * -1;
+		} 
+		else if (diffTheta < -Math.PI / 2) 
+		{
+			diffTheta += Math.PI;
+			mag = mag * -1;
+		}
 	}
 }
