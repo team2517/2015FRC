@@ -23,7 +23,7 @@ public class SwerveModule {
 	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarAngle;
 	private double diffAngle, curAngle;
-	public SwerveModule(int tJagID, int mTalID, int eID, double xCOR, double yCOR)
+	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
 		moveTal = new Talon(mTalID);
