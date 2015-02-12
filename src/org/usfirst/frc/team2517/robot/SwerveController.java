@@ -4,6 +4,7 @@ import org.usfirst.frc.team2517.robot.SwerveModule;
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Collections;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveController {
 	ArrayList<Double> mags = new ArrayList<Double>();
@@ -50,12 +51,18 @@ public class SwerveController {
 		if(largestMag > 1){ // If one mag is greater than 1 then scale the rest of the modules by the largest magnitude
 			swerveFL.mag = swerveFL.mag / largestMag;
 			swerveFR.mag = swerveFR.mag / largestMag;
+			SmartDashboard.putNumber("flMag", swerveFL.mag);
+			SmartDashboard.putNumber("frMag", swerveFR.mag);
 //			swerveBL.mag = swerveBL.mag / largestMag;
 //			swerveBR.mag = swerveBR.mag / largestMag;
 		}
 		
 		swerveFL.tarAngle = Math.atan2(swerveFL.y, swerveFL.x); // Calculate the angles we want to be at with the joystick inputs
 		swerveFR.tarAngle = Math.atan2(swerveFR.y, swerveFR.x);
+		SmartDashboard.putNumber("flTarAngle", swerveFL.tarAngle);
+		SmartDashboard.putNumber("flCurAngle", swerveFL.curAngle);
+		SmartDashboard.putNumber("frTarAngle", swerveFR.tarAngle);
+		SmartDashboard.putNumber("frCurAngle", swerveFR.curAngle);
 //		swerveBL.tarAngle = Math.atan2(swerveBL.y, swerveBL.x);
 //		swerveBR.tarAngle = Math.atan2(swerveBR.y, swerveBR.x);
 		
