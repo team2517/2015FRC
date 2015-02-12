@@ -54,10 +54,10 @@ public class SwerveController {
 //			swerveBR.mag = swerveBR.mag / largestMag;
 		}
 		
-		swerveFL.tarAngle = Math.atan2(swerveFL.y, swerveFL.x); // Calculate the angles we want to be at with the joystick inputs
-		swerveFR.tarAngle = Math.atan2(swerveFR.y, swerveFR.x);
-//		swerveBL.tarAngle = Math.atan2(swerveBL.y, swerveBL.x);
-//		swerveBR.tarAngle = Math.atan2(swerveBR.y, swerveBR.x);
+		swerveFL.tarTheta = Math.atan2(swerveFL.y, swerveFL.x); // Calculate the angles we want to be at with the joystick inputs
+		swerveFR.tarTheta = Math.atan2(swerveFR.y, swerveFR.x);
+//		swerveBL.tarTheta = Math.atan2(swerveBL.y, swerveBL.x);
+//		swerveBR.tarTheta = Math.atan2(swerveBR.y, swerveBR.x);
 		
 		swerveFL.update(); // We need to run this to set the values of the motor controllers
 		swerveFR.update();
