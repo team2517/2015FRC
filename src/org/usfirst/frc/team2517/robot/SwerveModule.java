@@ -1,8 +1,10 @@
 package org.usfirst.frc.team2517.robot;
 import java.lang.Math;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 
 /* *
  * We want the swerve module class to
@@ -22,7 +24,9 @@ public class SwerveModule {
 	private double turnSpeed;
 	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarTheta;
-	private double diffTheta, curTheta, offset, turnVel;
+	private double diffTheta, curTheta, offset, turnVel, prevTurnVel, moveTime;
+	private boolean changeSign;
+	private Timer baneTimer;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
@@ -38,27 +42,50 @@ public class SwerveModule {
 		
 		diffTheta = tarTheta - curTheta;
 		
-		if (diffTheta > Math.PI) // lines 537-557
-		{
+		if (diffTheta > Math.PI){ // lines 537-557
 			diffTheta -= 2 * Math.PI;
 		} 
-		else if (diffTheta < - Math.PI) 
-		{
+		else if (diffTheta < - Math.PI){
 			diffTheta += 2 * Math.PI;
 		}
 
-		if (diffTheta > Math.PI / 2) 
-		{
+		if (diffTheta > Math.PI / 2) {
 			diffTheta -= Math.PI;
 			mag = mag * -1;
 		} 
-		else if (diffTheta < -Math.PI / 2) 
-		{
+		else if (diffTheta < -Math.PI / 2) {
 			diffTheta += Math.PI;
 			mag = mag * -1;
 		}
 		
 		turnVel = diffTheta / (Math.PI/2); // Line 559
+		
+		if (0 < turnVel && turnVel < .25){
+			turnVel = .25;
+		} 
+		if (0 > turnVel && turnVel > -.25){
+			turnVel = -.25;
+		}
+		if (Math.abs(diffTheta) < Math.PI/45 ){
+			turnVel = 0;
+		}
+		if (((turnVel > 0 && prevTurnVel < 0)
+				|| (turnVel < 0&& prevTurnVel> 0)) 
+				&& !changeSign){
+			changeSign = true;
+			moveTime = baneTimer.get() + .1;
+		}
+		if (changeSign){
+			turnVel = 0;
+			if (moveTime < baneTimer.get()) 
+			{
+				changeSign = false;
+			}
+		}
+		
+		turnJag.set(turnVel);
+		moveTal.set(mag);
+		
 		
 		
 	}
