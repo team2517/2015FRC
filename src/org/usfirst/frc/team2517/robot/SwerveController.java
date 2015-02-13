@@ -1,6 +1,9 @@
 package org.usfirst.frc.team2517.robot;
 
 import org.usfirst.frc.team2517.robot.SwerveModule;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Collections;
@@ -58,6 +61,13 @@ public class SwerveController {
 		swerveFR.tarTheta = Math.atan2(swerveFR.y, swerveFR.x);
 //		swerveBL.tarTheta = Math.atan2(swerveBL.y, swerveBL.x);
 //		swerveBR.tarTheta = Math.atan2(swerveBR.y, swerveBR.x);
+
+		SmartDashboard.putNumber("TurnVelocity FL ", swerveFL.turnVel);
+		SmartDashboard.putNumber("TurnVelocity FR ", swerveFR.turnVel);
+		SmartDashboard.putNumber("TurnVelocity FL ", swerveFL.tarTheta);
+		SmartDashboard.putNumber("TurnVelocity FR ", swerveFR.tarTheta);
+		SmartDashboard.putNumber("TurnVelocity FL ", swerveFL.curTheta);
+		SmartDashboard.putNumber("TurnVelocity FR ", swerveFR.curTheta);
 		
 		swerveFL.update(); // We need to run this to set the values of the motor controllers
 		swerveFR.update();
