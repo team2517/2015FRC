@@ -3,6 +3,7 @@ import java.lang.Math;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /* *
  * We want the swerve module class to
@@ -19,11 +20,10 @@ public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
 	public AnalogInput encoder;
-	private double turnSpeed;
 	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarAngle;
-	public double diffAngle, curAngle;
-	public SwerveModule(int tJagID, int mTalID, int eID, double xCOR, double yCOR)
+	public double diffAngle, curAngle, turnSpeed;
+	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
 		moveTal = new Talon(mTalID);
@@ -34,30 +34,34 @@ public class SwerveModule {
 	public void update()
 	{
 		moveTal.set(mag);
-		curAngle = (encoder.getValue() / 2.5 * Math.PI); //translates encoder voltage values to pi radians
+		curAngle = (encoder.getVoltage() / 2.5 * Math.PI); //translates encoder voltage values to pi radians
 		if (tarAngle < 0){
 			tarAngle += 2 * Math.PI;
 			}  //Change range from (-pi,pi) to (0, 2pi).  Ease calculations.
-		diffAngle = tarAngle - curAngle;
-		if (Utils.deadband(diffAngle, Math.PI / 60) == 0){
+		diffAngle = Math.abs(tarAngle - curAngle);
+		if (Utils.deadband(diffAngle, Math.PI / 9) == 0){
 			turnJag.set(0);
 		}  //applied deadband to test if target and current angle is close enough. Tolerance: 3 degrees (PI/60)
 
-		else if (Math.abs(diffAngle) > Math.PI) {
+		else if (diffAngle > Math.PI) {
 			if (tarAngle > curAngle){
-				turnJag.set((diffAngle - 2 * Math.PI) / Math.PI * (1 - minVoltage) - minVoltage);
+				turnSpeed = ((diffAngle - (2 * Math.PI)) / Math.PI * (1 - minVoltage)) - minVoltage;
+				turnJag.set(turnSpeed);
 			}
 			else {
-				turnJag.set((2 * Math.PI-diffAngle) / Math.PI * (1 - minVoltage) + minVoltage);
+				turnSpeed = (((2 * Math.PI) - diffAngle) / Math.PI * (1 - minVoltage)) + minVoltage;
+				turnJag.set(turnSpeed);
 			}
 		}
 
-		else if (Math.abs(diffAngle) < Math.PI){
+		else if (diffAngle < Math.PI){
 			if (tarAngle > curAngle){
-				turnJag.set(diffAngle / Math.PI * (1 - minVoltage) + minVoltage);
+				turnSpeed = (diffAngle / Math.PI * (1 - minVoltage)) + minVoltage;
+				turnJag.set(turnSpeed);
 			}
 			else {
-				turnJag.set(-diffAngle / Math.PI * (1 - minVoltage) - minVoltage);
+				turnSpeed = (-diffAngle / Math.PI * (1 - minVoltage)) - minVoltage;
+				turnJag.set(turnSpeed);
 			}
 		}
 		/*

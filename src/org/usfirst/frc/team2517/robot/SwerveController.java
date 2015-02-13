@@ -14,12 +14,12 @@ public class SwerveController {
 	SwerveModule swerveBR;
 	private double largestMag;
 	
-	public SwerveController(int moveFL, int turnFL, int encFL,
+	public SwerveController(int turnFL, int moveFL, int encFL,
 							int moveFR, int turnFR, int encFR){
 //							int moveBL, int turnBL, int encBL,
 //							int moveBR, int turnBR, int encBR){
-		swerveFL = new SwerveModule(moveFL, turnFL, encFL, 0.7421, 0.6703);
-		swerveFR = new SwerveModule(moveFR, turnFR, encFR, 0.6703, -0.7421);
+		swerveFL = new SwerveModule(1, 30, encFL, 0.7421, 0.6703);
+		swerveFR = new SwerveModule(0, 4, encFR, 0.6703, -0.7421);
 //		swerveBL = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421);
 //		swerveBR = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703);
 	}
@@ -33,6 +33,8 @@ public class SwerveController {
 //		swerveBL.y = (swerveBL.corY*phi)+yVector;
 //		swerveBR.x = (swerveBR.corX*phi)+xVector;
 //		swerveBR.y = (swerveBR.corY*phi)+yVector;
+		SmartDashboard.putNumber("FL Voltage", swerveFL.encoder.getVoltage());
+		SmartDashboard.putNumber("FR Voltage", swerveFR.encoder.getVoltage());
 		
 		// Find magnitudes through pythagorean therom
 		swerveFL.mag = Math.sqrt(Math.pow(swerveFL.x,2) + Math.pow(swerveFL.y, 2));
@@ -59,16 +61,18 @@ public class SwerveController {
 		
 		swerveFL.tarAngle = Math.atan2(swerveFL.y, swerveFL.x); // Calculate the angles we want to be at with the joystick inputs
 		swerveFR.tarAngle = Math.atan2(swerveFR.y, swerveFR.x);
-		SmartDashboard.putNumber("flTarAngle", swerveFL.tarAngle);
-		SmartDashboard.putNumber("flCurAngle", swerveFL.curAngle);
-		SmartDashboard.putNumber("frTarAngle", swerveFR.tarAngle);
-		SmartDashboard.putNumber("frCurAngle", swerveFR.curAngle);
-//		swerveBL.tarAngle = Math.atan2(swerveBL.y, swerveBL.x);
-//		swerveBR.tarAngle = Math.atan2(swerveBR.y, swerveBR.x);
 		
 		swerveFL.update(); // We need to run this to set the values of the motor controllers
 		swerveFR.update();
 //		swerveBL.update();
 //		swerveBR.update();
+		SmartDashboard.putNumber("flTarAngle", swerveFL.tarAngle/Math.PI);
+		SmartDashboard.putNumber("flCurAngle", swerveFL.curAngle/Math.PI);
+		SmartDashboard.putNumber("frTarAngle", swerveFR.tarAngle/Math.PI);
+		SmartDashboard.putNumber("frCurAngle", swerveFR.curAngle/Math.PI);
+		SmartDashboard.putNumber("FLturnSpeed", swerveFL.turnSpeed);
+		SmartDashboard.putNumber("FRturnSpeed", swerveFR.turnSpeed);
+//		swerveBL.tarAngle = Math.atan2(swerveBL.y, swerveBL.x);
+//		swerveBR.tarAngle = Math.atan2(swerveBR.y, swerveBR.x);
 	}
 }
