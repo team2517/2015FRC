@@ -22,8 +22,7 @@ public class SwerveModule {
 	private double turnSpeed;
 	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarTheta;
-	private double diffTheta, curTheta;
-	private double offset;
+	private double diffTheta, curTheta, offset, turnVel;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
@@ -35,11 +34,11 @@ public class SwerveModule {
 	}
 	public void update()
 	{
-		curTheta = -(encoder.getVoltage() - offset ) / 5 * 2 * Math.PI;
+		curTheta = -(encoder.getVoltage() - offset ) / 5 * 2 * Math.PI; // Get current angle in radians
 		
 		diffTheta = tarTheta - curTheta;
 		
-		if (diffTheta > Math.PI) 
+		if (diffTheta > Math.PI) // lines 537-557
 		{
 			diffTheta -= 2 * Math.PI;
 		} 
@@ -58,5 +57,9 @@ public class SwerveModule {
 			diffTheta += Math.PI;
 			mag = mag * -1;
 		}
+		
+		turnVel = diffTheta / (Math.PI/2); // Line 559
+		
+		
 	}
 }
