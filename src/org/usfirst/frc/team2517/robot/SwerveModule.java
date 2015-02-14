@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2517.robot;
 import java.lang.Math;
-
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Talon;
@@ -20,9 +19,11 @@ public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
 	public AnalogInput encoder;
+	private double turnSpeed;
+	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarTheta;
-	public double diffTheta, curTheta, offset, turnVel, prevTurnVel, moveTime;
-	private boolean changeSign;
+	private double diffTheta, curTheta;
+	private double offset;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
@@ -34,51 +35,28 @@ public class SwerveModule {
 	}
 	public void update()
 	{
-		curTheta = -(encoder.getVoltage() - offset ) / 5 * 2 * Math.PI; // Get current angle in radians
+		curTheta = -(encoder.getVoltage() - offset ) / 5 * 2 * Math.PI;
 		
 		diffTheta = tarTheta - curTheta;
 		
-		if (diffTheta > Math.PI){ // lines 537-557
+		if (diffTheta > Math.PI) 
+		{
 			diffTheta -= 2 * Math.PI;
 		} 
-		else if (diffTheta < - Math.PI){
+		else if (diffTheta < - Math.PI) 
+		{
 			diffTheta += 2 * Math.PI;
 		}
 
-		if (diffTheta > Math.PI / 2) {
+		if (diffTheta > Math.PI / 2) 
+		{
 			diffTheta -= Math.PI;
 			mag = mag * -1;
 		} 
-		else if (diffTheta < -Math.PI / 2) {
+		else if (diffTheta < -Math.PI / 2) 
+		{
 			diffTheta += Math.PI;
 			mag = mag * -1;
 		}
-		
-		turnVel = diffTheta / (Math.PI/2); // Line 559
-		
-		if (0 < turnVel && turnVel < .25){
-			turnVel = .25;
-		} 
-		if (0 > turnVel && turnVel > -.25){
-			turnVel = -.25;
-		}
-		if (Math.abs(diffTheta) < Math.PI/9 ){
-			turnVel = 0;
-		}
-		if (((turnVel > 0 && prevTurnVel < 0)
-				|| (turnVel < 0&& prevTurnVel> 0)) 
-				&& !changeSign){
-			changeSign = true;
-		}
-		if (changeSign){
-			turnVel = 0;
-		}
-		
-		
-		turnJag.set(turnVel);
-		moveTal.set(mag);
-		
-		
-		
 	}
 }

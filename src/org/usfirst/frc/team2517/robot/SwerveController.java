@@ -1,8 +1,6 @@
 package org.usfirst.frc.team2517.robot;
 
 import org.usfirst.frc.team2517.robot.SwerveModule;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Collections;
@@ -14,14 +12,13 @@ public class SwerveController {
 //	SwerveModule swerveBL;
 //	SwerveModule swerveBR;
 	private double largestMag;
-	private String listString;
 	
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR ){
 //							int moveBL, int turnBL, int encBL,
 //							int moveBR, int turnBR, int encBR){
-		swerveFL = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707);
-		swerveFR = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707);
+		swerveFL = new SwerveModule(moveFL, turnFL, encFL, 0.7421, 0.6703);
+		swerveFR = new SwerveModule(moveFR, turnFR, encFR, 0.6703, -0.7421);
 //		swerveBL = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421);
 //		swerveBR = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703);
 	}
@@ -31,10 +28,6 @@ public class SwerveController {
 		swerveFL.y = (swerveFL.corY*phi)+yVector; // Someday outsource these into a SwerveModule function and run 4 times instead of 8
 		swerveFR.x = (swerveFR.corX*phi)+xVector;
 		swerveFR.y = (swerveFR.corY*phi)+yVector;
-		Utils.dashboardAdd("StickXVectorFL", swerveFL.x);
-		Utils.dashboardAdd("StickYVectorFL", swerveFL.y);
-		Utils.dashboardAdd("StickXVectorFR", swerveFR.x);
-		Utils.dashboardAdd("StickYVectorFR", swerveFR.y);
 //		swerveBL.x = (swerveBL.corX*phi)+xVector;
 //		swerveBL.y = (swerveBL.corY*phi)+yVector;
 //		swerveBR.x = (swerveBR.corX*phi)+xVector;
@@ -45,8 +38,6 @@ public class SwerveController {
 		swerveFR.mag = Math.sqrt(Math.pow(swerveFR.x,2) + Math.pow(swerveFR.y, 2));
 //		swerveBL.mag = Math.sqrt(Math.pow(swerveBL.x,2) + Math.pow(swerveBL.y, 2));
 //		swerveBR.mag = Math.sqrt(Math.pow(swerveBR.x,2) + Math.pow(swerveBR.y, 2));
-		Utils.dashboardAdd("MagFL", swerveFL.mag);
-		Utils.dashboardAdd("MagFR", swerveFR.mag);
 		
 		// Add all magnitudes to arraylist
 		mags.add(swerveFL.mag);
@@ -55,14 +46,6 @@ public class SwerveController {
 //		mags.add(swerveBR.mag);
 		
 		largestMag = Collections.max(mags);
-		Utils.dashboardAdd("largestMag", largestMag);
-		
-		for (Double s : mags)
-		{
-		    listString += s + "\t";
-		}
-		SmartDashboard.putString("Magnitudes", listString);
-		
 		
 		if(largestMag > 1){ // If one mag is greater than 1 then scale the rest of the modules by the largest magnitude
 			swerveFL.mag = swerveFL.mag / largestMag;
@@ -78,16 +61,6 @@ public class SwerveController {
 		
 		swerveFL.update(); // We need to run this to set the values of the motor controllers
 		swerveFR.update();
-
-		Utils.dashboardAdd("TurnVelocityFL", swerveFL.turnVel);
-		Utils.dashboardAdd("TurnVelocityFR", swerveFR.turnVel);
-		Utils.dashboardAdd("TurnVelocityFL", swerveFL.tarTheta);
-		Utils.dashboardAdd("TurnVelocityFR", swerveFR.tarTheta);
-		Utils.dashboardAdd("TurnVelocityFL", swerveFL.curTheta);
-		Utils.dashboardAdd("TurnVelocityFR", swerveFR.curTheta);
-		Utils.dashboardAdd("VoltageFL", swerveFL.encoder.getVoltage());
-		Utils.dashboardAdd("VoltageFR", swerveFR.encoder.getVoltage());
-		
 //		swerveBL.update();
 //		swerveBR.update();
 	}
