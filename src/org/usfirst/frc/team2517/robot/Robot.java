@@ -3,6 +3,7 @@ package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -20,10 +21,12 @@ public class Robot extends IterativeRobot {
 	private Joystick stick;
 	private SwerveController swerveDrive;
 	private double stickX, rawStickX, stickY, rawStickY, stickPhi; // Joystick values
+	public Timer staggerTimer;
 	
     public void robotInit() {
     	stick = new Joystick(0);
     	swerveDrive = new SwerveController(0, 4, 0, 1, 30, 1); // this is not okay
+    	staggerTimer.start();
     }
 
     /**
