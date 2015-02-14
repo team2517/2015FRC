@@ -26,7 +26,9 @@ public class SwerveModule {
 	private double offset;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
+//		try{ We need to get the CANNotFoundException thing here and probably some for PID as well.
 		turnJag = new CANJaguar(tJagID);
+//		} catch()
 		moveTal = new Talon(mTalID);
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
