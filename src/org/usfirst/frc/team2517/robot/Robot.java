@@ -20,10 +20,13 @@ public class Robot extends IterativeRobot {
 	private Joystick stick;
 	private SwerveController swerveDrive;
 	private double stickX, rawStickX, stickY, rawStickY, stickPhi; // Joystick values
+	public static int stagger;// Used to stagger the updates to the dashboard so we don't overwhelm the driver station. Set to 0 and used at end of robot code and in Utils.dashboardAdd()
+	public static final int staggerMax = 5;
 	
     public void robotInit() {
     	stick = new Joystick(0);
     	swerveDrive = new SwerveController(0, 4, 0, 1, 30, 1); // this is not okay
+    	stagger = 0; 
     }
 
     /**
@@ -42,11 +45,19 @@ public class Robot extends IterativeRobot {
     	stickPhi = Utils.deadband(stick.getRawAxis(2), 0.02);
     	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
     	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
-		SmartDashboard.putNumber("RawStickX", rawStickX);
-		SmartDashboard.putNumber("RawStickY", rawStickY);
-		SmartDashboard.putNumber("StickX", stickX);
-		SmartDashboard.putNumber("StickY", stickY);
+		Utils.dashboardAdd("RawStickX", rawStickX);
+		Utils.dashboardAdd("RawStickY", rawStickY);
+		Utils.dashboardAdd("StickX", stickX);
+		Utils.dashboardAdd("StickY", stickY);
     	swerveDrive.swerve(rawStickX, rawStickY, stickPhi);
+    	
+    	// Resetting stagger variable if over maximum or adding 1
+    	if (stagger >= staggerMax){
+    		stagger = 0;
+    	}
+    	else{
+    		stagger++;
+    	}
     }
     
     /**

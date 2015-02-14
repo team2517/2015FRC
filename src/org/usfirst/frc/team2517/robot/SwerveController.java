@@ -31,10 +31,10 @@ public class SwerveController {
 		swerveFL.y = (swerveFL.corY*phi)+yVector; // Someday outsource these into a SwerveModule function and run 4 times instead of 8
 		swerveFR.x = (swerveFR.corX*phi)+xVector;
 		swerveFR.y = (swerveFR.corY*phi)+yVector;
-		SmartDashboard.putNumber("StickXVectorFL", swerveFL.x);
-		SmartDashboard.putNumber("StickYVectorFL", swerveFL.y);
-		SmartDashboard.putNumber("StickXVectorFR", swerveFR.x);
-		SmartDashboard.putNumber("StickYVectorFR", swerveFR.y);
+		Utils.dashboardAdd("StickXVectorFL", swerveFL.x);
+		Utils.dashboardAdd("StickYVectorFL", swerveFL.y);
+		Utils.dashboardAdd("StickXVectorFR", swerveFR.x);
+		Utils.dashboardAdd("StickYVectorFR", swerveFR.y);
 //		swerveBL.x = (swerveBL.corX*phi)+xVector;
 //		swerveBL.y = (swerveBL.corY*phi)+yVector;
 //		swerveBR.x = (swerveBR.corX*phi)+xVector;
@@ -45,8 +45,8 @@ public class SwerveController {
 		swerveFR.mag = Math.sqrt(Math.pow(swerveFR.x,2) + Math.pow(swerveFR.y, 2));
 //		swerveBL.mag = Math.sqrt(Math.pow(swerveBL.x,2) + Math.pow(swerveBL.y, 2));
 //		swerveBR.mag = Math.sqrt(Math.pow(swerveBR.x,2) + Math.pow(swerveBR.y, 2));
-		SmartDashboard.putNumber("MagFL", swerveFL.mag);
-		SmartDashboard.putNumber("MagFR", swerveFR.mag);
+		Utils.dashboardAdd("MagFL", swerveFL.mag);
+		Utils.dashboardAdd("MagFR", swerveFR.mag);
 		
 		// Add all magnitudes to arraylist
 		mags.add(swerveFL.mag);
@@ -55,7 +55,7 @@ public class SwerveController {
 //		mags.add(swerveBR.mag);
 		
 		largestMag = Collections.max(mags);
-		SmartDashboard.putNumber("largestMag", largestMag);
+		Utils.dashboardAdd("largestMag", largestMag);
 		
 		for (Double s : mags)
 		{
@@ -79,14 +79,14 @@ public class SwerveController {
 		swerveFL.update(); // We need to run this to set the values of the motor controllers
 		swerveFR.update();
 
-		SmartDashboard.putNumber("TurnVelocityFL", swerveFL.turnVel);
-		SmartDashboard.putNumber("TurnVelocityFR", swerveFR.turnVel);
-		SmartDashboard.putNumber("TurnVelocityFL", swerveFL.tarTheta);
-		SmartDashboard.putNumber("TurnVelocityFR", swerveFR.tarTheta);
-		SmartDashboard.putNumber("TurnVelocityFL", swerveFL.curTheta);
-		SmartDashboard.putNumber("TurnVelocityFR", swerveFR.curTheta);
-		SmartDashboard.putNumber("VoltageFL", swerveFL.encoder.getVoltage());
-		SmartDashboard.putNumber("VoltageFR", swerveFR.encoder.getVoltage());
+		Utils.dashboardAdd("TurnVelocityFL", swerveFL.turnVel);
+		Utils.dashboardAdd("TurnVelocityFR", swerveFR.turnVel);
+		Utils.dashboardAdd("TurnVelocityFL", swerveFL.tarTheta);
+		Utils.dashboardAdd("TurnVelocityFR", swerveFR.tarTheta);
+		Utils.dashboardAdd("TurnVelocityFL", swerveFL.curTheta);
+		Utils.dashboardAdd("TurnVelocityFR", swerveFR.curTheta);
+		Utils.dashboardAdd("VoltageFL", swerveFL.encoder.getVoltage());
+		Utils.dashboardAdd("VoltageFR", swerveFR.encoder.getVoltage());
 		
 //		swerveBL.update();
 //		swerveBR.update();
