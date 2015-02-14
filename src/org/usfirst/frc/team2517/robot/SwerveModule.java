@@ -41,24 +41,30 @@ public class SwerveModule {
 		
 		diffTheta = tarTheta - curTheta;
 		
-		if (diffTheta > Math.PI) 
-		{
+		if (diffTheta > Math.PI) {
 			diffTheta -= 2 * Math.PI;
 		} 
-		else if (diffTheta < - Math.PI) 
-		{
+		else if (diffTheta < - Math.PI) {
 			diffTheta += 2 * Math.PI;
 		}
 
-		if (diffTheta > Math.PI / 2) 
-		{
+		if (diffTheta > Math.PI / 2) {
 			diffTheta -= Math.PI;
 			mag = mag * -1;
 		} 
-		else if (diffTheta < -Math.PI / 2) 
-		{
+		else if (diffTheta < -Math.PI / 2){
 			diffTheta += Math.PI;
 			mag = mag * -1;
+		}
+		turnSpeed = diffTheta / Math.PI / 2;
+		if (0 < turnSpeed && turnSpeed < 0.25){
+			turnSpeed = 0.25;
+		}
+		if (0 > turnSpeed && turnSpeed > -0.25){
+			turnSpeed = -0.25;
+		}
+		if (Math.abs(diffTheta) < Math.PI / 45){
+			turnSpeed = 0;
 		}
 	}
 }
