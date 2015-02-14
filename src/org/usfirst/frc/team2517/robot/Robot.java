@@ -2,11 +2,7 @@
 package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import org.usfirst.frc.team2517.robot.*;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.CANJaguar;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -46,7 +42,7 @@ public class Robot extends IterativeRobot {
     	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
     	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
     	
-    	swerveDrive.swerve(stickX, stickY, stickPhi);
+    	swerveDrive.swerve(rawStickX, rawStickY, stickPhi);
     }
     
     /**

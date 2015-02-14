@@ -48,6 +48,7 @@ public class SwerveController {
 //		mags.add(swerveBR.mag);
 		
 		largestMag = Collections.max(mags);
+		SmartDashboard.putNumber("largestMag", largestMag);
 		
 		if(largestMag > 1){ // If one mag is greater than 1 then scale the rest of the modules by the largest magnitude
 			swerveFL.mag = swerveFL.mag / largestMag;
@@ -64,12 +65,15 @@ public class SwerveController {
 		swerveFL.update(); // We need to run this to set the values of the motor controllers
 		swerveFR.update();
 
-		SmartDashboard.putNumber("TurnVelocityFL ", swerveFL.turnVel);
-		SmartDashboard.putNumber("TurnVelocityFR ", swerveFR.turnVel);
-		SmartDashboard.putNumber("TurnVelocityFL ", swerveFL.tarTheta);
-		SmartDashboard.putNumber("TurnVelocityFR ", swerveFR.tarTheta);
-		SmartDashboard.putNumber("TurnVelocityFL ", swerveFL.curTheta);
-		SmartDashboard.putNumber("TurnVelocityFR ", swerveFR.curTheta);
+		SmartDashboard.putNumber("TurnVelocityFL", swerveFL.turnVel);
+		SmartDashboard.putNumber("TurnVelocityFR", swerveFR.turnVel);
+		SmartDashboard.putNumber("TurnVelocityFL", swerveFL.tarTheta);
+		SmartDashboard.putNumber("TurnVelocityFR", swerveFR.tarTheta);
+		SmartDashboard.putNumber("TurnVelocityFL", swerveFL.curTheta);
+		SmartDashboard.putNumber("TurnVelocityFR", swerveFR.curTheta);
+		SmartDashboard.putNumber("VoltageFL", swerveFL.encoder.getVoltage());
+		SmartDashboard.putNumber("VoltageFR", swerveFR.encoder.getVoltage());
+		
 //		swerveBL.update();
 //		swerveBR.update();
 	}
