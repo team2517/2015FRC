@@ -3,7 +3,6 @@ package org.usfirst.frc.team2517.robot;
 import org.usfirst.frc.team2517.robot.SwerveModule;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Collections;
@@ -20,8 +19,8 @@ public class SwerveController {
 							int moveFR, int turnFR, int encFR ){
 //							int moveBL, int turnBL, int encBL,
 //							int moveBR, int turnBR, int encBR){
-		swerveFL = new SwerveModule(moveFL, turnFL, encFL, 0.7421, 0.6703);
-		swerveFR = new SwerveModule(moveFR, turnFR, encFR, 0.6703, -0.7421);
+		swerveFL = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707);
+		swerveFR = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707);
 //		swerveBL = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421);
 //		swerveBR = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703);
 	}
@@ -61,16 +60,16 @@ public class SwerveController {
 		swerveFR.tarTheta = Math.atan2(swerveFR.y, swerveFR.x);
 //		swerveBL.tarTheta = Math.atan2(swerveBL.y, swerveBL.x);
 //		swerveBR.tarTheta = Math.atan2(swerveBR.y, swerveBR.x);
-
-		SmartDashboard.putNumber("TurnVelocity FL ", swerveFL.turnVel);
-		SmartDashboard.putNumber("TurnVelocity FR ", swerveFR.turnVel);
-		SmartDashboard.putNumber("TurnVelocity FL ", swerveFL.tarTheta);
-		SmartDashboard.putNumber("TurnVelocity FR ", swerveFR.tarTheta);
-		SmartDashboard.putNumber("TurnVelocity FL ", swerveFL.curTheta);
-		SmartDashboard.putNumber("TurnVelocity FR ", swerveFR.curTheta);
 		
 		swerveFL.update(); // We need to run this to set the values of the motor controllers
 		swerveFR.update();
+
+		SmartDashboard.putNumber("TurnVelocityFL ", swerveFL.turnVel);
+		SmartDashboard.putNumber("TurnVelocityFR ", swerveFR.turnVel);
+		SmartDashboard.putNumber("TurnVelocityFL ", swerveFL.tarTheta);
+		SmartDashboard.putNumber("TurnVelocityFR ", swerveFR.tarTheta);
+		SmartDashboard.putNumber("TurnVelocityFL ", swerveFL.curTheta);
+		SmartDashboard.putNumber("TurnVelocityFR ", swerveFR.curTheta);
 //		swerveBL.update();
 //		swerveBR.update();
 	}

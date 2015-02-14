@@ -26,7 +26,7 @@ public class Robot extends IterativeRobot {
 	
     public void robotInit() {
     	stick = new Joystick(0);
-    	swerveDrive = new SwerveController(0, 0, 0, 0, 0, 0); // this is not okay
+    	swerveDrive = new SwerveController(0, 4, 0, 1, 30, 1); // this is not okay
     }
 
     /**
@@ -45,6 +45,7 @@ public class Robot extends IterativeRobot {
     	stickPhi = Utils.deadband(stick.getRawAxis(2), 0.02);
     	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
     	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
+    	
     	swerveDrive.swerve(stickX, stickY, stickPhi);
     }
     

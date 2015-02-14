@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /* *
  * We want the swerve module class to
@@ -21,12 +22,9 @@ public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
 	public AnalogInput encoder;
-	private double turnSpeed;
-	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarTheta;
-	private double diffTheta, curTheta, offset, turnVel, prevTurnVel, moveTime;
+	public double diffTheta, curTheta, offset, turnVel, prevTurnVel, moveTime;
 	private boolean changeSign;
-	private Timer baneTimer;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
@@ -66,22 +64,18 @@ public class SwerveModule {
 		if (0 > turnVel && turnVel > -.25){
 			turnVel = -.25;
 		}
-		if (Math.abs(diffTheta) < Math.PI/45 ){
+		if (Math.abs(diffTheta) < Math.PI/9 ){
 			turnVel = 0;
 		}
 		if (((turnVel > 0 && prevTurnVel < 0)
 				|| (turnVel < 0&& prevTurnVel> 0)) 
 				&& !changeSign){
 			changeSign = true;
-			moveTime = baneTimer.get() + .1;
 		}
 		if (changeSign){
 			turnVel = 0;
-			if (moveTime < baneTimer.get()) 
-			{
-				changeSign = false;
-			}
 		}
+		
 		
 		turnJag.set(turnVel);
 		moveTal.set(mag);
