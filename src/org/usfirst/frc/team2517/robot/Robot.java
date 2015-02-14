@@ -22,7 +22,7 @@ public class Robot extends IterativeRobot {
      */
 	private Joystick stick;
 	private SwerveController swerveDrive;
-	private double stickX, rawStickX, stickY, rawStickY, stickPhi; // Joystick values
+	private double stickX, stickY, stickPhi; // Joystick values
 	
     public void robotInit() {
     	stick = new Joystick(0);
@@ -46,11 +46,9 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    	rawStickX = Utils.deadband(stick.getRawAxis(0), 0.02); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
-    	rawStickY = Utils.deadband(stick.getRawAxis(1), 0.02);
     	stickPhi = Utils.deadband(stick.getRawAxis(2), 0.02);
-    	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
-    	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
+    	stickX = Utils.deadband(stick.getRawAxis(0), 0.02) * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
+    	stickY = Utils.deadband(stick.getRawAxis(1), 0.02) * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
     	swerveDrive.swerve(stickX, stickY, stickPhi);
     }
     

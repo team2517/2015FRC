@@ -15,7 +15,7 @@ public class SwerveController {
 	private double largestMag;
 	
 	public SwerveController(int turnFL, int moveFL, int encFL,
-							int moveFR, int turnFR, int encFR){
+							int turnFR, int moveFR, int encFR){
 //							int moveBL, int turnBL, int encBL,
 //							int moveBR, int turnBR, int encBR){
 		swerveFL = new SwerveModule(turnFL, moveFL, encFL, 0.7421, 0.6703);
@@ -78,6 +78,8 @@ public class SwerveController {
 		SmartDashboard.putNumber("FRratio", swerveFR.ratio);
 		SmartDashboard.putNumber("FRpower", swerveFR.power);
 		SmartDashboard.putNumber("FRturnSpeed", swerveFR.turnSpeed);
+		SmartDashboard.putNumber("FLEncoder", swerveFL.encoder.getVoltage());
+		SmartDashboard.putNumber("FREncoder", swerveFR.encoder.getVoltage());
 //		swerveBL.tarAngle = Math.atan2(swerveBL.y, swerveBL.x);
 //		swerveBR.tarAngle = Math.atan2(swerveBR.y, swerveBR.x);
 	}
