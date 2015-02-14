@@ -33,8 +33,8 @@ public class SwerveController {
 //		swerveBL.y = (swerveBL.corY*phi)+yVector;
 //		swerveBR.x = (swerveBR.corX*phi)+xVector;
 //		swerveBR.y = (swerveBR.corY*phi)+yVector;
-		SmartDashboard.putNumber("FL Voltage", swerveFL.encoder.getVoltage());
-		SmartDashboard.putNumber("FR Voltage", swerveFR.encoder.getVoltage());
+//		SmartDashboard.putNumber("FL Voltage", swerveFL.encoder.getVoltage());
+//		SmartDashboard.putNumber("FR Voltage", swerveFR.encoder.getVoltage());
 		
 		// Find magnitudes through pythagorean therom
 		swerveFL.mag = Math.sqrt(Math.pow(swerveFL.x,2) + Math.pow(swerveFL.y, 2));
@@ -53,8 +53,8 @@ public class SwerveController {
 		if(largestMag > 1){ // If one mag is greater than 1 then scale the rest of the modules by the largest magnitude
 			swerveFL.mag = swerveFL.mag / largestMag;
 			swerveFR.mag = swerveFR.mag / largestMag;
-			SmartDashboard.putNumber("flMag", swerveFL.mag);
-			SmartDashboard.putNumber("frMag", swerveFR.mag);
+//			SmartDashboard.putNumber("flMag", swerveFL.mag);
+//			SmartDashboard.putNumber("frMag", swerveFR.mag);
 //			swerveBL.mag = swerveBL.mag / largestMag;
 //			swerveBR.mag = swerveBR.mag / largestMag;
 		}
@@ -66,12 +66,18 @@ public class SwerveController {
 		swerveFR.update();
 //		swerveBL.update();
 //		swerveBR.update();
-		SmartDashboard.putNumber("flTarAngle", swerveFL.tarAngle/Math.PI);
-		SmartDashboard.putNumber("flCurAngle", swerveFL.curAngle/Math.PI);
-		SmartDashboard.putNumber("frTarAngle", swerveFR.tarAngle/Math.PI);
-		SmartDashboard.putNumber("frCurAngle", swerveFR.curAngle/Math.PI);
+//		SmartDashboard.putNumber("flTarAngle", swerveFL.tarAngle/Math.PI);
+//		SmartDashboard.putNumber("flCurAngle", swerveFL.curAngle/Math.PI);
+//		SmartDashboard.putNumber("frTarAngle", swerveFR.tarAngle/Math.PI);
+//		SmartDashboard.putNumber("frCurAngle", swerveFR.curAngle/Math.PI);
+		SmartDashboard.putNumber("FLdistance", swerveFL.distance);
+		SmartDashboard.putNumber("FLratio", swerveFL.ratio);
+		SmartDashboard.putNumber("FLpower", swerveFL.power);
 		SmartDashboard.putNumber("FLturnSpeed", swerveFL.turnSpeed);
-		SmartDashboard.putNumber("FRturnSpeed", swerveFR.turnSpeed);
+		SmartDashboard.putNumber("FRdistance", swerveFR.distance);
+		SmartDashboard.putNumber("FLratio", swerveFL.ratio);
+		SmartDashboard.putNumber("FLpower", swerveFL.power);
+		SmartDashboard.putNumber("FRturnSpeed", swerveFL.turnSpeed);
 //		swerveBL.tarAngle = Math.atan2(swerveBL.y, swerveBL.x);
 //		swerveBR.tarAngle = Math.atan2(swerveBR.y, swerveBR.x);
 	}

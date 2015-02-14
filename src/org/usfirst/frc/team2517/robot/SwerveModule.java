@@ -22,7 +22,7 @@ public class SwerveModule {
 	public AnalogInput encoder;
 	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarAngle;
-	public double diffAngle, curAngle, turnSpeed;
+	public double diffAngle, curAngle, turnSpeed, distance, ratio, power;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
 		turnJag = new CANJaguar(tJagID);
@@ -39,28 +39,40 @@ public class SwerveModule {
 			tarAngle += 2 * Math.PI;
 			}  //Change range from (-pi,pi) to (0, 2pi).  Ease calculations.
 		diffAngle = Math.abs(tarAngle - curAngle);
-		if (Utils.deadband(diffAngle, Math.PI / 9) == 0){
+		if (Utils.deadband(diffAngle, Math.PI / 45) == 0){
 			turnJag.set(0);
 		}  //applied deadband to test if target and current angle is close enough. Tolerance: 3 degrees (PI/60)
 
 		else if (diffAngle > Math.PI) {
 			if (tarAngle > curAngle){
-				turnSpeed = ((diffAngle - (2 * Math.PI)) / Math.PI * (1 - minVoltage)) - minVoltage;
+				distance = diffAngle - (2 * Math.PI); //getting distance to travel
+				ratio /= Math.PI; //ratio of distance to travel to half a circle
+				power *= (1 - minVoltage); //multiply by its amount of control over total power
+				turnSpeed -=	minVoltage; //add the minimum voltage
 				turnJag.set(turnSpeed);
 			}
 			else {
-				turnSpeed = (((2 * Math.PI) - diffAngle) / Math.PI * (1 - minVoltage)) + minVoltage;
+				distance = 2 * Math.PI - diffAngle;
+				ratio /= Math.PI;
+				power *= (1 - minVoltage);
+				turnSpeed += minVoltage;
 				turnJag.set(turnSpeed);
 			}
 		}
 
 		else if (diffAngle < Math.PI){
 			if (tarAngle > curAngle){
-				turnSpeed = (diffAngle / Math.PI * (1 - minVoltage)) + minVoltage;
+				distance = diffAngle;
+				ratio /= Math.PI;
+				power *= (1 - minVoltage);
+				turnSpeed += minVoltage;
 				turnJag.set(turnSpeed);
 			}
 			else {
-				turnSpeed = (-diffAngle / Math.PI * (1 - minVoltage)) - minVoltage;
+				distance = -diffAngle;
+				ratio /= Math.PI;
+				power *= (1 - minVoltage);
+				turnSpeed -= minVoltage;
 				turnJag.set(turnSpeed);
 			}
 		}
