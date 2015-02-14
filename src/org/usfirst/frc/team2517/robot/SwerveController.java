@@ -75,9 +75,9 @@ public class SwerveController {
 		SmartDashboard.putNumber("FLpower", swerveFL.power);
 		SmartDashboard.putNumber("FLturnSpeed", swerveFL.turnSpeed);
 		SmartDashboard.putNumber("FRdistance", swerveFR.distance);
-		SmartDashboard.putNumber("FLratio", swerveFL.ratio);
-		SmartDashboard.putNumber("FLpower", swerveFL.power);
-		SmartDashboard.putNumber("FRturnSpeed", swerveFL.turnSpeed);
+		SmartDashboard.putNumber("FRratio", swerveFR.ratio);
+		SmartDashboard.putNumber("FRpower", swerveFR.power);
+		SmartDashboard.putNumber("FRturnSpeed", swerveFR.turnSpeed);
 //		swerveBL.tarAngle = Math.atan2(swerveBL.y, swerveBL.x);
 //		swerveBR.tarAngle = Math.atan2(swerveBR.y, swerveBR.x);
 	}
