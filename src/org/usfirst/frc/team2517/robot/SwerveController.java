@@ -61,26 +61,13 @@ public class SwerveController {
 		
 		swerveFL.tarAngle = Math.atan2(swerveFL.y, swerveFL.x); // Calculate the angles we want to be at with the joystick inputs
 		swerveFR.tarAngle = Math.atan2(swerveFR.y, swerveFR.x);
+//		swerveBL.tarAngle = Math.atan2(swerveBL.y, swerveBL.x);
+//		swerveBR.tarAngle = Math.atan2(swerveBR.y, swerveBR.x);
 		
 		swerveFL.update(); // We need to run this to set the values of the motor controllers
 		swerveFR.update();
 //		swerveBL.update();
 //		swerveBR.update();
-//		SmartDashboard.putNumber("flTarAngle", swerveFL.tarAngle/Math.PI);
-//		SmartDashboard.putNumber("flCurAngle", swerveFL.curAngle/Math.PI);
-//		SmartDashboard.putNumber("frTarAngle", swerveFR.tarAngle/Math.PI);
-//		SmartDashboard.putNumber("frCurAngle", swerveFR.curAngle/Math.PI);
-		SmartDashboard.putNumber("FLdistance", swerveFL.distance);
-		SmartDashboard.putNumber("FLratio", swerveFL.ratio);
-		SmartDashboard.putNumber("FLpower", swerveFL.power);
-		SmartDashboard.putNumber("FLturnSpeed", swerveFL.turnSpeed);
-		SmartDashboard.putNumber("FRdistance", swerveFR.distance);
-		SmartDashboard.putNumber("FRratio", swerveFR.ratio);
-		SmartDashboard.putNumber("FRpower", swerveFR.power);
-		SmartDashboard.putNumber("FRturnSpeed", swerveFR.turnSpeed);
-		SmartDashboard.putNumber("FLEncoder", swerveFL.encoder.getVoltage());
-		SmartDashboard.putNumber("FREncoder", swerveFR.encoder.getVoltage());
-//		swerveBL.tarAngle = Math.atan2(swerveBL.y, swerveBL.x);
-//		swerveBR.tarAngle = Math.atan2(swerveBR.y, swerveBR.x);
+		
 	}
 }
