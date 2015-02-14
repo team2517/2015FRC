@@ -14,6 +14,7 @@ public class SwerveController {
 //	SwerveModule swerveBL;
 //	SwerveModule swerveBR;
 	private double largestMag;
+	private String listString;
 	
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR ){
@@ -30,6 +31,10 @@ public class SwerveController {
 		swerveFL.y = (swerveFL.corY*phi)+yVector; // Someday outsource these into a SwerveModule function and run 4 times instead of 8
 		swerveFR.x = (swerveFR.corX*phi)+xVector;
 		swerveFR.y = (swerveFR.corY*phi)+yVector;
+		SmartDashboard.putNumber("StickXVectorFL", swerveFL.x);
+		SmartDashboard.putNumber("StickYVectorFL", swerveFL.y);
+		SmartDashboard.putNumber("StickXVectorFR", swerveFR.x);
+		SmartDashboard.putNumber("StickYVectorFR", swerveFR.y);
 //		swerveBL.x = (swerveBL.corX*phi)+xVector;
 //		swerveBL.y = (swerveBL.corY*phi)+yVector;
 //		swerveBR.x = (swerveBR.corX*phi)+xVector;
@@ -40,6 +45,8 @@ public class SwerveController {
 		swerveFR.mag = Math.sqrt(Math.pow(swerveFR.x,2) + Math.pow(swerveFR.y, 2));
 //		swerveBL.mag = Math.sqrt(Math.pow(swerveBL.x,2) + Math.pow(swerveBL.y, 2));
 //		swerveBR.mag = Math.sqrt(Math.pow(swerveBR.x,2) + Math.pow(swerveBR.y, 2));
+		SmartDashboard.putNumber("MagFL", swerveFL.mag);
+		SmartDashboard.putNumber("MagFR", swerveFR.mag);
 		
 		// Add all magnitudes to arraylist
 		mags.add(swerveFL.mag);
@@ -49,6 +56,13 @@ public class SwerveController {
 		
 		largestMag = Collections.max(mags);
 		SmartDashboard.putNumber("largestMag", largestMag);
+		
+		for (Double s : mags)
+		{
+		    listString += s + "\t";
+		}
+		SmartDashboard.putString("Magnitudes", listString);
+		
 		
 		if(largestMag > 1){ // If one mag is greater than 1 then scale the rest of the modules by the largest magnitude
 			swerveFL.mag = swerveFL.mag / largestMag;

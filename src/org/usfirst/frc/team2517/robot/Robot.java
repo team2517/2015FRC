@@ -3,6 +3,7 @@ package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,7 +42,10 @@ public class Robot extends IterativeRobot {
     	stickPhi = Utils.deadband(stick.getRawAxis(2), 0.02);
     	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
     	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
-    	
+		SmartDashboard.putNumber("RawStickX", rawStickX);
+		SmartDashboard.putNumber("RawStickY", rawStickY);
+		SmartDashboard.putNumber("StickX", stickX);
+		SmartDashboard.putNumber("StickY", stickY);
     	swerveDrive.swerve(rawStickX, rawStickY, stickPhi);
     }
     
