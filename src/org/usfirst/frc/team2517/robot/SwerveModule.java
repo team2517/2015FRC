@@ -33,30 +33,30 @@ public class SwerveModule {
 	}
 	public void update()
 	{
-		moveTal.set(mag);
+//		moveTal.set(mag);
 		curAngle = (encoder.getVoltage() / 2.5 * Math.PI); //translates encoder voltage values to pi radians
 		if (tarAngle < 0){
 			tarAngle += 2 * Math.PI;
 			}  //Change range from (-pi,pi) to (0, 2pi).  Ease calculations.
 		diffAngle = Math.abs(tarAngle - curAngle);
 		if (Utils.deadband(diffAngle, Math.PI / 45) == 0){
-			turnJag.set(0);
+//			turnJag.set(0);
 		}  //applied deadband to test if target and current angle is close enough. Tolerance: 3 degrees (PI/60)
 
 		else if (diffAngle > Math.PI) {
 			if (tarAngle > curAngle){
 				distance = diffAngle - (2 * Math.PI); //getting distance to travel
 				ratio = distance / Math.PI; //ratio of distance to travel to half a circle
-				power = ratio * (1 - minVoltage); //multiply by its amount of control over total power
+				power = ratio / 1.25; //multiply by its amount of control over total power
 				turnSpeed = power - minVoltage; //add the minimum voltage
-				turnJag.set(turnSpeed);
+//				turnJag.set(turnSpeed);
 			}
 			else {
 				distance = 2 * Math.PI - diffAngle;
 				ratio = distance / Math.PI;
-				power = ratio * (1 - minVoltage);
+				power = ratio / 1.25;
 				turnSpeed = power + minVoltage;
-				turnJag.set(turnSpeed);
+//				turnJag.set(turnSpeed);
 			}
 		}
 
@@ -64,16 +64,16 @@ public class SwerveModule {
 			if (tarAngle > curAngle){
 				distance = diffAngle;
 				ratio = distance / Math.PI;
-				power = ratio * (1 - minVoltage);
+				power = ratio / 1.25;
 				turnSpeed = power + minVoltage;
-				turnJag.set(turnSpeed);
+//				turnJag.set(turnSpeed);
 			}
 			else {
 				distance = -diffAngle;
 				ratio = distance / Math.PI;
-				power = ratio * (1 - minVoltage);
+				power = ratio / 1.25;
 				turnSpeed = power - minVoltage;
-				turnJag.set(turnSpeed);
+//				turnJag.set(turnSpeed);
 			}
 		}
 		/*
