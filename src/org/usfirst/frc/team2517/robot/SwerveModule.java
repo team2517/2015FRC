@@ -46,16 +46,16 @@ public class SwerveModule {
 		else if (diffAngle > Math.PI) {
 			if (tarAngle > curAngle){
 				distance = diffAngle - (2 * Math.PI); //getting distance to travel
-				ratio /= Math.PI; //ratio of distance to travel to half a circle
-				power *= (1 - minVoltage); //multiply by its amount of control over total power
-				turnSpeed -=	minVoltage; //add the minimum voltage
+				ratio = distance / Math.PI; //ratio of distance to travel to half a circle
+				power = ratio * (1 - minVoltage); //multiply by its amount of control over total power
+				turnSpeed = power - minVoltage; //add the minimum voltage
 				turnJag.set(turnSpeed);
 			}
 			else {
 				distance = 2 * Math.PI - diffAngle;
-				ratio /= Math.PI;
-				power *= (1 - minVoltage);
-				turnSpeed += minVoltage;
+				ratio = distance / Math.PI;
+				power = ratio * (1 - minVoltage);
+				turnSpeed = power + minVoltage;
 				turnJag.set(turnSpeed);
 			}
 		}
@@ -63,16 +63,16 @@ public class SwerveModule {
 		else if (diffAngle < Math.PI){
 			if (tarAngle > curAngle){
 				distance = diffAngle;
-				ratio /= Math.PI;
-				power *= (1 - minVoltage);
-				turnSpeed += minVoltage;
+				ratio = distance / Math.PI;
+				power = ratio * (1 - minVoltage);
+				turnSpeed = power + minVoltage;
 				turnJag.set(turnSpeed);
 			}
 			else {
 				distance = -diffAngle;
-				ratio /= Math.PI;
-				power *= (1 - minVoltage);
-				turnSpeed -= minVoltage;
+				ratio = distance / Math.PI;
+				power = ratio * (1 - minVoltage);
+				turnSpeed = power - minVoltage;
 				turnJag.set(turnSpeed);
 			}
 		}
