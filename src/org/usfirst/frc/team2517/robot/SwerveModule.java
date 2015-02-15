@@ -19,7 +19,6 @@ public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
 	public AnalogInput encoder;
-	private static double minVoltage = 0.2;
 	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed;
 	private double offset;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
@@ -39,13 +38,14 @@ public class SwerveModule {
 		
 		diffTheta = tarTheta - curTheta;
 		
+		// If our angle is over PI, then subtract PI*2 to bring the theta to be a smaller negative number
 		if (diffTheta > Math.PI) {
 			diffTheta -= 2 * Math.PI;
-		} 
+		} // Converse for last statement for if the theta is less than PI
 		else if (diffTheta < - Math.PI) {
 			diffTheta += 2 * Math.PI;
 		}
-
+		
 		if (diffTheta > Math.PI / 2) {
 			diffTheta -= Math.PI;
 			mag = mag * -1;
@@ -54,6 +54,7 @@ public class SwerveModule {
 			diffTheta += Math.PI;
 			mag = mag * -1;
 		}
+		
 		turnSpeed = diffTheta / Math.PI / 2;
 		if (0 < turnSpeed && turnSpeed < 0.25){
 			turnSpeed = 0.25;
@@ -63,6 +64,21 @@ public class SwerveModule {
 		}
 		if (Math.abs(diffTheta) < Math.PI / 45){
 			turnSpeed = 0;
+		}
+		
+		
+		
+		if (Robot.stickX == 0 && Robot.stickY == 0){ // Hold Position if joystick is not being pressed
+			turnJag.set(0);
+			moveTal.set(0);
+		}
+		else if (diffTheta < Math.PI / 36){ // Prevent the motor jittering to correct itself (5 degrees thereshold)
+			turnJag.set(0);
+			moveTal.set(0);
+		}
+		else{
+			turnJag.set(turnSpeed);
+			moveTal.set(mag);
 		}
 	}
 }

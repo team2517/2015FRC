@@ -18,7 +18,8 @@ public class Robot extends IterativeRobot {
      */
 	private Joystick stick;
 	private SwerveController swerveDrive;
-	private double stickX, rawStickX, stickY, rawStickY, stickPhi; // Joystick values
+	private double rawStickX, rawStickY, stickPhi; // Joystick values
+	public static double stickX, stickY;
 	
     public void robotInit() {
     	stick = new Joystick(0);
