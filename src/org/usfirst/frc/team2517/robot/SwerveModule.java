@@ -55,7 +55,7 @@ public class SwerveModule {
 			mag = mag * -1;
 		}
 		
-		turnSpeed = diffTheta / Math.PI * 2;
+		turnSpeed = diffTheta / (Math.PI / 2);
 		if (0 < turnSpeed && turnSpeed < 0.15){
 			turnSpeed = 0.15;
 		}
