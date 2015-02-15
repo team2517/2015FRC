@@ -4,7 +4,6 @@ import org.usfirst.frc.team2517.robot.SwerveModule;
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Collections;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveController {
 	ArrayList<Double> mags = new ArrayList<Double>();
@@ -64,15 +63,5 @@ public class SwerveController {
 		swerveFR.update();
 //		swerveBL.update();
 //		swerveBR.update();
-		SmartDashboard.putNumber("FLturnSpeed", swerveFL.turnSpeed);
-		SmartDashboard.putNumber("FLtarTheta", swerveFL.tarTheta/Math.PI);
-		SmartDashboard.putNumber("FLcurTheta", swerveFL.curTheta/Math.PI);
-		SmartDashboard.putNumber("FLdiffTheta", swerveFL.diffTheta/Math.PI);
-		SmartDashboard.putNumber("FLmag", swerveFL.mag);
-		SmartDashboard.putNumber("FRturnSpeed", swerveFR.turnSpeed);
-		SmartDashboard.putNumber("FRtarTheta", swerveFR.tarTheta/Math.PI);
-		SmartDashboard.putNumber("FRcurTheta", swerveFR.curTheta/Math.PI);
-		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta/Math.PI);
-		SmartDashboard.putNumber("FRmag", swerveFR.mag);
 	}
 }

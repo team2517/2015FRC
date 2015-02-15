@@ -19,12 +19,16 @@ public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
 	public AnalogInput encoder;
-	//private static double minVoltage = 0.2;
-	public double x, y, corX, corY, mag, tarTheta, turnSpeed, diffTheta, curTheta;
+	private double turnSpeed;
+	private static double minVoltage = 0.2;
+	public double x, y, corX, corY, mag, tarTheta;
+	private double diffTheta, curTheta;
 	private double offset;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
+//		try{ We need to get the CANNotFoundException thing here and probably some for PID as well.
 		turnJag = new CANJaguar(tJagID);
+//		} catch()
 		moveTal = new Talon(mTalID);
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
@@ -33,10 +37,18 @@ public class SwerveModule {
 	}
 	public void update()
 	{
-		curTheta = -(encoder.getVoltage() - offset ) / 5 * (2 * Math.PI);
+		curTheta = -(encoder.getVoltage() - offset ) / 5 * 2 * Math.PI;
 		
 		diffTheta = tarTheta - curTheta;
-		if (diffTheta > Math.PI / 2) { // moved up
+		
+		if (diffTheta > Math.PI) {
+			diffTheta -= 2 * Math.PI;
+		} 
+		else if (diffTheta < - Math.PI) {
+			diffTheta += 2 * Math.PI;
+		}
+
+		if (diffTheta > Math.PI / 2) {
 			diffTheta -= Math.PI;
 			mag = mag * -1;
 		} 
@@ -44,34 +56,15 @@ public class SwerveModule {
 			diffTheta += Math.PI;
 			mag = mag * -1;
 		}
-		if (diffTheta > Math.PI) {
-			diffTheta -= (2 * Math.PI);
-		} 
-		else if (diffTheta < - Math.PI) {
-			diffTheta += (2 * Math.PI);
+		turnSpeed = diffTheta / Math.PI / 2;
+		if (0 < turnSpeed && turnSpeed < 0.25){
+			turnSpeed = 0.25;
 		}
-		
-
-//		if (diffTheta > Math.PI / 2) {
-//			diffTheta -= Math.PI;
-//			mag = mag * -1;
-//		} 
-//		else if (diffTheta < -Math.PI / 2){
-//			diffTheta += Math.PI;
-//			mag = mag * -1;
-//		}
-		//speed
-		turnSpeed = diffTheta / (Math.PI * 2);
-		if (0 < turnSpeed && turnSpeed < 18){
-			turnSpeed = 0.15;
+		if (0 > turnSpeed && turnSpeed > -0.25){
+			turnSpeed = -0.25;
 		}
-		if (0 > turnSpeed && turnSpeed > -1){
-			turnSpeed = -0.15;
-		}
-		if (Math.abs(diffTheta) < Math.PI / 18){
+		if (Math.abs(diffTheta) < Math.PI / 45){
 			turnSpeed = 0;
 		}
-		turnJag.set(turnSpeed);
-		moveTal.set(mag);
 	}
 }
