@@ -24,9 +24,7 @@ public class SwerveModule {
 	private double offset;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
 	{
-//		try{ We need to get the CANNotFoundException thing here and probably some for PID as well.
 		turnJag = new CANJaguar(tJagID);
-//		} catch()
 		moveTal = new Talon(mTalID);
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
@@ -35,18 +33,10 @@ public class SwerveModule {
 	}
 	public void update()
 	{
-		curTheta = -(encoder.getVoltage() - offset ) / 5 * 2 * Math.PI;
+		curTheta = -(encoder.getVoltage() - offset ) / 5 * (2 * Math.PI);
 		
 		diffTheta = tarTheta - curTheta;
-		
-		if (diffTheta > Math.PI) {
-			diffTheta -= 2 * Math.PI;
-		} 
-		else if (diffTheta < - Math.PI) {
-			diffTheta += 2 * Math.PI;
-		}
-
-		if (diffTheta > Math.PI / 2) {
+		if (diffTheta > Math.PI / 2) { // moved up
 			diffTheta -= Math.PI;
 			mag = mag * -1;
 		} 
@@ -54,15 +44,34 @@ public class SwerveModule {
 			diffTheta += Math.PI;
 			mag = mag * -1;
 		}
-		turnSpeed = diffTheta / Math.PI / 2;
-		if (0 < turnSpeed && turnSpeed < 0.25){
-			turnSpeed = 0.25;
+		if (diffTheta > Math.PI) {
+			diffTheta -= (2 * Math.PI);
+		} 
+		else if (diffTheta < - Math.PI) {
+			diffTheta += (2 * Math.PI);
 		}
-		if (0 > turnSpeed && turnSpeed > -0.25){
-			turnSpeed = -0.25;
+		
+
+//		if (diffTheta > Math.PI / 2) {
+//			diffTheta -= Math.PI;
+//			mag = mag * -1;
+//		} 
+//		else if (diffTheta < -Math.PI / 2){
+//			diffTheta += Math.PI;
+//			mag = mag * -1;
+//		}
+		//speed
+		turnSpeed = diffTheta / (Math.PI * 2);
+		if (0 < turnSpeed && turnSpeed < 18){
+			turnSpeed = 0.15;
 		}
-		if (Math.abs(diffTheta) < Math.PI / 45){
+		if (0 > turnSpeed && turnSpeed > -1){
+			turnSpeed = -0.15;
+		}
+		if (Math.abs(diffTheta) < Math.PI / 18){
 			turnSpeed = 0;
 		}
+		turnJag.set(turnSpeed);
+		moveTal.set(mag);
 	}
 }
