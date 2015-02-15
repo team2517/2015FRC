@@ -55,7 +55,7 @@ public class SwerveModule {
 			mag = mag * -1;
 		}
 		
-		turnSpeed = diffTheta / Math.PI / 2;
+		turnSpeed = diffTheta / Math.PI * 2;
 		if (0 < turnSpeed && turnSpeed < 0.25){
 			turnSpeed = 0.25;
 		}
@@ -72,10 +72,10 @@ public class SwerveModule {
 			turnJag.set(0);
 			moveTal.set(0);
 		}
-		else if (diffTheta < Math.PI / 36){ // Prevent the motor jittering to correct itself (5 degrees thereshold)
-			turnJag.set(0);
-			moveTal.set(0);
-		}
+//		else if (diffTheta < Math.PI / 36){ // Prevent the motor jittering to correct itself (5 degrees thereshold)
+//			turnJag.set(0);
+//			moveTal.set(0);
+//		}
 		else{
 			turnJag.set(turnSpeed);
 			moveTal.set(mag);

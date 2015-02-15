@@ -76,5 +76,7 @@ public class SwerveController {
 		SmartDashboard.putNumber("FRcurTheta", swerveFR.curTheta/Math.PI);
 		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta/Math.PI);
 		SmartDashboard.putNumber("FRmag", swerveFR.mag);
+		SmartDashboard.putNumber("StickX", Robot.stickX);
+		SmartDashboard.putNumber("StickY", Robot.stickY);
 	}
 }
