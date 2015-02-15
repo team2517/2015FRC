@@ -56,11 +56,11 @@ public class SwerveModule {
 		}
 		
 		turnSpeed = diffTheta / Math.PI * 2;
-		if (0 < turnSpeed && turnSpeed < 0.25){
-			turnSpeed = 0.25;
+		if (0 < turnSpeed && turnSpeed < 0.15){
+			turnSpeed = 0.15;
 		}
-		if (0 > turnSpeed && turnSpeed > -0.25){
-			turnSpeed = -0.25;
+		if (0 > turnSpeed && turnSpeed > -0.15){
+			turnSpeed = -0.15;
 		}
 		if (Math.abs(diffTheta) < Math.PI / 45){
 			turnSpeed = 0;
