@@ -57,30 +57,30 @@ public class SwerveController {
 //			swerveBR.mag = swerveBR.mag / largestMag;
 		}
 		
-		swerveFL.tarTheta = Math.atan(swerveFL.y / swerveFL.x); // Calculate the angles we want to be at with the joystick inputs
-		swerveFR.tarTheta = Math.atan(swerveFR.y / swerveFR.x);
+		swerveFL.tarTheta = Math.atan2(swerveFL.y , swerveFL.x); // Calculate the angles we want to be at with the joystick inputs
+		swerveFR.tarTheta = Math.atan2(swerveFR.y , swerveFR.x);
 //		swerveBL.tarTheta = Math.atan2(swerveBL.y, swerveBL.x);
 //		swerveBR.tarTheta = Math.atan2(swerveBR.y, swerveBR.x);
-		if (swerveFL.x < 0){
-			swerveFL.tarTheta += Math.PI;
-		}
-		if (swerveFR.x < 0){
-			swerveFR.tarTheta += Math.PI;
-		}
+//		if (swerveFL.x < 0){
+//			swerveFL.tarTheta += Math.PI;
+//		}
+//		if (swerveFR.x < 0){
+//			swerveFR.tarTheta += Math.PI;
+//		}
 		
 		swerveFL.update(); // We need to run this to set the values of the motor controllers
 		swerveFR.update();
 //		swerveBL.update();
 //		swerveBR.update();
 		SmartDashboard.putNumber("FLturnSpeed", swerveFL.turnSpeed);
-		SmartDashboard.putNumber("FLtarTheta", swerveFL.tarTheta/Math.PI *57.2957795);
-		SmartDashboard.putNumber("FLcurTheta", swerveFL.curTheta/Math.PI *57.2957795);
-		SmartDashboard.putNumber("FLdiffTheta", swerveFL.diffTheta/Math.PI *57.2957795);
+		SmartDashboard.putNumber("FLtarTheta", swerveFL.tarTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FLcurTheta", swerveFL.curTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FLdiffTheta", swerveFL.diffTheta *(180/Math.PI));
 		SmartDashboard.putNumber("FLmag", swerveFL.mag);
 		SmartDashboard.putNumber("FRturnSpeed", swerveFR.turnSpeed);
-		SmartDashboard.putNumber("FRtarTheta", swerveFR.tarTheta/Math.PI *57.2957795);
-		SmartDashboard.putNumber("FRcurTheta", swerveFR.curTheta/Math.PI *57.2957795);
-		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta/Math.PI *57.2957795);
+		SmartDashboard.putNumber("FRtarTheta", swerveFR.tarTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FRcurTheta", swerveFR.curTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta *(180/Math.PI));
 		SmartDashboard.putNumber("FRmag", swerveFR.mag);
 		SmartDashboard.putNumber("StickX", xVector);
 		SmartDashboard.putNumber("StickY", yVector);
@@ -98,5 +98,9 @@ public class SwerveController {
 		SmartDashboard.putNumber("FrontRightCORX*Phi", swerveFR.corX*phi);
 		SmartDashboard.putNumber("FrontLeftCORY*Phi", swerveFL.corY*phi);
 		SmartDashboard.putNumber("FrontLeftCORX*Phi", swerveFL.corX*phi);
+
+		SmartDashboard.putBoolean("FrontLeftReversingMag", swerveFL.reverseMag);
+		SmartDashboard.putBoolean("FrontRightReversingMag", swerveFR.reverseMag);
+		
 	}
 }

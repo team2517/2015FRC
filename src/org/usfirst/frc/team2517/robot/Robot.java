@@ -20,7 +20,7 @@ public class Robot extends IterativeRobot {
 	private SwerveController swerveDrive;
 	private double rawStickX, rawStickY; // Joystick values
 	public static double stickX, stickY, stickPhi;
-	public static final double deadBandThereshold = .04;
+	public static final double deadBandThereshold = .08;
 	
     public void robotInit() {
     	stick = new Joystick(0);

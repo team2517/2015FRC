@@ -20,6 +20,7 @@ public class SwerveModule {
 	private Talon moveTal;
 	public AnalogInput encoder;
 	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed;
+	public boolean reverseMag = false;
 	private double offset;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR, double off)
 	{
@@ -35,7 +36,7 @@ public class SwerveModule {
 	public void update()
 	{
 		
-		curTheta = -(encoder.getVoltage() - offset )/5*(2*Math.PI);
+		curTheta = -(encoder.getVoltage() - offset)/5*(2*Math.PI);
 		
 		diffTheta = tarTheta - curTheta;
 		
@@ -47,14 +48,19 @@ public class SwerveModule {
 			diffTheta += 2 * Math.PI;
 		}
 		
-		if (diffTheta > Math.PI / 2) {
-			diffTheta -= Math.PI;
-			mag = mag * -1;
-		} 
-		else if (diffTheta < -Math.PI / 2){
-			diffTheta += Math.PI;
-			mag = mag * -1;
-		}
+//		if (diffTheta > Math.PI / 2) {
+//			diffTheta -= Math.PI;
+//			mag = mag * -1;
+//			reverseMag = true;
+//		} 
+//		else if (diffTheta < -Math.PI / 2){
+//			diffTheta += Math.PI;
+//			mag = mag * -1;
+//			reverseMag = true;
+//		}
+//		else{
+//			reverseMag = false;
+//		}
 		
 		turnSpeed = diffTheta / (Math.PI / 2);
 		
@@ -64,7 +70,8 @@ public class SwerveModule {
 		if (0 > turnSpeed && turnSpeed > -0.15){
 			turnSpeed = -0.15;
 		}
-		if (Math.abs(diffTheta) < Math.PI / 20){
+		
+		if (Math.abs(diffTheta) < Math.PI / 10){
 			turnSpeed = 0;
 		}
 		
@@ -74,13 +81,9 @@ public class SwerveModule {
 			turnJag.set(0);
 			moveTal.set(0);
 		}
-//		else if (diffTheta < Math.PI / 36){ // Prevent the motor jittering to correct itself (5 degrees thereshold)
-//			turnJag.set(0);
-//			moveTal.set(0);
-//		}
 		else{
-			turnJag.set(turnSpeed);
-			moveTal.set(mag);
+			turnJag.set(turnSpeed/3);
+			moveTal.set(mag/3);
 		}
 	}
 }
