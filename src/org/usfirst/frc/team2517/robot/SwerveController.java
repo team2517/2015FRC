@@ -20,8 +20,8 @@ public class SwerveController {
 							int moveFR, int turnFR, int encFR ){
 //							int moveBL, int turnBL, int encBL,
 //							int moveBR, int turnBR, int encBR){
-		swerveFL = new SwerveModule(moveFL, turnFL, encFL, 0.7421, 0.6703);
-		swerveFR = new SwerveModule(moveFR, turnFR, encFR, 0.6703, -0.7421);
+		swerveFL = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 1.343);
+		swerveFR = new SwerveModule(moveFR, turnFR, encFR, 0.707, -707, 4.930);
 //		swerveBL = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421);
 //		swerveBR = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703);
 	}
@@ -73,14 +73,14 @@ public class SwerveController {
 //		swerveBL.update();
 //		swerveBR.update();
 		SmartDashboard.putNumber("FLturnSpeed", swerveFL.turnSpeed);
-		SmartDashboard.putNumber("FLtarTheta", swerveFL.tarTheta/Math.PI);
-		SmartDashboard.putNumber("FLcurTheta", swerveFL.curTheta/Math.PI);
-		SmartDashboard.putNumber("FLdiffTheta", swerveFL.diffTheta/Math.PI);
+		SmartDashboard.putNumber("FLtarTheta", swerveFL.tarTheta/Math.PI *57.2957795);
+		SmartDashboard.putNumber("FLcurTheta", swerveFL.curTheta/Math.PI *57.2957795);
+		SmartDashboard.putNumber("FLdiffTheta", swerveFL.diffTheta/Math.PI *57.2957795);
 		SmartDashboard.putNumber("FLmag", swerveFL.mag);
 		SmartDashboard.putNumber("FRturnSpeed", swerveFR.turnSpeed);
-		SmartDashboard.putNumber("FRtarTheta", swerveFR.tarTheta/Math.PI);
-		SmartDashboard.putNumber("FRcurTheta", swerveFR.curTheta/Math.PI);
-		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta/Math.PI);
+		SmartDashboard.putNumber("FRtarTheta", swerveFR.tarTheta/Math.PI *57.2957795);
+		SmartDashboard.putNumber("FRcurTheta", swerveFR.curTheta/Math.PI *57.2957795);
+		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta/Math.PI *57.2957795);
 		SmartDashboard.putNumber("FRmag", swerveFR.mag);
 		SmartDashboard.putNumber("StickX", Robot.stickX);
 		SmartDashboard.putNumber("StickY", Robot.stickY);

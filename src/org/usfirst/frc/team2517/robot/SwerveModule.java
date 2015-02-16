@@ -21,7 +21,7 @@ public class SwerveModule {
 	public AnalogInput encoder;
 	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed;
 	private double offset;
-	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR)
+	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR, double off)
 	{
 //		try{ We need to get the CANNotFoundException thing here and probably some for PID as well.
 		turnJag = new CANJaguar(tJagID);
@@ -30,11 +30,11 @@ public class SwerveModule {
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
 		corY = yCOR;
-		offset = 0; // Pass this in later
+		offset = off; // Pass this in later
 	}
 	public void update()
 	{
-		curTheta = -(encoder.getVoltage() - offset ) / 5 * 2 * Math.PI;
+		curTheta = -(encoder.getVoltage() - offset )/5*(2*Math.PI);
 		
 		diffTheta = tarTheta - curTheta;
 		
@@ -56,19 +56,20 @@ public class SwerveModule {
 		}
 		
 		turnSpeed = diffTheta / (Math.PI / 2);
+		
 		if (0 < turnSpeed && turnSpeed < 0.15){
 			turnSpeed = 0.15;
 		}
 		if (0 > turnSpeed && turnSpeed > -0.15){
 			turnSpeed = -0.15;
 		}
-		if (Math.abs(diffTheta) < Math.PI / 45){
+		if (Math.abs(diffTheta) < Math.PI / 20){
 			turnSpeed = 0;
 		}
 		
 		
 		
-		if (Robot.stickX == 0 && Robot.stickY == 0){ // Hold Position if joystick is not being pressed
+		if (Robot.stickX == 0 && Robot.stickY == 0 && Robot.stickPhi == 0){ // Hold Position if joystick is not being pressed
 			turnJag.set(0);
 			moveTal.set(0);
 		}
