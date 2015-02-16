@@ -85,6 +85,9 @@ public class SwerveController {
 		SmartDashboard.putNumber("StickX", xVector);
 		SmartDashboard.putNumber("StickY", yVector);
 		SmartDashboard.putNumber("StickPhi", phi);
+
+		SmartDashboard.putNumber("FrontLeftRawEnc", swerveFL.encoder.getVoltage());
+		SmartDashboard.putNumber("FrontRightRawEnc", swerveFR.encoder.getVoltage());
 		
 		SmartDashboard.putNumber("FrontLeftCORX", swerveFL.corX);
 		SmartDashboard.putNumber("FrontLeftCORY", swerveFL.corY);
