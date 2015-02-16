@@ -84,5 +84,11 @@ public class SwerveController {
 		SmartDashboard.putNumber("FRmag", swerveFR.mag);
 		SmartDashboard.putNumber("StickX", Robot.stickX);
 		SmartDashboard.putNumber("StickY", Robot.stickY);
+		SmartDashboard.putNumber("StickPhi", Robot.stickPhi);
+		
+		SmartDashboard.putNumber("FrontLeftCORX", swerveFR.corX);
+		SmartDashboard.putNumber("FrontLeftCORY", swerveFR.corY);
+		SmartDashboard.putNumber("FrontRightCORX", swerveFR.corX);
+		SmartDashboard.putNumber("FrontRightCORY", swerveFR.corY);
 	}
 }
