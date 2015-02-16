@@ -28,7 +28,7 @@ public class SwerveController {
 	
 	public void swerve(double xVector, double yVector, double phi){
 		swerveFL.x = (swerveFL.corX*phi)+xVector;
-		swerveFL.y = (swerveFL.corY*phi)+yVector; // Someday outsource these into a SwerveModule function and run 4 times instead of 8
+		swerveFL.y = (swerveFL.corY*phi)+yVector; 
 		swerveFR.x = (swerveFR.corX*phi)+xVector;
 		swerveFR.y = (swerveFR.corY*phi)+yVector;
 //		swerveBL.x = (swerveBL.corX*phi)+xVector;
@@ -82,13 +82,18 @@ public class SwerveController {
 		SmartDashboard.putNumber("FRcurTheta", swerveFR.curTheta/Math.PI *57.2957795);
 		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta/Math.PI *57.2957795);
 		SmartDashboard.putNumber("FRmag", swerveFR.mag);
-		SmartDashboard.putNumber("StickX", Robot.stickX);
-		SmartDashboard.putNumber("StickY", Robot.stickY);
-		SmartDashboard.putNumber("StickPhi", Robot.stickPhi);
+		SmartDashboard.putNumber("StickX", xVector);
+		SmartDashboard.putNumber("StickY", yVector);
+		SmartDashboard.putNumber("StickPhi", phi);
 		
 		SmartDashboard.putNumber("FrontLeftCORX", swerveFL.corX);
 		SmartDashboard.putNumber("FrontLeftCORY", swerveFL.corY);
 		SmartDashboard.putNumber("FrontRightCORX", swerveFR.corX);
 		SmartDashboard.putNumber("FrontRightCORY", swerveFR.corY);
+
+		SmartDashboard.putNumber("FrontRightCORY*Phi", swerveFR.corY*phi);
+		SmartDashboard.putNumber("FrontRightCORX*Phi", swerveFR.corX*phi);
+		SmartDashboard.putNumber("FrontLeftCORY*Phi", swerveFL.corY*phi);
+		SmartDashboard.putNumber("FrontLeftCORX*Phi", swerveFL.corX*phi);
 	}
 }
