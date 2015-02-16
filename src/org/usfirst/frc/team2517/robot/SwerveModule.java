@@ -34,8 +34,6 @@ public class SwerveModule {
 	}
 	public void update()
 	{
-		x = (corX*phi)+xVector;
-//		swerveFL.y = (swerveFL.corY*phi)+yVector;
 		
 		curTheta = -(encoder.getVoltage() - offset )/5*(2*Math.PI);
 		
