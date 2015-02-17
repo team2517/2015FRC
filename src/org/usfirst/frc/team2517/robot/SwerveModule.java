@@ -4,17 +4,6 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Talon;
 
-/* *
- * We want the swerve module class to
- * 1. Initialize 2 CANJaguars as parameters
- * 2. Directly receive direction and mag variables through a function and move the 
- * motorTurn jaguar until it has reached its goal
- * 3. Look nice and have comments
- * 
- * You will need to basically rip code from last year's math code and convert it to java
- * 
- * */
-
 public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
