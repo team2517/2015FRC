@@ -95,8 +95,8 @@ public class SwerveController {
 		SmartDashboard.putNumber("StickY", yVector);
 		SmartDashboard.putNumber("StickPhi", phi);
 
-		SmartDashboard.putNumber("FrontLeftRawEnc", swerves[0].encoder.getVoltage());
-		SmartDashboard.putNumber("FrontRightRawEnc", swerves[1].encoder.getVoltage());
+		SmartDashboard.putNumber("FrontLeftRawEnc", SwerveModule.encoder.getVoltage());
+		SmartDashboard.putNumber("FrontRightRawEnc", SwerveModule.encoder.getVoltage());
 		
 		SmartDashboard.putNumber("FrontLeftCORX", swerves[0].corX);
 		SmartDashboard.putNumber("FrontLeftCORY", swerves[0].corY);
@@ -124,5 +124,7 @@ public class SwerveController {
 			swerves[i].rawUpdate(true, tSpeed);
 			swerves[i].rawUpdate(false, mSpeed);
 		}
+		SmartDashboard.putNumber("FrontLeftRawEnc", SwerveModule.encoder.getVoltage());
+		SmartDashboard.putNumber("FrontRightRawEnc", SwerveModule.encoder.getVoltage());
 	}
 }
