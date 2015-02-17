@@ -36,7 +36,7 @@ public class SwerveModule {
 	public void update()
 	{
 		
-		curTheta = -(encoder.getVoltage() - offset)/5*(2*Math.PI);
+		curTheta = (encoder.getVoltage() - offset)/5*(2*Math.PI);
 		
 		rawDiffTheta = tarTheta - curTheta;
 		diffTheta = rawDiffTheta;
@@ -83,8 +83,8 @@ public class SwerveModule {
 			moveTal.set(0);
 		}
 		else{
-			turnJag.set(turnSpeed/3);
-			moveTal.set(mag/3);
+			turnJag.set(turnSpeed);
+			moveTal.set(mag);
 		}
 	}
 }
