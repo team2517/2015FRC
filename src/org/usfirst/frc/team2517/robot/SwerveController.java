@@ -81,6 +81,9 @@ public class SwerveController {
 		SmartDashboard.putNumber("FRtarTheta", swerveFR.tarTheta *(180/Math.PI));
 		SmartDashboard.putNumber("FRcurTheta", swerveFR.curTheta *(180/Math.PI));
 		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FLrawDiffTheta", swerveFR.rawDiffTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FRrawDiffTheta", swerveFR.rawDiffTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta *(180/Math.PI));
 		SmartDashboard.putNumber("FRmag", swerveFR.mag);
 		SmartDashboard.putNumber("StickX", xVector);
 		SmartDashboard.putNumber("StickY", yVector);

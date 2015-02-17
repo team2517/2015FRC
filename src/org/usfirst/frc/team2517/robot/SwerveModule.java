@@ -19,7 +19,7 @@ public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
 	public AnalogInput encoder;
-	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed;
+	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, rawDiffTheta;
 	public boolean reverseMag = false;
 	private double offset;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR, double off)
@@ -38,7 +38,8 @@ public class SwerveModule {
 		
 		curTheta = -(encoder.getVoltage() - offset)/5*(2*Math.PI);
 		
-		diffTheta = tarTheta - curTheta;
+		rawDiffTheta = tarTheta - curTheta;
+		diffTheta = rawDiffTheta;
 		
 		// If our angle is over PI, then subtract PI*2 to bring the theta to be a smaller negative number
 		if (diffTheta > Math.PI) {
