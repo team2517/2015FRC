@@ -35,7 +35,9 @@ public class SwerveModule {
 	}
 	public void update()
 	{
-		
+		/**
+		 * Takes all of the public variables modified and updates the motor controllers in the module
+		 */
 		curTheta = (encoder.getVoltage() - offset)/5*(2*Math.PI);
 		
 		rawDiffTheta = tarTheta - curTheta;
@@ -87,6 +89,16 @@ public class SwerveModule {
 			moveTal.set(mag);
 		}
 	}
+	/**
+	 * Set a raw speed input into the swerve module without applying any extra mathematics
+	 * @param turning
+	 *            The motor to turn during the function.
+	 *            If true, update the motor controller for turning the wheel.
+	 *            If false, update the turning of the wheel itself.
+	 * @param speed
+	 * 			  The speed to set the motor controller to.
+	 * 			  Accept a double in between -1 and 1
+	 */
 	public void rawUpdate(boolean turning, double speed){
 		if(turning){
 			turnJag.set(speed);

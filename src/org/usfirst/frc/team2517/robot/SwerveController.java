@@ -113,6 +113,7 @@ public class SwerveController {
 		
 	}
 	public void calibrate(double speed, boolean button){
+		swerves[calMode].rawUpdate(true, speed);
 		
 	}
 }
