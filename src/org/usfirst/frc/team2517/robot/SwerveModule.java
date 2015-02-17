@@ -87,4 +87,12 @@ public class SwerveModule {
 			moveTal.set(mag);
 		}
 	}
+	public void rawUpdate(boolean turning, double speed){
+		if(turning){
+			turnJag.set(speed);
+		}
+		else{
+			moveTal.set(speed);
+		}
+	}
 }
