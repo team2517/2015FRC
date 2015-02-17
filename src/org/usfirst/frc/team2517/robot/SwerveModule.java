@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Talon;
 public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
-	public AnalogInput encoder;
+	public static AnalogInput encoder;
 	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, rawDiffTheta;
 	public boolean reverseMag = false;
 	private double offset;
@@ -76,24 +76,6 @@ public class SwerveModule {
 		else{
 			turnJag.set(turnSpeed);
 			moveTal.set(mag);
-		}
-	}
-	/**
-	 * Set a raw speed input into the swerve module without applying any extra mathematics
-	 * @param turning
-	 *            The motor to turn during the function.
-	 *            If true, update the motor controller for turning the wheel.
-	 *            If false, update the turning of the wheel itself.
-	 * @param speed
-	 * 			  The speed to set the motor controller to.
-	 * 			  Accept a double in between -1 and 1
-	 */
-	public void rawUpdate(boolean turning, double speed){
-		if(turning){
-			turnJag.set(speed);
-		}
-		else{
-			moveTal.set(speed);
 		}
 	}
 }

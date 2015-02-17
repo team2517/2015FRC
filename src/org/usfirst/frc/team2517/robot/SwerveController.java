@@ -112,19 +112,4 @@ public class SwerveController {
 		SmartDashboard.putBoolean("FrontRightReversingMag", swerves[1].reverseMag);
 		
 	}
-	/**
-	 * Turns all wheels at the rate of tSpeed and moves the wheels at the rate of tSpeed
-	 * @param tSpeed
-	 *            Speed to move all of the turning motor controllers
-	 * @param mSpeed
-	 *            Speed to move all of the moving motor controllers
-	 */
-	public void updateAll(double tSpeed, double mSpeed){
-		for(int i=0; i < 4; i++){
-			swerves[i].rawUpdate(true, tSpeed);
-			swerves[i].rawUpdate(false, mSpeed);
-		}
-		SmartDashboard.putNumber("FrontLeftRawEnc", SwerveModule.encoder.getVoltage());
-		SmartDashboard.putNumber("FrontRightRawEnc", SwerveModule.encoder.getVoltage());
-	}
 }
