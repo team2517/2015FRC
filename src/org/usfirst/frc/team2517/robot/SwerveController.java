@@ -113,23 +113,16 @@ public class SwerveController {
 		
 	}
 	/**
-	 * If this function is being ran periodically the robot will go into a
-	 * calibration mode in which one swerve turning motor will move at the
-	 * rate of speed until button is true
-	 * @param speed
-	 *            The speed to move the motors in calibration. 
-	 *            Usually set to a joystick axis.
-	 * @param button
-	 * 			  When this is true the program will switch to the next module.
+	 * Turns all wheels at the rate of tSpeed and moves the wheels at the rate of tSpeed
+	 * @param tSpeed
+	 *            Speed to move all of the turning motor controllers
+	 * @param mSpeed
+	 *            Speed to move all of the moving motor controllers
 	 */
-	public void calibrate(double speed, boolean button){
-		if(button && calMode <= 3){
-			calMode++;
+	public void updateAll(double tSpeed, double mSpeed){
+		for(int i=0; i < 4; i++){
+			swerves[i].rawUpdate(true, tSpeed);
+			swerves[i].rawUpdate(false, mSpeed);
 		}
-		else if(button && calMode >= 4){
-			calMode = 0;
-		}
-		swerves[calMode].rawUpdate(true, speed);
-		
 	}
 }
