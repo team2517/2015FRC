@@ -51,6 +51,11 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+    	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThereshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
+    	rawStickY = Utils.deadband(stick.getRawAxis(1), deadBandThereshold);
+    	stickPhi = Utils.deadband(stick.getRawAxis(2), deadBandThereshold);
+    	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
+    	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
     	
     }
     

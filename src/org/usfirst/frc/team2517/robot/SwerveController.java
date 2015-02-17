@@ -9,101 +9,103 @@ import java.lang.Math;
 import java.util.Collections;
 
 public class SwerveController {
-	ArrayList<Double> mags = new ArrayList<Double>();
-	SwerveModule swerveFL; // Initialize one object for each module. Format is turnJag, moveJag, encID
-	SwerveModule swerveFR;
-//	SwerveModule swerveBL;
-//	SwerveModule swerveBR;
+	SwerveModule[] swerves = new SwerveModule[4]; // Initialize one object for each module. Format is turnJag, moveJag, encID
 	private double largestMag;
+	ArrayList<Double> mags = new ArrayList<Double>();
+	int calMode = 0;
 	
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR ){
 //							int moveBL, int turnBL, int encBL,
 //							int moveBR, int turnBR, int encBR){
-		swerveFL = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 3.962);
-		swerveFR = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 4.868);
-//		swerveBL = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421);
-//		swerveBR = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703);
+		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 3.962);
+		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 4.868);
+//		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421);
+//		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703);
 	}
 	
 	public void swerve(double xVector, double yVector, double phi){
-		swerveFL.x = (swerveFL.corX*phi)+xVector;
-		swerveFL.y = (swerveFL.corY*phi)+yVector; 
-		swerveFR.x = (swerveFR.corX*phi)+xVector;
-		swerveFR.y = (swerveFR.corY*phi)+yVector;
-//		swerveBL.x = (swerveBL.corX*phi)+xVector;
-//		swerveBL.y = (swerveBL.corY*phi)+yVector;
-//		swerveBR.x = (swerveBR.corX*phi)+xVector;
-//		swerveBR.y = (swerveBR.corY*phi)+yVector;
+		swerves[0].x = (swerves[0].corX*phi)+xVector;
+		swerves[0].y = (swerves[0].corY*phi)+yVector; 
+		swerves[1].x = (swerves[1].corX*phi)+xVector;
+		swerves[1].y = (swerves[1].corY*phi)+yVector;
+//		swerves[2].x = (swerves[2].corX*phi)+xVector;
+//		swerves[2].y = (swerves[2].corY*phi)+yVector;
+//		swerves[3].x = (swerves[3].corX*phi)+xVector;
+//		swerves[3].y = (swerves[3].corY*phi)+yVector;
 		
 		// Find magnitudes through pythagorean therom
-		swerveFL.mag = Math.sqrt(Math.pow(swerveFL.x,2) + Math.pow(swerveFL.y, 2));
-		swerveFR.mag = Math.sqrt(Math.pow(swerveFR.x,2) + Math.pow(swerveFR.y, 2));
-//		swerveBL.mag = Math.sqrt(Math.pow(swerveBL.x,2) + Math.pow(swerveBL.y, 2));
-//		swerveBR.mag = Math.sqrt(Math.pow(swerveBR.x,2) + Math.pow(swerveBR.y, 2));
+		swerves[0].mag = Math.sqrt(Math.pow(swerves[0].x,2) + Math.pow(swerves[0].y, 2));
+		swerves[1].mag = Math.sqrt(Math.pow(swerves[1].x,2) + Math.pow(swerves[1].y, 2));
+//		swerves[2].mag = Math.sqrt(Math.pow(swerves[2].x,2) + Math.pow(swerves[2].y, 2));
+//		swerves[3].mag = Math.sqrt(Math.pow(swerves[3].x,2) + Math.pow(swerves[3].y, 2));
 		
 		// Add all magnitudes to arraylist
-		mags.add(swerveFL.mag);
-		mags.add(swerveFR.mag);
-//		mags.add(swerveBL.mag);
-//		mags.add(swerveBR.mag);
+		mags.add(swerves[0].mag);
+		mags.add(swerves[1].mag);
+//		mags.add(swerves[2].mag);
+//		mags.add(swerves[3].mag);
 		
 		largestMag = Collections.max(mags);
 		
 		if(largestMag > 1){ // If one mag is greater than 1 then scale the rest of the modules by the largest magnitude
-			swerveFL.mag = swerveFL.mag / largestMag;
-			swerveFR.mag = swerveFR.mag / largestMag;
-//			swerveBL.mag = swerveBL.mag / largestMag;
-//			swerveBR.mag = swerveBR.mag / largestMag;
+			swerves[0].mag = swerves[0].mag / largestMag;
+			swerves[1].mag = swerves[1].mag / largestMag;
+//			swerves[2].mag = swerves[2].mag / largestMag;
+//			swerves[3].mag = swerves[3].mag / largestMag;
 		}
 		
-		swerveFL.tarTheta = Math.atan2(swerveFL.y , swerveFL.x); // Calculate the angles we want to be at with the joystick inputs
-		swerveFR.tarTheta = Math.atan2(swerveFR.y , swerveFR.x);
-//		swerveBL.tarTheta = Math.atan2(swerveBL.y, swerveBL.x);
-//		swerveBR.tarTheta = Math.atan2(swerveBR.y, swerveBR.x);
-//		if (swerveFL.x < 0){
-//			swerveFL.tarTheta += Math.PI;
+		swerves[0].tarTheta = Math.atan2(swerves[0].y , swerves[0].x); // Calculate the angles we want to be at with the joystick inputs
+		swerves[1].tarTheta = Math.atan2(swerves[1].y , swerves[1].x);
+//		swerves[2].tarTheta = Math.atan2(swerves[2].y, swerves[2].x);
+//		swerves[3].tarTheta = Math.atan2(swerves[3].y, swerves[3].x);
+//		if (swerves[0].x < 0){
+//			swerves[0].tarTheta += Math.PI;
 //		}
-//		if (swerveFR.x < 0){
-//			swerveFR.tarTheta += Math.PI;
+//		if (swerves[1].x < 0){
+//			swerves[1].tarTheta += Math.PI;
 //		}
 		
-		swerveFL.update(); // We need to run this to set the values of the motor controllers
-		swerveFR.update();
-//		swerveBL.update();
-//		swerveBR.update();
-		SmartDashboard.putNumber("FLturnSpeed", swerveFL.turnSpeed);
-		SmartDashboard.putNumber("FLtarTheta", swerveFL.tarTheta *(180/Math.PI));
-		SmartDashboard.putNumber("FLcurTheta", swerveFL.curTheta *(180/Math.PI));
-		SmartDashboard.putNumber("FLdiffTheta", swerveFL.diffTheta *(180/Math.PI));
-		SmartDashboard.putNumber("FLmag", swerveFL.mag);
-		SmartDashboard.putNumber("FRturnSpeed", swerveFR.turnSpeed);
-		SmartDashboard.putNumber("FRtarTheta", swerveFR.tarTheta *(180/Math.PI));
-		SmartDashboard.putNumber("FRcurTheta", swerveFR.curTheta *(180/Math.PI));
-		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta *(180/Math.PI));
-		SmartDashboard.putNumber("FLrawDiffTheta", swerveFR.rawDiffTheta *(180/Math.PI));
-		SmartDashboard.putNumber("FRrawDiffTheta", swerveFR.rawDiffTheta *(180/Math.PI));
-		SmartDashboard.putNumber("FRdiffTheta", swerveFR.diffTheta *(180/Math.PI));
-		SmartDashboard.putNumber("FRmag", swerveFR.mag);
+		swerves[0].update(); // We need to run this to set the values of the motor controllers
+		swerves[1].update();
+//		swerves[2].update();
+//		swerves[3].update();
+		
+		SmartDashboard.putNumber("FLturnSpeed", swerves[0].turnSpeed); // Values into driverstation for debug purposes
+		SmartDashboard.putNumber("FLtarTheta", swerves[0].tarTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FLcurTheta", swerves[0].curTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FLdiffTheta", swerves[0].diffTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FLmag", swerves[0].mag);
+		SmartDashboard.putNumber("FRturnSpeed", swerves[1].turnSpeed);
+		SmartDashboard.putNumber("FRtarTheta", swerves[1].tarTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FRcurTheta", swerves[1].curTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FRdiffTheta", swerves[1].diffTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FLrawDiffTheta", swerves[1].rawDiffTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FRrawDiffTheta", swerves[1].rawDiffTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FRdiffTheta", swerves[1].diffTheta *(180/Math.PI));
+		SmartDashboard.putNumber("FRmag", swerves[1].mag);
 		SmartDashboard.putNumber("StickX", xVector);
 		SmartDashboard.putNumber("StickY", yVector);
 		SmartDashboard.putNumber("StickPhi", phi);
 
-		SmartDashboard.putNumber("FrontLeftRawEnc", swerveFL.encoder.getVoltage());
-		SmartDashboard.putNumber("FrontRightRawEnc", swerveFR.encoder.getVoltage());
+		SmartDashboard.putNumber("FrontLeftRawEnc", swerves[0].encoder.getVoltage());
+		SmartDashboard.putNumber("FrontRightRawEnc", swerves[1].encoder.getVoltage());
 		
-		SmartDashboard.putNumber("FrontLeftCORX", swerveFL.corX);
-		SmartDashboard.putNumber("FrontLeftCORY", swerveFL.corY);
-		SmartDashboard.putNumber("FrontRightCORX", swerveFR.corX);
-		SmartDashboard.putNumber("FrontRightCORY", swerveFR.corY);
+		SmartDashboard.putNumber("FrontLeftCORX", swerves[0].corX);
+		SmartDashboard.putNumber("FrontLeftCORY", swerves[0].corY);
+		SmartDashboard.putNumber("FrontRightCORX", swerves[1].corX);
+		SmartDashboard.putNumber("FrontRightCORY", swerves[1].corY);
 
-		SmartDashboard.putNumber("FrontRightCORY*Phi", swerveFR.corY*phi);
-		SmartDashboard.putNumber("FrontRightCORX*Phi", swerveFR.corX*phi);
-		SmartDashboard.putNumber("FrontLeftCORY*Phi", swerveFL.corY*phi);
-		SmartDashboard.putNumber("FrontLeftCORX*Phi", swerveFL.corX*phi);
+		SmartDashboard.putNumber("FrontRightCORY*Phi", swerves[1].corY*phi);
+		SmartDashboard.putNumber("FrontRightCORX*Phi", swerves[1].corX*phi);
+		SmartDashboard.putNumber("FrontLeftCORY*Phi", swerves[0].corY*phi);
+		SmartDashboard.putNumber("FrontLeftCORX*Phi", swerves[0].corX*phi);
 
-		SmartDashboard.putBoolean("FrontLeftReversingMag", swerveFL.reverseMag);
-		SmartDashboard.putBoolean("FrontRightReversingMag", swerveFR.reverseMag);
+		SmartDashboard.putBoolean("FrontLeftReversingMag", swerves[0].reverseMag);
+		SmartDashboard.putBoolean("FrontRightReversingMag", swerves[1].reverseMag);
+		
+	}
+	public void calibrate(double speed, boolean button){
 		
 	}
 }
