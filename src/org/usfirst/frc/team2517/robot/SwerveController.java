@@ -112,7 +112,23 @@ public class SwerveController {
 		SmartDashboard.putBoolean("FrontRightReversingMag", swerves[1].reverseMag);
 		
 	}
+	/**
+	 * If this function is being ran periodically the robot will go into a
+	 * calibration mode in which one swerve turning motor will move at the
+	 * rate of speed until button is true
+	 * @param speed
+	 *            The speed to move the motors in calibration. 
+	 *            Usually set to a joystick axis.
+	 * @param button
+	 * 			  When this is true the program will switch to the next module.
+	 */
 	public void calibrate(double speed, boolean button){
+		if(button && calMode <= 3){
+			calMode++;
+		}
+		else if(button && calMode >= 4){
+			calMode = 0;
+		}
 		swerves[calMode].rawUpdate(true, speed);
 		
 	}
