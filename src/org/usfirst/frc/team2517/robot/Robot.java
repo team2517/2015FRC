@@ -3,6 +3,7 @@ package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -50,6 +51,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+    	
     }
     
 }
