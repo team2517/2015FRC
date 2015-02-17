@@ -9,7 +9,14 @@ import java.lang.Math;
 import java.util.Collections;
 
 public class SwerveController {
-	SwerveModule[] swerves = new SwerveModule[4]; // Initialize one object for each module. Format is turnJag, moveJag, encID
+	/* *
+	 * 1 entry in the swerves array for each module. Order is:
+	 * swerves[0] = Front Left Swerve
+	 * swerves[1] = Front Right Swerve
+	 * swerves[2] = Back Left Swerve
+	 * swerves[3] = Back Right Swerve
+	 * */
+	SwerveModule[] swerves = new SwerveModule[4]; 
 	private double largestMag;
 	ArrayList<Double> mags = new ArrayList<Double>();
 	int calMode = 0;
