@@ -49,19 +49,19 @@ public class SwerveModule {
 			diffTheta += 2 * Math.PI;
 		}
 		
-//		if (diffTheta > Math.PI / 2) {
-//			diffTheta -= Math.PI;
-//			mag = mag * -1;
-//			reverseMag = true;
-//		} 
-//		else if (diffTheta < -Math.PI / 2){
-//			diffTheta += Math.PI;
-//			mag = mag * -1;
-//			reverseMag = true;
-//		}
-//		else{
-//			reverseMag = false;
-//		}
+		if (diffTheta > Math.PI / 2) {
+			diffTheta -= Math.PI;
+			mag = mag * -1;
+			reverseMag = true;
+		} 
+		else if (diffTheta < -Math.PI / 2){
+			diffTheta += Math.PI;
+			mag = mag * -1;
+			reverseMag = true;
+		}
+		else{
+			reverseMag = false;
+		}
 		
 		turnSpeed = diffTheta / (Math.PI / 2);
 		

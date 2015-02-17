@@ -20,8 +20,8 @@ public class SwerveController {
 							int moveFR, int turnFR, int encFR ){
 //							int moveBL, int turnBL, int encBL,
 //							int moveBR, int turnBR, int encBR){
-		swerveFL = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 1.343);
-		swerveFR = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 4.930);
+		swerveFL = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 3.962);
+		swerveFR = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 4.868);
 //		swerveBL = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421);
 //		swerveBR = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703);
 	}
