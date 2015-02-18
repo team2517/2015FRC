@@ -19,7 +19,7 @@ public class SwerveController {
 	SwerveModule[] swerves = new SwerveModule[4]; 
 	private double largestMag;
 	ArrayList<Double> mags = new ArrayList<Double>();
-	int calMode = 0;
+	public int calMode = 0;
 	
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR ){
@@ -32,14 +32,11 @@ public class SwerveController {
 	}
 	
 	public void swerve(double xVector, double yVector, double phi){
-		swerves[0].x = (swerves[0].corX*phi)+xVector;
-		swerves[0].y = (swerves[0].corY*phi)+yVector; 
-		swerves[1].x = (swerves[1].corX*phi)+xVector;
-		swerves[1].y = (swerves[1].corY*phi)+yVector;
-//		swerves[2].x = (swerves[2].corX*phi)+xVector;
-//		swerves[2].y = (swerves[2].corY*phi)+yVector;
-//		swerves[3].x = (swerves[3].corX*phi)+xVector;
-//		swerves[3].y = (swerves[3].corY*phi)+yVector;
+		for(int i=0; i<3; i++){
+			swerves[i].x = (swerves[i].corX*phi)+xVector;
+			swerves[i].y = (swerves[i].corY*phi)+yVector; 
+			
+		}
 		
 		// Find magnitudes through pythagorean therom
 		swerves[0].mag = Math.sqrt(Math.pow(swerves[0].x,2) + Math.pow(swerves[0].y, 2));
