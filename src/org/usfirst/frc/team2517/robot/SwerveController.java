@@ -39,10 +39,9 @@ public class SwerveController {
 		}
 		
 		// Add all magnitudes to arraylist
-		mags.add(swerves[0].mag);
-		mags.add(swerves[1].mag);
-//		mags.add(swerves[2].mag);
-//		mags.add(swerves[3].mag);
+		for(int i=0; i<3; i++){
+			mags.add(swerves[i].mag);	
+		}
 		
 		largestMag = Collections.max(mags);
 		
