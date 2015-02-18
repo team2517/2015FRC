@@ -48,7 +48,8 @@ public class SwerveController {
 		// If one mag is greater than 1 then scale the rest of the modules by the largest magnitude
 		if(largestMag > 1){
 			for(int i=0; i<3; i++){
-			swerves[i].mag = swerves[i].mag / largestMag;
+				swerves[i].mag = swerves[i].mag / largestMag;
+			}
 		}
 		
 		swerves[0].tarTheta = Math.atan2(swerves[0].y , swerves[0].x); // Calculate the angles we want to be at with the joystick inputs
