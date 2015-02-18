@@ -22,13 +22,13 @@ public class SwerveController {
 	public int calMode = 0;
 	
 	public SwerveController(int moveFL, int turnFL, int encFL,
-							int moveFR, int turnFR, int encFR ){
-//							int moveBL, int turnBL, int encBL,
-//							int moveBR, int turnBR, int encBR){
+							int moveFR, int turnFR, int encFR,
+							int moveBL, int turnBL, int encBL,
+							int moveBR, int turnBR, int encBR){
 		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 3.962);
 		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 4.868);
-//		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421);
-//		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703);
+		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421, 0); // Update back offsets
+		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703, 0);
 	}
 	
 	public void swerve(double xVector, double yVector, double phi){

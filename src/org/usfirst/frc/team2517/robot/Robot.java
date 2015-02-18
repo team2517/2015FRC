@@ -24,7 +24,10 @@ public class Robot extends IterativeRobot {
 	
     public void robotInit() {
     	stick = new Joystick(0);
-    	swerveDrive = new SwerveController(0, 4, 0, 1, 30, 1);
+    	swerveDrive = new SwerveController(0, 4, 0,
+    									   1, 30, 1,
+    									   0, 0, 0,
+    									   0, 0, 0);
     }
 
     /**
