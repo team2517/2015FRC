@@ -100,6 +100,11 @@ public class SwerveController {
 			SmartDashboard.putNumber("BackLeftCORY", swerves[2].corY);
 			SmartDashboard.putNumber("BackRightCORX", swerves[3].corX);
 			SmartDashboard.putNumber("BackRightCORY", swerves[3].corY);
+			
+			SmartDashboard.putString("FrontLeftErrorStatus", swerves[0].status);
+			SmartDashboard.putString("FrontRightErrorStatus", swerves[1].status);
+			SmartDashboard.putString("BackLeftErrorStatus", swerves[2].status);
+			SmartDashboard.putString("BackRightErrorStatus", swerves[3].status);
 		}
 	}
 }

@@ -26,7 +26,7 @@ public class SwerveModule {
 	public AnalogInput encoder;
 	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, rawDiffTheta;
 	private double offset;
-	public static String status;
+	public String status;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR, double off)
 	{
 		status = "Clear";
