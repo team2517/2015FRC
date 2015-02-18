@@ -11,11 +11,16 @@ public class SwerveModule {
 	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, rawDiffTheta;
 	public boolean reverseMag = false;
 	private double offset;
+	public static String status;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR, double off)
 	{
-//		try{ We need to get the CANNotFoundException thing here and probably some for PID as well.
-		turnJag = new CANJaguar(tJagID);
-//		} catch()
+		status = "Clear";
+		try{
+			turnJag = new CANJaguar(tJagID);
+		} 
+		catch(edu.wpi.first.wpilibj.can.CANMessageNotFoundException e){
+			status = e.toString();
+		}
 		moveTal = new Talon(mTalID);
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
