@@ -52,18 +52,7 @@ public class SwerveController {
 			}
 		}
 		
-		swerves[0].tarTheta = Math.atan2(swerves[0].y , swerves[0].x); // Calculate the angles we want to be at with the joystick inputs
-		swerves[1].tarTheta = Math.atan2(swerves[1].y , swerves[1].x);
-//		swerves[2].tarTheta = Math.atan2(swerves[2].y, swerves[2].x);
-//		swerves[3].tarTheta = Math.atan2(swerves[3].y, swerves[3].x);
-//		if (swerves[0].x < 0){
-//			swerves[0].tarTheta += Math.PI;
-//		}
-//		if (swerves[1].x < 0){
-//			swerves[1].tarTheta += Math.PI;
-//		}
-		
-		swerves[0].update(); // We need to run this to set the values of the motor controllers
+		swerves[0].update(); // We need to run this to use all equations individual to the modules and to set values of motor controllers.
 		swerves[1].update();
 //		swerves[2].update();
 //		swerves[3].update();

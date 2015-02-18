@@ -24,8 +24,8 @@ public class SwerveModule {
 	}
 	public void update()
 	{
-		// Find magnitudes through pythagorean therom
-		mag = Math.sqrt(Math.pow(x,2) + Math.pow(y, 2));
+		
+		tarTheta = Math.atan2(y , x); // Calculate the angles we want to be at with the joystick inputs
 		
 		/**
 		 * Takes all of the variables modified and updates the motor controllers in the module
