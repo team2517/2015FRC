@@ -35,14 +35,8 @@ public class SwerveController {
 		for(int i=0; i<3; i++){
 			swerves[i].x = (swerves[i].corX*phi)+xVector;
 			swerves[i].y = (swerves[i].corY*phi)+yVector; 
-			
+			swerves[i].updateMag();
 		}
-		
-		// Find magnitudes through pythagorean therom
-		swerves[0].mag = Math.sqrt(Math.pow(swerves[0].x,2) + Math.pow(swerves[0].y, 2));
-		swerves[1].mag = Math.sqrt(Math.pow(swerves[1].x,2) + Math.pow(swerves[1].y, 2));
-//		swerves[2].mag = Math.sqrt(Math.pow(swerves[2].x,2) + Math.pow(swerves[2].y, 2));
-//		swerves[3].mag = Math.sqrt(Math.pow(swerves[3].x,2) + Math.pow(swerves[3].y, 2));
 		
 		// Add all magnitudes to arraylist
 		mags.add(swerves[0].mag);

@@ -24,8 +24,11 @@ public class SwerveModule {
 	}
 	public void update()
 	{
+		// Find magnitudes through pythagorean therom
+		mag = Math.sqrt(Math.pow(x,2) + Math.pow(y, 2));
+		
 		/**
-		 * Takes all of the public variables modified and updates the motor controllers in the module
+		 * Takes all of the variables modified and updates the motor controllers in the module
 		 */
 		curTheta = (encoder.getVoltage() - offset)/5*(2*Math.PI);
 		
@@ -77,5 +80,8 @@ public class SwerveModule {
 			turnJag.set(turnSpeed);
 			moveTal.set(mag);
 		}
+	}
+	public void updateMag(){
+		mag = Math.sqrt(Math.pow(x,2) + Math.pow(y, 2));
 	}
 }
