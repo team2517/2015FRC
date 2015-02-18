@@ -58,8 +58,9 @@ public class SwerveModule {
 			mag = mag * -1;
 		}
 		
-		turnSpeed = diffTheta / (Math.PI / 2);
+		turnSpeed = diffTheta / (Math.PI / 2); // Our way of ramping down the turnSpeed based on the angle
 		
+		// Making sure turning motor never goes below 15% because friction in the motor will cause the swerve to have a hard time turning with any less
 		if (0 < turnSpeed && turnSpeed < 0.15){
 			turnSpeed = 0.15;
 		}
@@ -67,7 +68,8 @@ public class SwerveModule {
 			turnSpeed = -0.15;
 		}
 		
-		if (Math.abs(diffTheta) < Math.PI / 10){
+		// Our 'deadband' for the swerve module for an acceptable thereshold (4 degrees)
+		if (Math.abs(diffTheta) < Math.PI / 45){
 			turnSpeed = 0;
 		}
 		
