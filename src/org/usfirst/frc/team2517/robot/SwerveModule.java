@@ -9,7 +9,6 @@ public class SwerveModule {
 	private Talon moveTal;
 	public AnalogInput encoder;
 	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, rawDiffTheta;
-	public boolean reverseMag = false;
 	private double offset;
 	public static String status;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR, double off)
@@ -48,18 +47,15 @@ public class SwerveModule {
 			diffTheta += 2 * Math.PI;
 		}
 		
+		// If the diffTheta is greater than PI/2 (90 Degrees) we can make our movements more efficient
+		// by moving the module to have the wheel effectively be facing the same direction but have the wheel reversed.
 		if (diffTheta > Math.PI / 2) {
 			diffTheta -= Math.PI;
 			mag = mag * -1;
-			reverseMag = true;
 		} 
 		else if (diffTheta < -Math.PI / 2){
 			diffTheta += Math.PI;
 			mag = mag * -1;
-			reverseMag = true;
-		}
-		else{
-			reverseMag = false;
 		}
 		
 		turnSpeed = diffTheta / (Math.PI / 2);
