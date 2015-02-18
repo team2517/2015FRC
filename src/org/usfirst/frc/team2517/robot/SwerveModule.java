@@ -73,13 +73,12 @@ public class SwerveModule {
 			turnSpeed = 0;
 		}
 		
-		
-		
-		if (Robot.stickX == 0 && Robot.stickY == 0 && Robot.stickPhi == 0){ // Hold Position if joystick is not being pressed
+		// Hold Position if joystick is not being pressed to save power if we are continuing with a similar movement
+		if (Robot.stickX == 0 && Robot.stickY == 0 && Robot.stickPhi == 0){ 
 			turnJag.set(0);
 			moveTal.set(0);
 		}
-		else{
+		else{ // Update motor controllers
 			turnJag.set(turnSpeed);
 			moveTal.set(mag);
 		}
