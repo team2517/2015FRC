@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Talon;
 public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
-	public static AnalogInput encoder;
+	public AnalogInput encoder;
 	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, rawDiffTheta;
 	public boolean reverseMag = false;
 	private double offset;

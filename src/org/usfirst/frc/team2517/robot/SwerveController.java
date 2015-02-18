@@ -64,33 +64,42 @@ public class SwerveController {
 			SmartDashboard.putNumber("FLcurTheta", swerves[0].curTheta *(180/Math.PI));
 			SmartDashboard.putNumber("FLdiffTheta", swerves[0].diffTheta *(180/Math.PI));
 			SmartDashboard.putNumber("FLmag", swerves[0].mag);
+			
 			SmartDashboard.putNumber("FRturnSpeed", swerves[1].turnSpeed);
 			SmartDashboard.putNumber("FRtarTheta", swerves[1].tarTheta *(180/Math.PI));
 			SmartDashboard.putNumber("FRcurTheta", swerves[1].curTheta *(180/Math.PI));
 			SmartDashboard.putNumber("FRdiffTheta", swerves[1].diffTheta *(180/Math.PI));
-			SmartDashboard.putNumber("FLrawDiffTheta", swerves[1].rawDiffTheta *(180/Math.PI));
-			SmartDashboard.putNumber("FRrawDiffTheta", swerves[1].rawDiffTheta *(180/Math.PI));
-			SmartDashboard.putNumber("FRdiffTheta", swerves[1].diffTheta *(180/Math.PI));
 			SmartDashboard.putNumber("FRmag", swerves[1].mag);
+			
+			SmartDashboard.putNumber("BLturnSpeed", swerves[2].turnSpeed); 
+			SmartDashboard.putNumber("BLtarTheta", swerves[2].tarTheta *(180/Math.PI));
+			SmartDashboard.putNumber("BLcurTheta", swerves[2].curTheta *(180/Math.PI));
+			SmartDashboard.putNumber("BLdiffTheta", swerves[2].diffTheta *(180/Math.PI));
+			SmartDashboard.putNumber("BLmag", swerves[2].mag);
+			
+			SmartDashboard.putNumber("BRturnSpeed", swerves[3].turnSpeed);
+			SmartDashboard.putNumber("BRtarTheta", swerves[3].tarTheta *(180/Math.PI));
+			SmartDashboard.putNumber("BRcurTheta", swerves[3].curTheta *(180/Math.PI));
+			SmartDashboard.putNumber("BRdiffTheta", swerves[3].diffTheta *(180/Math.PI));
+			SmartDashboard.putNumber("BRmag", swerves[3].mag);
+			
 			SmartDashboard.putNumber("StickX", xVector);
 			SmartDashboard.putNumber("StickY", yVector);
 			SmartDashboard.putNumber("StickPhi", phi);
 	
-			SmartDashboard.putNumber("FrontLeftRawEnc", SwerveModule.encoder.getVoltage());
-			SmartDashboard.putNumber("FrontRightRawEnc", SwerveModule.encoder.getVoltage());
+			SmartDashboard.putNumber("FrontLeftRawEnc", swerves[0].encoder.getVoltage());
+			SmartDashboard.putNumber("FrontRightRawEnc", swerves[1].encoder.getVoltage());
+			SmartDashboard.putNumber("BackLeftRawEnc", swerves[2].encoder.getVoltage());
+			SmartDashboard.putNumber("BackRightRawEnc", swerves[3].encoder.getVoltage());
 			
 			SmartDashboard.putNumber("FrontLeftCORX", swerves[0].corX);
 			SmartDashboard.putNumber("FrontLeftCORY", swerves[0].corY);
 			SmartDashboard.putNumber("FrontRightCORX", swerves[1].corX);
 			SmartDashboard.putNumber("FrontRightCORY", swerves[1].corY);
-	
-			SmartDashboard.putNumber("FrontRightCORY*Phi", swerves[1].corY*phi);
-			SmartDashboard.putNumber("FrontRightCORX*Phi", swerves[1].corX*phi);
-			SmartDashboard.putNumber("FrontLeftCORY*Phi", swerves[0].corY*phi);
-			SmartDashboard.putNumber("FrontLeftCORX*Phi", swerves[0].corX*phi);
-	
-			SmartDashboard.putBoolean("FrontLeftReversingMag", swerves[0].reverseMag);
-			SmartDashboard.putBoolean("FrontRightReversingMag", swerves[1].reverseMag);
+			SmartDashboard.putNumber("BackLeftCORX", swerves[2].corX);
+			SmartDashboard.putNumber("BackLeftCORY", swerves[2].corY);
+			SmartDashboard.putNumber("BackRightCORX", swerves[3].corX);
+			SmartDashboard.putNumber("BackRightCORY", swerves[3].corY);
 		}
 	}
 }
