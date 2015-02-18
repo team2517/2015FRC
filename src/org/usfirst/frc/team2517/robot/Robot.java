@@ -28,10 +28,10 @@ public class Robot extends IterativeRobot {
 	
     public void robotInit() {
     	stick = new Joystick(0);
-    	swerveDrive = new SwerveController(0, 4, 0,
-    									   1, 30, 1,
-    									   0, 0, 0,
-    									   0, 0, 0);
+    	swerveDrive = new SwerveController(0, 4, 0,  // TalonFL, JagFL, EncFL
+    									   1, 30, 1, // TalonFR, JagFR, EncFR
+    									   0, 0, 0,  // TalonBL, JagBL, EncBL
+    									   0, 0, 0); // TalonBR, JagBR, EncBR
     }
     /**
      * This function is called once before autonomous
