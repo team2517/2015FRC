@@ -3,6 +3,7 @@ package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,6 +22,9 @@ public class Robot extends IterativeRobot {
 	private double rawStickX, rawStickY; // Joystick values
 	public static double stickX, stickY, stickPhi;
 	public static final double deadBandThereshold = .08;
+	private final double autoDur = 5;
+	private final double autoSpeed = .3;
+	private Timer autoTimer;
 	
     public void robotInit() {
     	stick = new Joystick(0);
@@ -29,11 +33,24 @@ public class Robot extends IterativeRobot {
     									   0, 0, 0,
     									   0, 0, 0);
     }
-
+    /**
+     * This function is called once before autonomous
+     */
+public void autonomousInit() {
+    	autoTimer.start();
+    }
+    
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	// Move robot forward for a set amount of seconds
+    	if(autoTimer.get() < autoDur){
+    		swerveDrive.swerve(0, autoSpeed, 0);
+    	}
+    	else{
+    		swerveDrive.swerve(0, 0, 0);
+    	}
     	
     }
 
