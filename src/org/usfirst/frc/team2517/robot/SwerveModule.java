@@ -4,6 +4,22 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Talon;
 
+/**
+ * The SwerveModule class is intended to hold all variables, objects, and calculations
+ * that are required for each module.
+ * @param mTalID
+ * 						ID for the location of the Talon PWM slot in the roboRIO.
+ * @param tJagID
+ * 						ID for the Jaguar's ID wired through CAN.
+ * @param eID
+ * 						ID for the absolute encoder slot in Analog Input.
+ * @param xCor
+ * 						X Value for center of rotation
+ * @param yCor
+ * 						Y Value for center of rotation
+ * @param off
+ * 						Offset of the position of the absolute encoder's zero and where you want your zero to be.
+ */
 public class SwerveModule {
 	private CANJaguar turnJag;
 	private Talon moveTal;
@@ -26,10 +42,14 @@ public class SwerveModule {
 		corY = yCOR;
 		offset = off; // Pass this in later
 	}
+	
+	/**
+	 * Runs all calculations independant to the swerve module and updates motor controllers.
+	 */
 	public void update()
 	{
 		
-		tarTheta = Math.atan2(y , x); // Calculate the angles we want to be at with the joystick inputs
+		tarTheta = Math.atan2(y, x); // Calculate the angles we want to be at with the joystick inputs
 		
 		/**
 		 * Takes all of the variables modified and updates the motor controllers in the module
@@ -83,6 +103,9 @@ public class SwerveModule {
 			moveTal.set(mag);
 		}
 	}
+	/**
+	 * Takes the public x and y variables in the swerveModule and updates the magnitude alone.
+	 */
 	public void updateMag(){
 		mag = Math.sqrt(Math.pow(x,2) + Math.pow(y, 2));
 	}
