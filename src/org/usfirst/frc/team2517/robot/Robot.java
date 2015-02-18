@@ -22,8 +22,8 @@ public class Robot extends IterativeRobot {
 	private double rawStickX, rawStickY; // Joystick values
 	public static double stickX, stickY, stickPhi;
 	public static final double deadBandThereshold = .08;
-	private final double autoDur = 5;
-	private final double autoSpeed = .3;
+	private final double autoDur = 5; // Amount of seconds the robot moves forward in autonomous
+	private final double autoSpeed = .3; // The speed (between -1 and 1) where the robot moves forward during autonomous
 	private Timer autoTimer;
 	
     public void robotInit() {
