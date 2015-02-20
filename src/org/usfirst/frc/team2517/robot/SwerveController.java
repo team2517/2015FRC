@@ -105,6 +105,26 @@ public class SwerveController {
 			SmartDashboard.putString("FrontRightErrorStatus", swerves[1].status);
 			SmartDashboard.putString("BackLeftErrorStatus", swerves[2].status);
 			SmartDashboard.putString("BackRightErrorStatus", swerves[3].status);
+			
+
 		}
+		
+	}
+	/**
+	* Turns all wheels at the rate of tSpeed and moves the wheels at the rate of tSpeed
+	* @param tSpeed
+	*            Speed to move all of the turning motor controllers
+	* @param mSpeed
+	*            Speed to move all of the moving motor controllers
+	*/
+	public void updateAll(double tSpeed, double mSpeed){
+	for(int i=0; i < 4; i++){
+		swerves[i].rawUpdate(true, tSpeed);
+		swerves[i].rawUpdate(false, mSpeed);
+	}
+	SmartDashboard.putNumber("FrontLeftRawEnc", swerves[0].encoder.getVoltage());
+	SmartDashboard.putNumber("FrontRightRawEnc", swerves[1].encoder.getVoltage());
+	SmartDashboard.putNumber("BackLeftRawEnc", swerves[2].encoder.getVoltage());
+	SmartDashboard.putNumber("BackRightRawEnc", swerves[3].encoder.getVoltage());
 	}
 }
