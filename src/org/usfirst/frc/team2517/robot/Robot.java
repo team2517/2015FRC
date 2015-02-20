@@ -33,13 +33,14 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	stick = new Joystick(0);
     	swerveDrive = new SwerveController(0, 4, 0,  // TalonFL, JagFL, EncFL
-    									   1, 30, 1, // TalonFR, JagFR, EncFR
-    									   0, 0, 0,  // TalonBL, JagBL, EncBL
-    									   0, 0, 0); // TalonBR, JagBR, EncBR
+    									   1, 12, 0, // TalonFR, JagFR, EncFR
+    									   0, 45, 0,  // TalonBL, JagBL, EncBL
+    									   0, 30, 0); // TalonBR, JagBR, EncBR
     	pickUpLeft = new Talon(0);
     	pickUpRight = new Talon(1);
     	lift = new Solenoid(0);
     	eject = new Solenoid(1);
+
     }
     /**
      * This function is called once before autonomous
@@ -97,6 +98,8 @@ public void autonomousInit() {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+    	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThereshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
+    	swerveDrive.updateAll(rawStickX, .3);
     }
     
 }
