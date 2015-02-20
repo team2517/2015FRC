@@ -1,21 +1,18 @@
 package org.usfirst.frc.team2517.robot;
-
 import org.usfirst.frc.team2517.robot.SwerveModule;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Collections;
 
+/**
+ * 1 entry in the swerves array for each module. Order is:
+ * swerves[0] = Front Left Swerve
+ * swerves[1] = Front Right Swerve
+ * swerves[2] = Back Left Swerve
+ * swerves[3] = Back Right Swerve
+ */
 public class SwerveController {
-	/* *
-	 * 1 entry in the swerves array for each module. Order is:
-	 * swerves[0] = Front Left Swerve
-	 * swerves[1] = Front Right Swerve
-	 * swerves[2] = Back Left Swerve
-	 * swerves[3] = Back Right Swerve
-	 * */
 	SwerveModule[] swerves = new SwerveModule[4]; 
 	private double largestMag;
 	ArrayList<Double> mags = new ArrayList<Double>();
