@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,7 +22,6 @@ public class Robot extends IterativeRobot {
 	private Joystick stick;
 	private SwerveController swerveDrive;
 	private double rawStickX, rawStickY; // Joystick values
-	private boolean fullCalibration;
 	public static double stickX, stickY, stickPhi;
 	public static final double deadBandThereshold = .08;
 	private final double autoDur = 5; // Amount of seconds the robot moves forward in autonomous
@@ -99,14 +97,6 @@ public void autonomousInit() {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    	if(SmartDashboard.getBoolean("DB/Button 0")){
-        	SmartDashboard.putString("DB/String 0", "Quick Calibration");
-        	fullCalibration = false;
-    	}
-    	else{
-        	SmartDashboard.putString("DB/String 0", "Full Calibration");
-        	fullCalibration = true;
-    	}
     	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThereshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
     	swerveDrive.updateAll(rawStickX, .3);
     }
