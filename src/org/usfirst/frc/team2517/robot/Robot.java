@@ -3,6 +3,8 @@ package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -25,6 +27,8 @@ public class Robot extends IterativeRobot {
 	private final double autoDur = 5; // Amount of seconds the robot moves forward in autonomous
 	private final double autoSpeed = .3; // The speed (between -1 and 1) where the robot moves forward during autonomous
 	private Timer autoTimer;
+	private Solenoid lift, eject;
+	private Talon pickUpLeft, pickUpRight;
 	
     public void robotInit() {
     	stick = new Joystick(0);
@@ -32,6 +36,10 @@ public class Robot extends IterativeRobot {
     									   1, 30, 1, // TalonFR, JagFR, EncFR
     									   0, 0, 0,  // TalonBL, JagBL, EncBL
     									   0, 0, 0); // TalonBR, JagBR, EncBR
+    	pickUpLeft = new Talon(0);
+    	pickUpRight = new Talon(1);
+    	lift = new Solenoid(0);
+    	eject = new Solenoid(1);
     }
     /**
      * This function is called once before autonomous
@@ -64,8 +72,27 @@ public void autonomousInit() {
     	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
     	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
     	swerveDrive.swerve(stickX, stickY, stickPhi);
+    	if (stick.getRawButton(7)){
+    		pickUpLeft.set(0.42);
+    		pickUpRight.set(0.42);
+    		eject.set(false);
+        }
+    	else{
+    		pickUpLeft.set(0);
+    		pickUpRight.set(0);
+    	}
+    	if (stick.getRawButton(5)){
+    		eject.set(true);
+    		pickUpLeft.set(0);
+    		pickUpRight.set(0);
+    	}
+    	if (stick.getRawButton(8)){
+    		lift.set(false);
+    	}
+    	else if (stick.getRawButton(6)){
+    		lift.set(true);
+    	}
     }
-    
     /**
      * This function is called periodically during test mode
      */
