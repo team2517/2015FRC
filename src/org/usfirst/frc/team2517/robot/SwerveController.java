@@ -29,7 +29,7 @@ public class SwerveController {
 		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703, 0);
 	}
 	
-	public void swerve(double xVector, double yVector, double phi){
+	public void swerve(double xVector, double yVector, double phi, boolean changeCOR){
 		for(int i=0; i<3; i++){
 			swerves[i].x = (swerves[i].corX*phi)+xVector;
 			swerves[i].y = (swerves[i].corY*phi)+yVector; 
