@@ -23,7 +23,7 @@ public class Robot extends IterativeRobot {
 	private SwerveController swerveDrive;
 	private double rawStickX, rawStickY; // Joystick values
 	public static double stickX, stickY, stickPhi;
-	public static final double deadBandThereshold = .08;
+	public static final double deadBandThreshold = .08;
 	private final double autoDur = 5; // Amount of seconds the robot moves forward in autonomous
 	private final double autoSpeed = .3; // The speed (between -1 and 1) where the robot moves forward during autonomous
 	private Timer autoTimer;
@@ -66,9 +66,9 @@ public void autonomousInit() {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThereshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
-    	rawStickY = Utils.deadband(stick.getRawAxis(1), deadBandThereshold);
-    	stickPhi = Utils.deadband(stick.getRawAxis(2), deadBandThereshold);
+    	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
+    	rawStickY = Utils.deadband(stick.getRawAxis(1), deadBandThreshold);
+    	stickPhi = Utils.deadband(stick.getRawAxis(2), deadBandThreshold);
     	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
     	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
     	swerveDrive.swerve(stickX, stickY, stickPhi);
@@ -97,7 +97,7 @@ public void autonomousInit() {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThereshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
+    	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
     	swerveDrive.updateAll(rawStickX/3, .3);
     }
     
