@@ -99,8 +99,8 @@ public class SwerveModule {
 			moveTal.set(0);
 		}
 		else{ // Update motor controllers
-			turnJag.set(turnSpeed);
-			moveTal.set(mag);
+			turnJag.set(turnSpeed/3);
+			moveTal.set(mag/3);
 		}
 	}
 	/**

@@ -32,15 +32,16 @@ public class Robot extends IterativeRobot {
 	private boolean changeCOR;
 	
     public void robotInit() {
+    	autoTimer = new Timer();
     	stick = new Joystick(0);
     	swerveDrive = new SwerveController(2, 12, 0,  // TalonFL, JagFL, EncFL
     									   1, 4, 3,   // TalonFR, JagFR, EncFR
     									   3, 45, 1,  // TalonBL, JagBL, EncBL
     									   0, 30, 2); // TalonBR, JagBR, EncB
-    	pickUpLeft = new Talon(0);
-    	pickUpRight = new Talon(1);
-    	lift = new Solenoid(0);
-    	eject = new Solenoid(1);
+    	pickUpLeft = new Talon(4);
+    	pickUpRight = new Talon(5);
+//    	lift = new Solenoid(0);
+//    	eject = new Solenoid(1);
     }
     /**
      * This function is called once before autonomous
@@ -77,22 +78,22 @@ public void autonomousInit() {
     	if (stick.getRawButton(7)){
     		pickUpLeft.set(0.42);
     		pickUpRight.set(0.42);
-    		eject.set(false);
+//    		eject.set(false);i
         }
     	else{
     		pickUpLeft.set(0);
     		pickUpRight.set(0);
     	}
     	if (stick.getRawButton(5)){
-    		eject.set(true);
+//    		eject.set(true);
     		pickUpLeft.set(0);
     		pickUpRight.set(0);
     	}
     	if (stick.getRawButton(8)){
-    		lift.set(false);
+//    		lift.set(false);
     	}
     	else if (stick.getRawButton(6)){
-    		lift.set(true);
+//    		lift.set(true);
     	}
     }
     /**
