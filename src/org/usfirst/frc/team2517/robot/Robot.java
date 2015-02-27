@@ -33,10 +33,10 @@ public class Robot extends IterativeRobot {
 	
     public void robotInit() {
     	stick = new Joystick(0);
-    	swerveDrive = new SwerveController(0, 4, 0,  // TalonFL, JagFL, EncFL
-    									   1, 12, 1, // TalonFR, JagFR, EncFR
-    									   2, 45, 2,  // TalonBL, JagBL, EncBL
-    									   3, 30, 3); // TalonBR, JagBR, EncB
+    	swerveDrive = new SwerveController(2, 12, 0,  // TalonFL, JagFL, EncFL
+    									   1, 4, 3,   // TalonFR, JagFR, EncFR
+    									   3, 45, 1,  // TalonBL, JagBL, EncBL
+    									   0, 30, 2); // TalonBR, JagBR, EncB
     	pickUpLeft = new Talon(0);
     	pickUpRight = new Talon(1);
     	lift = new Solenoid(0);
