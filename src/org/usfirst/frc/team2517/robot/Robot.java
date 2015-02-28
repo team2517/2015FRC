@@ -3,9 +3,6 @@ package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,7 +18,7 @@ public class Robot extends IterativeRobot {
      */
 	private Joystick stick;
 	private SwerveController swerveDrive;
-	public static double stickX, rawStickX, stickY, rawStickY, stickPhi;
+	public static double stickX, rawStickX, stickY, rawStickY, stickPhi, rawStick2X;
 	public static final double deadBandThreshold = .08;
 	
     public void robotInit() {
@@ -49,7 +46,8 @@ public void autonomousInit() {
      */
     public void teleopPeriodic() {
     	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
-    	swerveDrive.updateAll(rawStickX/3, .3);
+    	rawStick2X = rawStickX = Utils.deadband(stick.getRawAxis(2), deadBandThreshold);
+    	swerveDrive.updateAll((rawStickX/3)+(rawStick2X*(2/3)), .3);
     }
     /**
      * This function is called periodically during test mode

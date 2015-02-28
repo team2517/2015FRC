@@ -23,8 +23,8 @@ public class SwerveController {
 							int moveFR, int turnFR, int encFR,
 							int moveBL, int turnBL, int encBL,
 							int moveBR, int turnBR, int encBR){
-		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 3.962);
-		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 4.868);
+		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 1.83);
+		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 3.325);
 		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421, 0); // Update back offsets
 		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703, 0);
 	}
