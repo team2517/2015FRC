@@ -3,9 +3,11 @@ package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,14 +32,18 @@ public class Robot extends IterativeRobot {
 	private Solenoid lift, eject;
 	private Talon pickUpLeft, pickUpRight;
 	private boolean changeCOR;
+	private boolean calButtonPressed;
+	private int calMode = 0;
+	private boolean calibrating = true;
+	private Preferences pref;
 	
     public void robotInit() {
     	autoTimer = new Timer();
     	stick = new Joystick(0);
     	swerveDrive = new SwerveController(2, 12, 0,  // TalonFL, JagFL, EncFL
-    									   1, 4, 3,   // TalonFR, JagFR, EncFR
-    									   3, 45, 1,  // TalonBL, JagBL, EncBL
-    									   0, 30, 2); // TalonBR, JagBR, EncB
+    									   1, 30, 3,   // TalonFR, JagFR, EncFR
+    									   3, 45, 2,  // TalonBL, JagBL, EncBL
+    									   0, 4, 1); // TalonBR, JagBR, EncBR
     	pickUpLeft = new Talon(4);
     	pickUpRight = new Talon(5);
 //    	lift = new Solenoid(0);
@@ -56,7 +62,7 @@ public void autonomousInit() {
     public void autonomousPeriodic() {
     	// Move robot forward for a set amount of seconds
     	if(autoTimer.get() < autoDur){
-    		swerveDrive.swerve(0, autoSpeed, 0, false);
+//    		swerveDrive.swerve(0, autoSpeed, 0, false);
     	}
     	else{
     		swerveDrive.swerve(0, 0, 0, false);
@@ -101,7 +107,29 @@ public void autonomousInit() {
      */
     public void testPeriodic() {
     	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
-    	swerveDrive.updateAll(rawStickX/3, .3);
+    	
+    	if(calibrating){   	
+    		swerveDrive.updateAll(rawStickX/3, .3);
+    	}
+    	
+    	SmartDashboard.putNumber("Calibrating Swerve: ", calMode);
+    	if (stick.getRawButton(1) && !calButtonPressed && calibrating){
+    		calButtonPressed = true;
+    		pref.putDouble("SwerveOffset" + calMode, swerveDrive.getRawEncoderValue(calMode));
+    		if (calMode >= 3){
+    			calMode = 0;
+    		}
+    		else{
+    			calMode++;
+    		}
+    	}
+    	else if (!stick.getRawButton(1) && calButtonPressed){
+    		calButtonPressed = false;
+    	}
+    	if (stick.getRawButton(8) && calibrating){
+    		calibrating = false;
+    		pref.save();
+    	}
     }
     
 }

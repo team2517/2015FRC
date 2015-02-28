@@ -1,9 +1,12 @@
 package org.usfirst.frc.team2517.robot;
 import org.usfirst.frc.team2517.robot.SwerveModule;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import edu.wpi.first.wpilibj.smartdashboard.*;
+
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Collections;
+import edu.wpi.first.wpilibj.Preferences;
 
 /**
  * 1 entry in the swerves array for each module. Order is:
@@ -15,29 +18,37 @@ import java.util.Collections;
 public class SwerveController {
 	SwerveModule[] swerves = new SwerveModule[4]; 
 	private double largestMag;
-	ArrayList<Double> mags = new ArrayList<Double>();
+	private ArrayList<Double> mags = new ArrayList<Double>();
 	public int calMode = 0;
 	private final boolean debug = true;
+	public SendableChooser options;
+	private Preferences prefs;
 	
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR,
 							int moveBL, int turnBL, int encBL,
 							int moveBR, int turnBR, int encBR){
-		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 3.962);
-		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 4.868);
-		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421, 0); // Update back offsets
-		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703, 0);
+		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 0.696+2.5);
+		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 2.417-2.25);
+		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421, 3.079); // Update back offsets
+		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703, 4.329+1.5);
+
+//		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, prefs.getDouble("SwerveOffset1", 2.001));
+//		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, prefs.getDouble("SwerveOffset2", 4.254));
+//		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421, prefs.getDouble("SwerveOffset3", 4.211)); // Update back offsets
+//		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703, prefs.getDouble("SwerveOffset4", 4.941));
+//		options.addObject("Motor Downscale", new downscale());
 	}
 	
 	public void swerve(double xVector, double yVector, double phi, boolean changeCOR){
-		for(int i=0; i<3; i++){
+		for(int i=0; i<4; i++){
 			swerves[i].x = (swerves[i].corX*phi)+xVector;
 			swerves[i].y = (swerves[i].corY*phi)+yVector; 
 			swerves[i].updateMag();
 		}
 		
 		// Add all magnitudes to arraylist
-		for(int i=0; i<3; i++){
+		for(int i=0; i<4; i++){
 			mags.add(swerves[i].mag);	
 		}
 		
@@ -45,12 +56,12 @@ public class SwerveController {
 		
 		// If one mag is greater than 1 then scale the rest of the modules by the largest magnitude
 		if(largestMag > 1){
-			for(int i=0; i<3; i++){
+			for(int i=0; i<4; i++){
 				swerves[i].mag = swerves[i].mag / largestMag;
 			}
 		}
 		
-		for(int i=0; i<3; i++){
+		for(int i=0; i< 4; i++){
 			swerves[i].update(); // We need to run this to use all equations individual to the modules and to set values of motor controllers.
 		}
 		
@@ -123,5 +134,8 @@ public class SwerveController {
 	SmartDashboard.putNumber("FrontRightRawEnc", swerves[1].encoder.getVoltage());
 	SmartDashboard.putNumber("BackLeftRawEnc", swerves[2].encoder.getVoltage());
 	SmartDashboard.putNumber("BackRightRawEnc", swerves[3].encoder.getVoltage());
+	}
+	public double getRawEncoderValue(int module){
+		return swerves[module].encoder.getVoltage();
 	}
 }

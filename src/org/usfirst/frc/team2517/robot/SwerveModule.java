@@ -3,6 +3,7 @@ import java.lang.Math;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
  * The SwerveModule class is intended to hold all variables, objects, and calculations
@@ -54,7 +55,7 @@ public class SwerveModule {
 		/**
 		 * Takes all of the variables modified and updates the motor controllers in the module
 		 */
-		curTheta = (encoder.getVoltage() - offset)/5*(2*Math.PI);
+		curTheta = (encoder.getVoltage() - (offset))/5*(2*Math.PI);
 		
 		rawDiffTheta = tarTheta - curTheta;
 		diffTheta = rawDiffTheta;
@@ -92,15 +93,15 @@ public class SwerveModule {
 		if (Math.abs(diffTheta) < Math.PI / 45){
 			turnSpeed = 0;
 		}
-		
-		// Hold Position if joystick is not being pressed to save power if we are continuing with a similar movement
+
+//		 Hold Position if joystick is not being pressed to save power if we are continuing with a similar movement
 		if (Robot.stickX == 0 && Robot.stickY == 0 && Robot.stickPhi == 0){ 
 			turnJag.set(0);
 			moveTal.set(0);
 		}
 		else{ // Update motor controllers
-			turnJag.set(turnSpeed/3);
-			moveTal.set(mag/3);
+			turnJag.set(turnSpeed);
+			moveTal.set(mag);
 		}
 	}
 	/**
