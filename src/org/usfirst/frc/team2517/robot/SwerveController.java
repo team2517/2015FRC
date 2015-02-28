@@ -22,16 +22,19 @@ public class SwerveController {
 	public int calMode = 0;
 	private final boolean debug = true;
 	public SendableChooser options;
-	private Preferences prefs;
 	
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR,
 							int moveBL, int turnBL, int encBL,
 							int moveBR, int turnBR, int encBR){
-		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 0.696+2.5);
-		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 2.417-2.25);
-		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421, 3.079); // Update back offsets
-		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703, 4.329+1.5);
+		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 2.517);
+		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 2.819);
+		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.707, 0.707, 1.687); // Update back offsets
+		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.707, -0.707, 2.620);
+//		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 2.517);
+//		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.6703, -0.7421, 2.819);
+//		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421, 1.687); // Update back offsets
+//		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703, 2.620);
 
 //		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, prefs.getDouble("SwerveOffset1", 2.001));
 //		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, prefs.getDouble("SwerveOffset2", 4.254));
