@@ -46,7 +46,7 @@ public void autonomousInit() {
      */
     public void teleopPeriodic() {
     	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
-    	rawStick2X = rawStickX = Utils.deadband(stick.getRawAxis(2), deadBandThreshold);
+    	rawStick2X = Utils.deadband(stick.getRawAxis(2), deadBandThreshold);
     	swerveDrive.updateAll((rawStickX/3)+(rawStick2X*(2/3)), .3);
     }
     /**
