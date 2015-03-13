@@ -20,7 +20,7 @@ public class SwerveController {
 	private ArrayList<Double> mags = new ArrayList<Double>();
 	public int calMode = 0;
 	private final boolean debug = true;
-	public SendableChooser options;
+	
 	
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR,

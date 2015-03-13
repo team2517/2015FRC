@@ -33,9 +33,7 @@ public class Robot extends IterativeRobot {
 	private Talon pickUpLeft, pickUpRight;
 	private boolean changeCOR;
 	private boolean calButtonPressed;
-	private int calMode = 0;
 	private boolean calibrating = true;
-	private Preferences pref;
 	
     public void robotInit() {
     	autoTimer = new Timer();
@@ -46,8 +44,8 @@ public class Robot extends IterativeRobot {
     									   0, 4, 1); // TalonBR, JagBR, EncBR
     	pickUpLeft = new Talon(4);
     	pickUpRight = new Talon(5);
-//    	lift = new Solenoid(0);
-//    	eject = new Solenoid(1);
+    	lift = new Solenoid(0);
+    	eject = new Solenoid(1);
     }
     /**
      * This function is called once before autonomous
@@ -62,7 +60,7 @@ public void autonomousInit() {
     public void autonomousPeriodic() {
     	// Move robot forward for a set amount of seconds
     	if(autoTimer.get() < autoDur){
-//    		swerveDrive.swerve(0, autoSpeed, 0, false);
+    		swerveDrive.swerve(0, autoSpeed, 0, false);
     	}
     	else{
     		swerveDrive.swerve(0, 0, 0, false);
@@ -84,22 +82,22 @@ public void autonomousInit() {
     	if (stick.getRawButton(7)){
     		pickUpLeft.set(0.42);
     		pickUpRight.set(0.42);
-//    		eject.set(false);i
+    		eject.set(false);
         }
     	else{
     		pickUpLeft.set(0);
     		pickUpRight.set(0);
     	}
     	if (stick.getRawButton(5)){
-//    		eject.set(true);
+    		eject.set(true);
     		pickUpLeft.set(0);
     		pickUpRight.set(0);
     	}
     	if (stick.getRawButton(8)){
-//    		lift.set(false);
+    		lift.set(false);
     	}
     	else if (stick.getRawButton(6)){
-//    		lift.set(true);
+    		lift.set(true);
     	}
     }
     /**
@@ -109,7 +107,7 @@ public void autonomousInit() {
     	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
     	
     	if(calibrating){   	
-//    		swerveDrive.updateModule(1, rawStickX/3, .3);
+    		swerveDrive.updateModule(1, rawStickX/3, .3);
     		swerveDrive.updateAll(rawStickX/3, .3);
     	}
     	

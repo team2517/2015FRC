@@ -25,8 +25,7 @@ public class SwerveModule {
 	private CANJaguar turnJag;
 	private CANJaguar moveTal;
 	public AnalogInput encoder;
-	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, rawDiffTheta;
-	private double offset;
+	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, rawDiffTheta, offset;
 	public String status;
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR, double off)
 	{
@@ -41,11 +40,10 @@ public class SwerveModule {
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
 		corY = yCOR;
-		double tmp = off - 1.25;
-		if(tmp<0) {
-			tmp = 5+offset;
+		offset = off - 1.25;
+		if(offset<0) {
+			offset = 5+offset;
 		}
-		offset = tmp; // Pass this in later
 	}
 	
 	/**
