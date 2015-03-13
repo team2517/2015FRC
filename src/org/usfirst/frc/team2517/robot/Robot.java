@@ -109,26 +109,16 @@ public void autonomousInit() {
     	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
     	
     	if(calibrating){   	
+//    		swerveDrive.updateModule(1, rawStickX/3, .3);
     		swerveDrive.updateAll(rawStickX/3, .3);
     	}
     	
-    	SmartDashboard.putNumber("Calibrating Swerve: ", calMode);
     	if (stick.getRawButton(1) && !calButtonPressed && calibrating){
-    		calButtonPressed = true;
-    		pref.putDouble("SwerveOffset" + calMode, swerveDrive.getRawEncoderValue(calMode));
-    		if (calMode >= 3){
-    			calMode = 0;
-    		}
-    		else{
-    			calMode++;
-    		}
     	}
     	else if (!stick.getRawButton(1) && calButtonPressed){
     		calButtonPressed = false;
     	}
     	if (stick.getRawButton(8) && calibrating){
-    		calibrating = false;
-    		pref.save();
     	}
     }
     

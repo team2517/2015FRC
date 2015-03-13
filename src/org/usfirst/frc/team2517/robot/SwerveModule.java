@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
  */
 public class SwerveModule {
 	private CANJaguar turnJag;
-	private Talon moveTal;
+	private CANJaguar moveTal;
 	public AnalogInput encoder;
 	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, rawDiffTheta;
 	private double offset;
@@ -37,11 +37,15 @@ public class SwerveModule {
 		catch(edu.wpi.first.wpilibj.can.CANMessageNotFoundException e){
 			status = e.toString();
 		}
-		moveTal = new Talon(mTalID);
+		moveTal = new CANJaguar(mTalID);
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
 		corY = yCOR;
-		offset = off; // Pass this in later
+		double tmp = off - 1.25;
+		if(tmp<0) {
+			tmp = 5+offset;
+		}
+		offset = tmp; // Pass this in later
 	}
 	
 	/**
@@ -55,7 +59,7 @@ public class SwerveModule {
 		/**
 		 * Takes all of the variables modified and updates the motor controllers in the module
 		 */
-		curTheta = (encoder.getVoltage() - (offset))/5*(2*Math.PI);
+		curTheta = (encoder.getVoltage() - offset)/5*(2*Math.PI);
 		
 		rawDiffTheta = tarTheta - curTheta;
 		diffTheta = rawDiffTheta;
