@@ -21,7 +21,36 @@ public class SwerveController {
 	public int calMode = 0;
 	private final boolean debug = true;
 	
-	
+	/**
+	 * Constructor for a swerve helper class
+	 * @param moveFL
+	 *            ID to the Front Left motor controller for movement in the swerve
+	 * @param turnFL
+	 *            ID to the Front Left motor controller for turning in the swerve
+	 * @param encFL
+	 *            ID to the Front Left analog absolute encoder
+	 *            
+	 * @param moveFR
+	 *            ID to the Front Right motor controller for movement in the swerve
+	 * @param turnFR
+	 *            ID to the Front Right motor controller for turning in the swerve
+	 * @param encFR
+	 *            ID to the Front Right analog absolute encoder
+	 *            
+	 * @param moveBL
+	 *            ID to the Back Left motor controller for movement in the swerve
+	 * @param turnBL
+	 *            ID to the Back Left motor controller for turning in the swerve
+	 * @param encBL
+	 *            ID to the Back Left analog absolute encoder
+	 *            
+	 * @param moveBR
+	 *            ID to the Back Right motor controller for movement in the swerve
+	 * @param turnBR
+	 *            ID to the Back Right motor controller for turning in the swerve
+	 * @param encBR
+	 *            ID to the Back Right analog absolute encoder
+	 */
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR,
 							int moveBL, int turnBL, int encBL,
@@ -43,7 +72,16 @@ public class SwerveController {
 //		options.addObject("Motor Downscale", new downscale());
 	}
 	
-	public void swerve(double xVector, double yVector, double phi, boolean changeCOR){
+	/**
+	 * Recieves joystick inputs and gives results of swerve calculations to each module.
+	 * @param xVector
+	 * 						X coordinate in between -1 and 1 for input. Usually mapped to an X coordinate from a joystick axis.
+	 * @param yVector
+	 * 						Y coordinate in between -1 and 1 for input. Usually mapped to a Y coordinate from a joystick axis.
+	 * @param phi
+	 * 						Range between -1 and 1 which completely controls rotation on it's own. Usually mapped to an X coordinate of a joystick axis seperate from the xVector and yVector.
+	 */
+	public void swerve(double xVector, double yVector, double phi){
 		for(int i=0; i<1; i++){
 			swerves[i].x = (swerves[i].corX*phi)+xVector;
 			swerves[i].y = (swerves[i].corY*phi)+yVector; 

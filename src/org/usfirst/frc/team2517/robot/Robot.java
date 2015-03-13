@@ -3,11 +3,9 @@ package org.usfirst.frc.team2517.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,14 +29,13 @@ public class Robot extends IterativeRobot {
 	private Timer autoTimer;
 	private Solenoid lift, eject;
 	private Talon pickUpLeft, pickUpRight;
-	private boolean changeCOR;
 	private boolean calButtonPressed;
 	private boolean calibrating = true;
 	
     public void robotInit() {
     	autoTimer = new Timer();
     	stick = new Joystick(0);
-    	swerveDrive = new SwerveController(2, 12, 0,  // TalonFL, JagFL, EncFL
+    	swerveDrive = new SwerveController(55, 10, 0,  // TalonFL, JagFL, EncFL
     									   1, 30, 3,   // TalonFR, JagFR, EncFR
     									   3, 45, 2,  // TalonBL, JagBL, EncBL
     									   0, 4, 1); // TalonBR, JagBR, EncBR
@@ -60,10 +57,10 @@ public void autonomousInit() {
     public void autonomousPeriodic() {
     	// Move robot forward for a set amount of seconds
     	if(autoTimer.get() < autoDur){
-    		swerveDrive.swerve(0, autoSpeed, 0, false);
+    		swerveDrive.swerve(0, autoSpeed, 0);
     	}
     	else{
-    		swerveDrive.swerve(0, 0, 0, false);
+    		swerveDrive.swerve(0, 0, 0);
     	}
     	
     }
@@ -75,10 +72,9 @@ public void autonomousInit() {
     	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
     	rawStickY = Utils.deadband(stick.getRawAxis(1), deadBandThreshold);
     	stickPhi = Utils.deadband(stick.getRawAxis(2), deadBandThreshold);
-    	changeCOR = stick.getRawButton(11);
     	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
     	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
-    	swerveDrive.swerve(stickX, stickY, stickPhi, changeCOR);
+    	swerveDrive.swerve(stickX, stickY, stickPhi);
     	if (stick.getRawButton(7)){
     		pickUpLeft.set(0.42);
     		pickUpRight.set(0.42);
