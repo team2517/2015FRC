@@ -4,6 +4,7 @@ import org.usfirst.frc.team2517.robot.SwerveModule;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import java.util.ArrayList;
+import java.io.*;
 import java.lang.Math;
 import java.util.Collections;
 
@@ -16,10 +17,13 @@ import java.util.Collections;
  */
 public class SwerveController {
 	SwerveModule[] swerves = new SwerveModule[1]; 
+	public final String CALFILE = "RobotData/offsets.txt";
 	private double largestMag;
 	private ArrayList<Double> mags = new ArrayList<Double>();
+	private ArrayList<Double> offsets = new ArrayList<Double>();
 	public int calMode = 0;
 	private final boolean debug = true;
+	private FileOutputStream calOut;
 	
 	/**
 	 * Constructor for a swerve helper class
@@ -35,8 +39,7 @@ public class SwerveController {
 	 * @param turnFR
 	 *            ID to the Front Right motor controller for turning in the swerve
 	 * @param encFR
-	 *            ID to the Front Right analog absolute encoder
-	 *            
+	 *            ID to the Front Right analog absolute encoder     
 	 * @param moveBL
 	 *            ID to the Back Left motor controller for movement in the swerve
 	 * @param turnBL
@@ -50,15 +53,29 @@ public class SwerveController {
 	 *            ID to the Back Right motor controller for turning in the swerve
 	 * @param encBR
 	 *            ID to the Back Right analog absolute encoder
+	 * @throws FileNotFoundException 
 	 */
 	public SwerveController(int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR,
 							int moveBL, int turnBL, int encBL,
 							int moveBR, int turnBR, int encBR){
-		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 3.204);
-//		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 4.9);
-//		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.707, 0.707, 0.703); // Update back offsets
-//		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.707, -0.707, 2.872);
+		
+		
+		
+//		try{
+//			BufferedReader calIn = new BufferedReader(new FileReader(CALFILE));
+//			for(int i=0; i<swerves.length; i++){
+//				offsets.add(Double.parseDouble(calIn.readLine()));
+//			}
+//			calIn.close();
+//		}catch(IOException ex){
+//			// Create new file here with blank offsets and use
+//		}
+		
+		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 0);
+//		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, offsets.get(2));
+//		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.707, 0.707, offsets.get(3)); // Update back offsets
+//		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.707, -0.707, offsets.get(4));
 		
 //		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 2.517);
 //		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.6703, -0.7421, 2.819);

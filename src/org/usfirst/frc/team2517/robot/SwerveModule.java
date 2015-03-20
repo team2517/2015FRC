@@ -92,7 +92,7 @@ public class SwerveModule {
 		}
 		
 		// Our 'deadband' for the swerve module for an acceptable thereshold (4 degrees)
-		if (Math.abs(diffTheta) < Math.PI / 45){
+		if (Math.abs(diffTheta) < (Math.PI / 45)*2){
 			turnSpeed = 0;
 		}
 
@@ -118,10 +118,10 @@ public class SwerveModule {
 	 */
 	public void rawUpdate(boolean turning, double speed){
 		if(turning){
-			turnJag.set(speed);
+			turnJag.set(speed/3);
 		}
 		else{
-			moveTal.set(speed);
+			moveTal.set(speed/3);
 		}
 	}
 	
