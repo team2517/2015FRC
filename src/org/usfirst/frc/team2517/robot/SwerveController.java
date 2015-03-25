@@ -16,7 +16,7 @@ import java.util.Collections;
  * swerves[3] = Back Right Swerve
  */
 public class SwerveController {
-	SwerveModule[] swerves = new SwerveModule[1]; 
+	SwerveModule[] swerves = new SwerveModule[2]; 
 	public final String CALFILE = "RobotData/offsets.txt";
 	private double largestMag;
 	private ArrayList<Double> mags = new ArrayList<Double>();
@@ -73,7 +73,7 @@ public class SwerveController {
 //		}
 		
 		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 4.194);
-		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 0);
+		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 1.113);
 //		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.707, 0.707, offsets.get(3)); // Update back offsets
 //		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.707, -0.707, offsets.get(4));
 		
@@ -114,7 +114,7 @@ public class SwerveController {
 		
 		// If one mag is greater than 1 then scale the rest of the modules by the largest magnitude
 		if(largestMag > 1){
-			for(int i=0; i<1; i++){
+			for(int i=0; i<2; i++){
 				swerves[i].mag = swerves[i].mag / largestMag;
 			}
 		}

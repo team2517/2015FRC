@@ -46,7 +46,7 @@ public class SwerveModule {
 		corY = -yCOR;
 		offset = off - 1.25;
 		if(offset<0) {
-			offset = 5-offset;
+			offset = 5+offset;
 		}
 	}
 	

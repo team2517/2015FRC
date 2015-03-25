@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
     	autoTimer = new Timer();
     	stick = new Joystick(0);
     	swerveDrive = new SwerveController(55, 10, 0,  // TalonFL, JagFL, EncFL
-    									   1, 30, 3,   // TalonFR, JagFR, EncFR
+    									   14, 63, 1,   // TalonFR, JagFR, EncFR
     									   3, 45, 2,  // TalonBL, JagBL, EncBL
     									   0, 4, 1); // TalonBR, JagBR, EncBR
     	pickUpLeft = new Talon(4);
