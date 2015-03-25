@@ -25,8 +25,12 @@ public class SwerveModule {
 	private CANJaguar turnJag;
 	private CANJaguar moveTal;
 	public AnalogInput encoder;
-	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, rawDiffTheta, offset;
+	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, offset;
 	public String status;
+	
+	
+	
+
 	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR, double off)
 	{
 		status = "Clear";
@@ -39,10 +43,10 @@ public class SwerveModule {
 		moveTal = new CANJaguar(mTalID);
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
-		corY = yCOR;
+		corY = -yCOR;
 		offset = off - 1.25;
 		if(offset<0) {
-			offset = 5+offset;
+			offset = 5-offset;
 		}
 	}
 	
@@ -51,16 +55,13 @@ public class SwerveModule {
 	 */
 	public void update()
 	{
-		
 		tarTheta = Math.atan2(y, x); // Calculate the angles we want to be at with the joystick inputs
 		
 		/**
 		 * Takes all of the variables modified and updates the motor controllers in the module
 		 */
 		curTheta = (encoder.getVoltage() - offset)/5*(2*Math.PI);
-		
-		rawDiffTheta = tarTheta - curTheta;
-		diffTheta = rawDiffTheta;
+		diffTheta = tarTheta - curTheta;
 		
 		// If our angle is over PI, then subtract PI*2 to bring the theta to be a smaller negative number
 		if (diffTheta > Math.PI) {
@@ -96,8 +97,9 @@ public class SwerveModule {
 			turnSpeed = 0;
 		}
 
+		
 //		 Hold Position if joystick is not being pressed to save power if we are continuing with a similar movement
-		if (Robot.stickX == 0 && Robot.stickY == 0 && Robot.stickPhi == 0){ 
+		if (x == 0 && y == 0){ 
 			turnJag.set(0);
 			moveTal.set(0);
 		}

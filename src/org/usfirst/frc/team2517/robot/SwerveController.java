@@ -72,8 +72,8 @@ public class SwerveController {
 //			// Create new file here with blank offsets and use
 //		}
 		
-		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 0);
-//		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, offsets.get(2));
+		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 4.194);
+		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 0);
 //		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.707, 0.707, offsets.get(3)); // Update back offsets
 //		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.707, -0.707, offsets.get(4));
 		
@@ -99,14 +99,14 @@ public class SwerveController {
 	 * 						Range between -1 and 1 which completely controls rotation on it's own. Usually mapped to an X coordinate of a joystick axis seperate from the xVector and yVector.
 	 */
 	public void swerve(double xVector, double yVector, double phi){
-		for(int i=0; i<1; i++){
+		for(int i=0; i<2; i++){
 			swerves[i].x = (swerves[i].corX*phi)+xVector;
 			swerves[i].y = (swerves[i].corY*phi)+yVector; 
 			swerves[i].updateMag();
 		}
 		
 		// Add all magnitudes to arraylist
-		for(int i=0; i<1; i++){
+		for(int i=0; i<2; i++){
 			mags.add(swerves[i].mag);	
 		}
 		
@@ -119,7 +119,7 @@ public class SwerveController {
 			}
 		}
 		
-		for(int i=0; i< 1; i++){
+		for(int i=0; i< 2; i++){
 			swerves[i].update(); // We need to run this to use all equations individual to the modules and to set values of motor controllers.
 		}
 		
@@ -131,11 +131,11 @@ public class SwerveController {
 			SmartDashboard.putNumber("FLdiffTheta", swerves[0].diffTheta *(180/Math.PI));
 			SmartDashboard.putNumber("FLmag", swerves[0].mag);
 			
-//			SmartDashboard.putNumber("FRturnSpeed", swerves[1].turnSpeed);
-//			SmartDashboard.putNumber("FRtarTheta", swerves[1].tarTheta *(180/Math.PI));
-//			SmartDashboard.putNumber("FRcurTheta", swerves[1].curTheta *(180/Math.PI));
-//			SmartDashboard.putNumber("FRdiffTheta", swerves[1].diffTheta *(180/Math.PI));
-//			SmartDashboard.putNumber("FRmag", swerves[1].mag);
+			SmartDashboard.putNumber("FRturnSpeed", swerves[1].turnSpeed);
+			SmartDashboard.putNumber("FRtarTheta", swerves[1].tarTheta *(180/Math.PI));
+			SmartDashboard.putNumber("FRcurTheta", swerves[1].curTheta *(180/Math.PI));
+			SmartDashboard.putNumber("FRdiffTheta", swerves[1].diffTheta *(180/Math.PI));
+			SmartDashboard.putNumber("FRmag", swerves[1].mag);
 //			
 //			SmartDashboard.putNumber("BLturnSpeed", swerves[2].turnSpeed); 
 //			SmartDashboard.putNumber("BLtarTheta", swerves[2].tarTheta *(180/Math.PI));
@@ -154,24 +154,25 @@ public class SwerveController {
 			SmartDashboard.putNumber("StickPhi", phi);
 	
 			SmartDashboard.putNumber("FrontLeftRawEnc", swerves[0].encoder.getVoltage());
-//			SmartDashboard.putNumber("FrontRightRawEnc", swerves[1].encoder.getVoltage());
+			SmartDashboard.putNumber("FrontRightRawEnc", swerves[1].encoder.getVoltage());
 //			SmartDashboard.putNumber("BackLeftRawEnc", swerves[2].encoder.getVoltage());
 //			SmartDashboard.putNumber("BackRightRawEnc", swerves[3].encoder.getVoltage());
 //			
 			SmartDashboard.putNumber("FrontLeftCORX", swerves[0].corX);
-//			SmartDashboard.putNumber("FrontLeftCORY", swerves[0].corY);
-//			SmartDashboard.putNumber("FrontRightCORX", swerves[1].corX);
-//			SmartDashboard.putNumber("FrontRightCORY", swerves[1].corY);
+			SmartDashboard.putNumber("FrontLeftCORY", swerves[0].corY);
+			SmartDashboard.putNumber("FrontRightCORX", swerves[1].corX);
+			SmartDashboard.putNumber("FrontRightCORY", swerves[1].corY);
 //			SmartDashboard.putNumber("BackLeftCORX", swerves[2].corX);
 //			SmartDashboard.putNumber("BackLeftCORY", swerves[2].corY);
 //			SmartDashboard.putNumber("BackRightCORX", swerves[3].corX);
 //			SmartDashboard.putNumber("BackRightCORY", swerves[3].corY);
 			
-//			SmartDashboard.putString("FrontLeftErrorStatus", swerves[0].status);
+			SmartDashboard.putString("FrontLeftErrorStatus", swerves[0].status);
 //			SmartDashboard.putString("FrontRightErrorStatus", swerves[1].status);
 //			SmartDashboard.putString("BackLeftErrorStatus", swerves[2].status);
 //			SmartDashboard.putString("BackRightErrorStatus", swerves[3].status);
 			
+			SmartDashboard.putNumber("FrontLeftOffset", swerves[0].offset);
 
 		}
 		
