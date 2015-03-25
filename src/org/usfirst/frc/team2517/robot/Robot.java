@@ -31,6 +31,7 @@ public class Robot extends IterativeRobot {
 	private Talon pickUpLeft, pickUpRight;
 	private boolean calButtonPressed;
 	private boolean calibrating = true;
+	private final boolean emergencymode = false; // Puts robot into tank drive if true
 	
     public void robotInit() {
     	autoTimer = new Timer();
@@ -69,33 +70,52 @@ public void autonomousInit() {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
-    	rawStickY = Utils.deadband(stick.getRawAxis(1), deadBandThreshold);
-    	stickPhi = Utils.deadband(stick.getRawAxis(2), deadBandThreshold);
-    	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
-    	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
-    	swerveDrive.swerve(stickX, stickY, stickPhi);
-    	if (stick.getRawButton(7)){
-    		pickUpLeft.set(0.42);
-    		pickUpRight.set(0.42);
-    		eject.set(false);
-        }
+    	if (!emergencymode){
+	    	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
+	    	rawStickY = Utils.deadband(stick.getRawAxis(1), deadBandThreshold);
+	    	stickPhi = Utils.deadband(stick.getRawAxis(2), deadBandThreshold);
+	    	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
+	    	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
+	    	swerveDrive.swerve(stickX, stickY, stickPhi);
+	    	if (stick.getRawButton(7)){
+	    		pickUpLeft.set(0.42);
+	    		pickUpRight.set(0.42);
+	    		eject.set(false);
+	        }
+	    	else{
+	    		pickUpLeft.set(0);
+	    		pickUpRight.set(0);
+	    	}
+	    	if (stick.getRawButton(5)){
+	    		eject.set(true);
+	    		pickUpLeft.set(0);
+	    		pickUpRight.set(0);
+	    	}
+	    	if (stick.getRawButton(8)){
+	    		lift.set(false);
+	    	}
+	    	else if (stick.getRawButton(6)){
+	    		lift.set(true);
+	    	}
+	    	
+//	    	Stuff for changing center of rotation
+//	    	if(stick.getRawButton(7)){ 
+//	    		swerveDrive.changeCOR(flx, fly, frx, fry, blx, bly, brx, bry);
+//	    	}
+//	    	else if(stick.getRawButton(8)){
+//	    		swerveDrive.changeCOR(flx, fly, frx, fry, blx, bly, brx, bry);
+//	    	}
+//	    	else{
+//	    		swerveDrive.changeCOR(flx, fly, frx, fry, blx, bly, brx, bry);
+//	    	}
+    	}
     	else{
-    		pickUpLeft.set(0);
-    		pickUpRight.set(0);
+    		swerveDrive.updateModule(0, 0, Utils.deadband(stick.getRawAxis(1), deadBandThreshold));
+    		swerveDrive.updateModule(1, 0, Utils.deadband(stick.getRawAxis(3), deadBandThreshold));
+    		swerveDrive.updateModule(2, 0, Utils.deadband(stick.getRawAxis(1), deadBandThreshold));
+    		swerveDrive.updateModule(3, 0, Utils.deadband(stick.getRawAxis(3), deadBandThreshold));
     	}
-    	if (stick.getRawButton(5)){
-    		eject.set(true);
-    		pickUpLeft.set(0);
-    		pickUpRight.set(0);
-    	}
-    	if (stick.getRawButton(8)){
-    		lift.set(false);
-    	}
-    	else if (stick.getRawButton(6)){
-    		lift.set(true);
-    	}
-    }
+	}
     /**
      * This function is called periodically during test mode
      */

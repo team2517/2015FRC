@@ -72,7 +72,7 @@ public class SwerveController {
 //			// Create new file here with blank offsets and use
 //		}
 		
-		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 4.194);
+		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 1.160);
 		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 1.113);
 //		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.707, 0.707, offsets.get(3)); // Update back offsets
 //		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.707, -0.707, offsets.get(4));
@@ -200,5 +200,18 @@ public class SwerveController {
 	public void updateModule(int module, double tSpeed, double mSpeed){
 		swerves[module].rawUpdate(true, tSpeed);
 		swerves[module].rawUpdate(false, mSpeed);
+	}
+	/*
+	 * MAGICALLY CHANGES CENTER OF ROTATION VALUES
+	 */
+	public void changeCOR(double flx, double fly, double frx, double fry, double blx, double bly, double brx, double bry){
+		swerves[0].corX = flx;
+		swerves[0].corY = fly;
+		swerves[1].corX = frx;
+		swerves[1].corY = fry;
+		swerves[2].corX = blx;
+		swerves[2].corY = bly;
+		swerves[3].corX = brx;
+		swerves[3].corY = bry;
 	}
 }
