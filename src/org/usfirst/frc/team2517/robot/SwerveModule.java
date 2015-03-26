@@ -40,23 +40,23 @@ public class SwerveModule {
 		status = "Clear";
 		try{
 			switch(mMotorType){
-				case 0:	moveMotor = new CANTalon(tMotor);
+				case 0:	moveMotor = new CANTalon(mMotor);
 						break;
-				case 1:	moveMotor = new TalonSRX(tMotor);
+				case 1:	moveMotor = new TalonSRX(mMotor);
 						break;
-				case 2:	moveMotor = new VictorSP(tMotor);
+				case 2:	moveMotor = new VictorSP(mMotor);
 						break;
-				case 3:	moveMotor = new Talon(tMotor);
+				case 3:	moveMotor = new Talon(mMotor);
 						break;
-				case 4:	moveMotor = new CANJaguar(tMotor);
+				case 4:	moveMotor = new CANJaguar(mMotor);
 						break;
-				case 5:	moveMotor = new Jaguar(tMotor);
+				case 5:	moveMotor = new Jaguar(mMotor);
 						break;
-				case 6:	moveMotor = new Victor(tMotor);
+				case 6:	moveMotor = new Victor(mMotor);
 						break;
 			}
 			switch(tMotorType){
-				case 0:	turnMotor = new CANTalon(tMotor);
+				case 0:	turnMotor = new CANTalon(mMotor);
 						break;
 				case 1:	turnMotor = new TalonSRX(tMotor);
 						break;

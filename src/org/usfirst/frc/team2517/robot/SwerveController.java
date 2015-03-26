@@ -22,6 +22,7 @@ public class SwerveController {
 	private ArrayList<Double> mags = new ArrayList<Double>();
 	private ArrayList<Double> offsets = new ArrayList<Double>();
 	public int calMode = 0;
+	private int stickYModifier;
 	private final boolean debug = true;
 	private FileOutputStream calOut;
 	
@@ -58,15 +59,12 @@ public class SwerveController {
 	 *            ID to the Back Right analog absolute encoder
 	 * @throws FileNotFoundException 
 	 */
-	public SwerveController(int moveMotor, int turnMotor,
+	public SwerveController(int moveMotor, int turnMotor, boolean invertedY,
 							int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR,
 							int moveBL, int turnBL, int encBL,
 							int moveBR, int turnBR, int encBR){
-		
-		
-		
-//		try{
+//		try{ TODO: Fix reading of files
 //			BufferedReader calIn = new BufferedReader(new FileReader(CALFILE));
 //			for(int i=0; i<swerves.length; i++){
 //				offsets.add(Double.parseDouble(calIn.readLine()));
@@ -75,7 +73,12 @@ public class SwerveController {
 //		}catch(IOException ex){
 //			// Create new file here with blank offsets and use
 //		}
-		
+		if(invertedY){
+			stickYModifier = -1;
+		}
+		else{
+			stickYModifier = 1;
+		}
 		swerves[0] = new SwerveModule(moveMotor, turnMotor, moveFL, turnFL, encFL, 0.707, 0.707, 1.160);
 		swerves[1] = new SwerveModule(moveMotor, turnMotor, moveFR, turnFR, encFR, 0.707, -0.707, 1.113);
 //		swerves[2] = new SwerveModule(moveMotor, turnMotor, moveBL, turnBL, encBL, -0.707, 0.707, offsets.get(3)); // Update back offsets
@@ -105,7 +108,7 @@ public class SwerveController {
 	public void swerve(double xVector, double yVector, double phi){
 		for(int i=0; i<2; i++){
 			swerves[i].x = (swerves[i].corX*phi)+xVector;
-			swerves[i].y = (swerves[i].corY*phi)+yVector; 
+			swerves[i].y = ((swerves[i].corY*phi)+yVector)*stickYModifier; 
 			swerves[i].updateMag();
 		}
 		
