@@ -27,6 +27,9 @@ public class SwerveController {
 	
 	/**
 	 * Constructor for a swerve helper class
+	 * @param moveMotor
+	 * 			  Type of motor controller used for the wheel movement motor on each swerve. ID's accepted are:
+	 * 					0: CANTalon		1: TalonSRX		2: VictorSP		3: Talon	4: CANJaguar 	5: Jaguar	6: Victor
 	 * @param moveFL
 	 *            ID to the Front Left motor controller for movement in the swerve
 	 * @param turnFL
@@ -55,7 +58,8 @@ public class SwerveController {
 	 *            ID to the Back Right analog absolute encoder
 	 * @throws FileNotFoundException 
 	 */
-	public SwerveController(int moveFL, int turnFL, int encFL,
+	public SwerveController(int moveMotor, int turnMotor,
+							int moveFL, int turnFL, int encFL,
 							int moveFR, int turnFR, int encFR,
 							int moveBL, int turnBL, int encBL,
 							int moveBR, int turnBR, int encBR){
@@ -72,15 +76,15 @@ public class SwerveController {
 //			// Create new file here with blank offsets and use
 //		}
 		
-		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 1.160);
-		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, 1.113);
-//		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.707, 0.707, offsets.get(3)); // Update back offsets
-//		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.707, -0.707, offsets.get(4));
+		swerves[0] = new SwerveModule(moveMotor, turnMotor, moveFL, turnFL, encFL, 0.707, 0.707, 1.160);
+		swerves[1] = new SwerveModule(moveMotor, turnMotor, moveFR, turnFR, encFR, 0.707, -0.707, 1.113);
+//		swerves[2] = new SwerveModule(moveMotor, turnMotor, moveBL, turnBL, encBL, -0.707, 0.707, offsets.get(3)); // Update back offsets
+//		swerves[3] = new SwerveModule(moveMotor, turnMotor, moveBR, turnBR, encBR, -0.707, -0.707, offsets.get(4));
 		
-//		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, 2.517);
-//		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.6703, -0.7421, 2.819);
-//		swerves[2] = new SwerveModule(moveBL, turnBL, encBL, -0.6703, 0.7421, 1.687); // Update back offsets
-//		swerves[3] = new SwerveModule(moveBR, turnBR, encBR, -0.7421, -0.6703, 2.620);
+//		swerves[0] = new SwerveModule(moveMotor, turnMotor, moveFL, turnFL, encFL, 0.707, 0.707, 2.517);
+//		swerves[1] = new SwerveModule(moveMotor, turnMotor, moveFR, turnFR, encFR, 0.6703, -0.7421, 2.819);
+//		swerves[2] = new SwerveModule(moveMotor, turnMotor, moveBL, turnBL, encBL, -0.6703, 0.7421, 1.687); // Update back offsets
+//		swerves[3] = new SwerveModule(moveMotor, turnMotor, moveBR, turnBR, encBR, -0.7421, -0.6703, 2.620);
 
 //		swerves[0] = new SwerveModule(moveFL, turnFL, encFL, 0.707, 0.707, prefs.getDouble("SwerveOffset1", 2.001));
 //		swerves[1] = new SwerveModule(moveFR, turnFR, encFR, 0.707, -0.707, prefs.getDouble("SwerveOffset2", 4.254));

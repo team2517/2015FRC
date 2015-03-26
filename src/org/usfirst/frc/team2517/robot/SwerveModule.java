@@ -1,16 +1,22 @@
 package org.usfirst.frc.team2517.robot;
 import java.lang.Math;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.VictorSP;
 
 /**
  * The SwerveModule class is intended to hold all variables, objects, and calculations
  * that are required for each module.
- * @param mTalID
+ * @param mMotor
  * 						ID for the location of the Talon PWM slot in the roboRIO.
- * @param tJagID
+ * @param tMotor
  * 						ID for the Jaguar's ID wired through CAN.
  * @param eID
  * 						ID for the absolute encoder slot in Analog Input.
@@ -22,25 +28,55 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
  * 						Offset of the position of the absolute encoder's zero and where you want your zero to be.
  */
 public class SwerveModule {
-	private CANJaguar turnJag;
-	private CANJaguar moveTal;
+	private SpeedController turnMotor;
+	private SpeedController moveMotor;
 	public AnalogInput encoder;
 	public double x, y, corX, corY, mag, tarTheta, diffTheta, curTheta, turnSpeed, offset;
 	public String status;
 	
 	
-	
-
-	public SwerveModule(int mTalID, int tJagID, int eID, double xCOR, double yCOR, double off)
+	public SwerveModule(int mMotorType, int tMotorType, int mMotor, int tMotor, int eID, double xCOR, double yCOR, double off)
 	{
 		status = "Clear";
 		try{
-			turnJag = new CANJaguar(tJagID);
+			switch(mMotorType){
+				case 0:	moveMotor = new CANTalon(tMotor);
+						break;
+				case 1:	moveMotor = new TalonSRX(tMotor);
+						break;
+				case 2:	moveMotor = new VictorSP(tMotor);
+						break;
+				case 3:	moveMotor = new Talon(tMotor);
+						break;
+				case 4:	moveMotor = new CANJaguar(tMotor);
+						break;
+				case 5:	moveMotor = new Jaguar(tMotor);
+						break;
+				case 6:	moveMotor = new Victor(tMotor);
+						break;
+			}
+			switch(tMotorType){
+				case 0:	turnMotor = new CANTalon(tMotor);
+						break;
+				case 1:	turnMotor = new TalonSRX(tMotor);
+						break;
+				case 2:	turnMotor = new VictorSP(tMotor);
+						break;
+				case 3:	turnMotor = new Talon(tMotor);
+						break;
+				case 4:	turnMotor = new CANJaguar(tMotor);
+						break;
+				case 5:	turnMotor = new Jaguar(tMotor);
+						break;
+				case 6:	turnMotor = new Victor(tMotor);
+						break;
+			}
 		} 
-		catch(edu.wpi.first.wpilibj.can.CANMessageNotFoundException e){
+		catch(edu.wpi.first.wpilibj.can.CANMessageNotFoundException e){ // TODO: Log this into a file instead of driverstation
 			status = e.toString();
 		}
-		moveTal = new CANJaguar(mTalID);
+		
+		moveMotor = new CANJaguar(mMotor);
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
 		corY = -yCOR;
@@ -100,12 +136,12 @@ public class SwerveModule {
 		
 //		 Hold Position if joystick is not being pressed to save power if we are continuing with a similar movement
 		if (x == 0 && y == 0){ 
-			turnJag.set(0);
-			moveTal.set(0);
+			turnMotor.set(0);
+			moveMotor.set(0);
 		}
 		else{ // Update motor controllers
-			turnJag.set(turnSpeed);
-			moveTal.set(mag);
+			turnMotor.set(turnSpeed);
+			moveMotor.set(mag);
 		}
 	}
 	/**
@@ -120,10 +156,10 @@ public class SwerveModule {
 	 */
 	public void rawUpdate(boolean turning, double speed){
 		if(turning){
-			turnJag.set(speed/3);
+			turnMotor.set(speed/3);
 		}
 		else{
-			moveTal.set(speed/3);
+			moveMotor.set(speed/3);
 		}
 	}
 	
