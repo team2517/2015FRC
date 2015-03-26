@@ -1,11 +1,14 @@
 
 package org.usfirst.frc.team2517.robot;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Utility;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,22 +32,24 @@ public class Robot extends IterativeRobot {
 	private Timer autoTimer;
 	private Solenoid lift, eject;
 	private Talon pickUpLeft, pickUpRight;
+	private ArrayList<Double> offsets = new ArrayList<Double>();
+	private ArrayList<Double> tempOffsets = new ArrayList<Double>();
 	private boolean calButtonPressed;
-	private boolean calibrating = true;
+	private int calMode, calSubMode;
 	private final boolean emergencymode = false; // Puts robot into tank drive if true
 	
     public void robotInit() {
     	autoTimer = new Timer();
     	stick = new Joystick(0);
-    	swerveDrive = new SwerveController(3, 4, true, // WheelMotor, RotationMotor, InvertedY
-    									   3, 12, 0,   // TalonFL, JagFL, EncFL
-    									   1, 30, 3,   // TalonFR, JagFR, EncFR
-    									   2, 45, 2,   // TalonBL, JagBL, EncBL
-    									   0, 4, 1);   // TalonBR, JagBR, EncBR
-    	pickUpLeft = new Talon(4);
-    	pickUpRight = new Talon(5);
-    	lift = new Solenoid(0);
-    	eject = new Solenoid(1);
+			swerveDrive = new SwerveController(3, 4, true, // WheelMotor, RotationMotor, InvertedY 
+											   3, 12, 0,   // TalonFL, JagFL, EncFL {3, 12} {55, 14}
+											   1, 30, 3,   // TalonFR, JagFR, EncFR
+											   2, 45, 2,   // TalonBL, JagBL, EncBL
+											   0, 4,  1);
+//    	pickUpLeft = new Talon(4);
+//    	pickUpRight = new Talon(5);
+//    	lift = new Solenoid(0);
+//    	eject = new Solenoid(1);
     }
     /**
      * This function is called once before autonomous
@@ -78,26 +83,29 @@ public void autonomousInit() {
 	    	stickX = rawStickX * Math.sqrt(1 - 0.5 * Math.pow(rawStickY, 2)); // Math equation to scale the joystick values so the difference (mag) of the vectors will be 1 instead of 1.414 (sqrt of 2)
 	    	stickY = rawStickY * Math.sqrt(1 - 0.5 * Math.pow(rawStickX, 2));
 	    	swerveDrive.swerve(stickX, stickY, stickPhi);
-	    	if (stick.getRawButton(7)){
-	    		pickUpLeft.set(0.42);
-	    		pickUpRight.set(0.42);
-	    		eject.set(false);
-	        }
-	    	else{
-	    		pickUpLeft.set(0);
-	    		pickUpRight.set(0);
+	    	if(Utility.getUserButton()){
+	    		swerveDrive.updateOffsets();
 	    	}
-	    	if (stick.getRawButton(5)){
-	    		eject.set(true);
-	    		pickUpLeft.set(0);
-	    		pickUpRight.set(0);
-	    	}
-	    	if (stick.getRawButton(8)){
-	    		lift.set(false);
-	    	}
-	    	else if (stick.getRawButton(6)){
-	    		lift.set(true);
-	    	}
+//	    	if (stick.getRawButton(7)){
+//	    		pickUpLeft.set(0.42);
+//	    		pickUpRight.set(0.42);
+//	    		eject.set(false);
+//	        }
+//	    	else{
+//	    		pickUpLeft.set(0);
+//	    		pickUpRight.set(0);
+//	    	}
+//	    	if (stick.getRawButton(5)){
+//	    		eject.set(true);
+//	    		pickUpLeft.set(0);
+//	    		pickUpRight.set(0);
+//	    	}
+//	    	if (stick.getRawButton(8)){
+//	    		lift.set(false);
+//	    	}
+//	    	else if (stick.getRawButton(6)){
+//	    		lift.set(true);
+//	    	}
 	    	
 //	    	Stuff for changing center of rotation
 //	    	if(stick.getRawButton(7)){ 
@@ -117,23 +125,34 @@ public void autonomousInit() {
     		swerveDrive.updateModule(3, 0, Utils.deadband(stick.getRawAxis(3), deadBandThreshold));
     	}
 	}
+    
+    /**
+     * This function is called once before test mode
+     */
+    public void testInit() {
+    	calMode = 0;
+    	calSubMode = 0;
+    	calButtonPressed = false;
+    }
     /**
      * This function is called periodically during test mode
      */
-    public void testPeriodic() {
+    public void testPeriodic() { // Dirty calibration code.		TODO: Clean up calibration code and add comments
     	rawStickX = Utils.deadband(stick.getRawAxis(0), deadBandThreshold); // Deadband to make sure if the value is low enough then it is 0 because when the joystick is not touched it is not always 0.
-    	
-    	if(calibrating){   	
-    		swerveDrive.updateModule(1, rawStickX/3, .3);
-    		swerveDrive.updateAll(rawStickX/3, .3);
-    	}
-    	
-    	if (stick.getRawButton(1) && !calButtonPressed && calibrating){
-    	}
-    	else if (!stick.getRawButton(1) && calButtonPressed){
-    		calButtonPressed = false;
-    	}
-    	if (stick.getRawButton(8) && calibrating){
+    	if(calMode < swerveDrive.swerves.length){
+    		swerveDrive.updateModule(calMode, Utils.deadband(stick.getRawAxis(0), deadBandThreshold)/3, .3);
+    		if(!calButtonPressed && stick.getRawButton(1)){
+    			calButtonPressed = true;
+    			if(calSubMode >= 3){
+        			calMode++;
+    				calSubMode = 0;
+    				tempOffsets.clear();
+    			}
+    			else{
+    				tempOffsets.add(swerveDrive.swerves[calMode].encoder.getVoltage());
+    				calSubMode++;
+    			}
+    		}
     	}
     }
     

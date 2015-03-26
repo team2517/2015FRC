@@ -79,10 +79,7 @@ public class SwerveModule {
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
 		corY = -yCOR;
-		offset = off - 1.25;
-		if(offset<0) {
-			offset = 5+offset;
-		}
+		offset = Utils.wrap(off - 1.25, 0, 5);
 	}
 	
 	/**
@@ -128,7 +125,7 @@ public class SwerveModule {
 		}
 		
 		// Our 'deadband' for the swerve module for an acceptable thereshold (4 degrees)
-		if (Math.abs(diffTheta) < (Math.PI / 45)*2){
+		if (Math.abs(diffTheta) < (Math.PI / 45)){
 			turnSpeed = 0;
 		}
 
