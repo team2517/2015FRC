@@ -79,7 +79,7 @@ public class SwerveController {
 		else{
 			stickYModifier = 1;
 		}
-		swerves[0] = new SwerveModule(moveMotor, turnMotor, moveFL, turnFL, encFL, 0.707, 0.707, 1.160);
+		swerves[0] = new SwerveModule(moveMotor, turnMotor, moveFL, turnFL, encFL, 0.707, 0.707, 0.718);
 		swerves[1] = new SwerveModule(moveMotor, turnMotor, moveFR, turnFR, encFR, 0.707, -0.707, 1.113);
 //		swerves[2] = new SwerveModule(moveMotor, turnMotor, moveBL, turnBL, encBL, -0.707, 0.707, offsets.get(3)); // Update back offsets
 //		swerves[3] = new SwerveModule(moveMotor, turnMotor, moveBR, turnBR, encBR, -0.707, -0.707, offsets.get(4));
@@ -108,7 +108,7 @@ public class SwerveController {
 	public void swerve(double xVector, double yVector, double phi){
 		for(int i=0; i<2; i++){
 			swerves[i].x = (swerves[i].corX*phi)+xVector;
-			swerves[i].y = ((swerves[i].corY*phi)+yVector)*stickYModifier; 
+			swerves[i].y = ((swerves[i].corY*phi)+(yVector*stickYModifier)); 
 			swerves[i].updateMag();
 		}
 		
