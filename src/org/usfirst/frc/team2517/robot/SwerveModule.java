@@ -76,7 +76,6 @@ public class SwerveModule {
 			status = e.toString();
 		}
 		
-		moveMotor = new CANJaguar(mMotor);
 		encoder = new AnalogInput(eID);
 		corX = xCOR;
 		corY = -yCOR;
